@@ -1,0 +1,168 @@
+@startuml
+skinparam linetype ortho
+
+package Aster {
+    class AsterMono
+    package Light {
+        class LightRay {
+            + Color
+            + Intensity : float
+            + Origin : Vector3
+            + Direction : float
+        }
+        
+        class MainLightSource {
+            - HP : EntityHP
+            - Radius : float
+        }
+        
+    }
+    package Towers {
+        abstract class BaseTower {
+            + HP : EntityHP
+            - angle : float
+            + OnLightRayHit(LightRay ray) : void (Abstract)
+        }
+        
+        class Emitter {
+        }
+        class Mirror {
+        }
+        
+        Emitter -up-> BaseTower
+        Mirror -up-> BaseTower
+    }
+    
+    BaseTower -up-> AsterMono
+    
+    package "Entity <<dolev>>" {
+        abstract class BaseEntityController <<dolev>>
+        {
+            - HP : EntityHP
+            - movement : EntityMovement
+        }
+        class EntityMovement <<dolev>>
+        {
+            - moveSpeed : float {Serialized}
+            - movementProvider {Serialized}
+        }
+        struct EntityHP <<dolev>> {
+            - currentHP : int
+            + Max { get; private set; }
+            + [event] OnHPChange
+            + ApplyDamage(damage : int) : void
+        }
+        
+        package Player {
+            class PlayerController <<dolev>> 
+            {
+            }
+            class PlayerInputHandler <<dolev>>
+            {
+            }
+            PlayerInputHandler o-- PlayerController
+        }
+        
+        package Enemy {
+            class EnemyController <<dolev>>
+            class "GoToLightSource" as GTLS <<dolev>>
+        }
+        
+        interface ITargetMovementProvider <<dolev>>
+        {
+            + TargetMovement : Vector2
+        }
+        
+        
+        
+        BaseEntityController -right-o EntityMovement
+        BaseEntityController -left-o EntityHP
+        GTLS <-up- ITargetMovementProvider
+        PlayerInputHandler <-up- ITargetMovementProvider
+        
+        EntityMovement --o ITargetMovementProvider
+    }
+    
+    package UI {
+    }
+    
+    AsterMono <-- BaseEntityController
+    
+    BaseEntityController <-down- PlayerController
+    BaseEntityController <-down- EnemyController
+}
+@enduml
+
+newpage
+
+@startuml
+'Tower Defense Game
+'   - Radial Map
+'   - Light Source @ Middle
+
+package UI {
+    component "Tower Picker"
+}
+
+component "Light Source" as L
+
+component "Map" 
+component "Enemy"
+component "Towers" 
+component "Mirrors"
+component "Light Condenser" as LC
+component Player {
+    component Health
+}
+component "Light Rays" as Ray
+
+Mirrors -up-> Towers : Type of
+LC -up-> Towers : Type of
+
+L --|> Ray : emits
+
+Player --|> Map : moves around
+Enemy --|> Map : moves around
+Enemy --|> L : moving towards
+Player --|> Towers : interacts with / places
+Enemy -- Player : hurts
+
+Towers --|> Ray : manipulates
+
+@enduml
+
+newpage
+
+@startuml
+
+object "Light Ray" as Ray
+object Entity
+object Player
+object Tower
+object Enemy
+object Currency
+object "DPS Enemy" as DPS
+object "Suicide Enemy" as SE
+
+Entity <-- Player
+Entity <-- Enemy
+
+Enemy <-- DPS
+Enemy <-- SE
+
+Tower : Price
+
+Ray : (Origin, Direction)
+Ray : Color
+
+Entity : Health
+Entity : Movement (Abstract)
+
+Player : Player Input Handler
+Currency --> Player::CurrencyTrigger 
+Player : Currency Counter
+
+SE : Damage
+DPS : Damage per Second
+
+@enduml
