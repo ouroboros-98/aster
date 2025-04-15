@@ -5,11 +5,11 @@ namespace Aster.Light
     public class LightRay : MonoBehaviour
     {
         
-        private Vector3 direction;
+        private Vector3 _direction;
 
         public Vector3 GetDirection()
         {
-            return this.direction;
+            return this._direction;
         }
     }
 }
