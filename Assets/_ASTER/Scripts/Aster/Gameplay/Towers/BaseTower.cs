@@ -2,8 +2,8 @@
 {
     public abstract class BaseTower : AsterMono
     {
-        private EntityHp HP;
-        private float angle;
+        protected EntityHp HP;
+        protected float angle;
 
         public abstract void OnLightRayHit(LightRay ray);
     }
