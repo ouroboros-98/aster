@@ -1,7 +1,10 @@
 ﻿namespace Aster.Core.Gameplay.Towers
 {
-    public class BaseTower : AsterMono
+    public abstract class BaseTower : AsterMono
     {
-        EntityHP 
+        private EntityHp HP;
+        private float angle;
+
+        public abstract void OnLightRayHit(LightRay ray);
     }
 }
