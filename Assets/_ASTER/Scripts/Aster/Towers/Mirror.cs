@@ -1,7 +1,7 @@
 ﻿using Aster.Light;
 using UnityEngine;
 
-namespace Aster.Core.Gameplay.Towers
+namespace Aster.Towers
 {
     public class Mirror : BaseTower
     {

@@ -1,7 +1,8 @@
-﻿using Aster.Core.Entity;
+﻿using Aster.Core;
+using Aster.Core.Entity;
 using Aster.Light;
 
-namespace Aster.Core.Gameplay.Towers
+namespace Aster.Towers
 {
     public abstract class BaseTower : AsterMono
     {
