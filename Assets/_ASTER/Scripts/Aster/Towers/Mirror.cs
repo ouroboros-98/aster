@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Aster.Light;
+using UnityEngine;
 
 namespace Aster.Core.Gameplay.Towers
 {
@@ -6,7 +7,7 @@ namespace Aster.Core.Gameplay.Towers
     {
         public override void OnLightRayHit(LightRay ray)
         {
-            Vector3 newLightDirection = GetNewLightDirection(LightRay ray);
+            Vector3 newLightDirection = GetNewLightDirection(ray);
             CreateNewLight(newLightDirection);
             
             
@@ -17,7 +18,7 @@ namespace Aster.Core.Gameplay.Towers
             float angleDeg = this.angle;
             float angleRad = angleDeg * Mathf.Deg2Rad;
             Vector3 normalVec = new Vector3(Mathf.Cos(angleRad), 0f, Mathf.Sin(angleRad));
-            var newLightDirection = Vector3.Reflect(ray.getDirection(), normalVec);
+            var newLightDirection = Vector3.Reflect(ray.GetDirection(), normalVec);
             return newLightDirection;
         }
 
