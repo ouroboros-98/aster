@@ -17,16 +17,16 @@ package Aster {
         }
         
     }
-    package Towers {
-        abstract class BaseTower {
+    package "Towers <<amit>>"{
+        abstract class BaseTower <<amit>> {
             + HP : EntityHP
             - angle : float
             + OnLightRayHit(LightRay ray) : void (Abstract)
         }
         
-        class Emitter {
+        class Emitter <<amit>> {
         }
-        class Mirror {
+        class Mirror <<amit>> {
         }
         
         Emitter -up-> BaseTower
