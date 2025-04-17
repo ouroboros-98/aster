@@ -89,6 +89,46 @@ package Aster {
     package UI {
     }
     
+    package Gameplay {
+        class RotationHandler <<dolev>> {
+            - rotationSpeed : float {Serialized}
+            
+            - _currentAngle : Angle 
+            - _targetAngle : Angle 
+            - _currentRotation : RotationData 
+            - _transform : Transform    
+            
+            + IsRotating : bool
+        
+            + [event] OnTargetAngleChange : Angle
+            + [event] OnAngleChange : Angle
+            + [event] OnRotationFinish : Angle
+            
+            + Bind(transform : Transform) : void
+            + Rotate(angle : Angle) : void
+            + Rotate(direction : Vector2) : void
+            + Update() : void
+            - UpdateRotation(angle : Angle) : void
+        }
+        
+        class RotationData <<dolev>> {
+            + From : Angle
+            + To : Angle
+            + AbsDelta : float
+            + Direction : int
+            - _progress : float
+            - NormalizedProgress : float
+            + IsFinished : bool
+            
+            + RotationData(from : Angle, to : Angle) 
+            + GetAngleAddProgress(progress : float) : Angle
+        }
+        
+        interface IRotatable <<dolev>> {
+            + RotationHandler : RotationHandler
+        }
+    }
+    
     AsterMono <-- BaseEntityController
     
     BaseEntityController <-down- PlayerController
