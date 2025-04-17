@@ -1,11 +1,13 @@
-﻿using Aster.Core.Entity;
+﻿using Aster.Core;
+using Aster.Core.Entity;
+using Aster.Light;
 
-namespace Aster.Core.Gameplay.Towers
+namespace Aster.Towers
 {
     public abstract class BaseTower : AsterMono
     {
-        private EntityHP HP;
-        private float angle;
+        protected EntityHP HP;
+        protected float angle;
 
         public abstract void OnLightRayHit(LightRay ray);
     }

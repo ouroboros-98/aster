@@ -7,8 +7,11 @@ package Aster {
         class LightRay {
             + Color
             + Intensity : float
-            + Origin : Vector3
-            + Direction : float
+            - Origin : Vector3
+            - Direction : Vector3
+            + GetOrigin() : Vector3
+            + GetDirection() : Vector3
+            
         }
         
         class MainLightSource {
