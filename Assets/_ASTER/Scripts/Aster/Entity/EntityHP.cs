@@ -1,4 +1,5 @@
 using System;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Aster.Core.Entity
@@ -14,13 +15,14 @@ namespace Aster.Core.Entity
 
             public HPChangeContext(int currentValue, int previousValue, int delta)
             {
-                CurrentValue = currentValue;
+                CurrentValue  = currentValue;
                 PreviousValue = previousValue;
-                Delta = delta;
+                Delta         = delta;
             }
         }
 
-        [SerializeField] private int _current;
+        [SerializeField, OnValueChanged("Set")] private int _current;
+
         [SerializeField] private int _max;
 
         public event Action<HPChangeContext> OnHPChange;
@@ -29,7 +31,7 @@ namespace Aster.Core.Entity
 
         public EntityHP(int max, int? current = null)
         {
-            max = (max < 1) ? 1 : max;
+            max  = (max < 1) ? 1 : max;
             _max = max;
 
             if (current != null) SetHP(current.Value, false);
@@ -60,8 +62,8 @@ namespace Aster.Core.Entity
             return value;
         }
 
-        public void Set(int targetValue) => SetHP(targetValue);
-        public void ChangeBy(int delta) => SetHP(_current + delta);
+        public void Set(int      targetValue) => SetHP(targetValue);
+        public void ChangeBy(int delta)       => SetHP(_current + delta);
 
         public static implicit operator int(EntityHP hp) => hp._current;
     }
