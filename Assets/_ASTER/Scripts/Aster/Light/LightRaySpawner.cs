@@ -7,9 +7,8 @@
         [SerializeField] private LightRay lightRayPrefab;
         [SerializeField] private Color rayColor = Color.yellow;
         [SerializeField] private float rayIntensity = 1f;
-        [SerializeField] private float rayMaxDistance = 10f;
 
-        public void SpawnLightRay(Vector3 direction)
+        private void SpawnLightRay(Vector3 direction)
         {
             // Instantiate the LightRay prefab
             LightRay lightRay = Instantiate(lightRayPrefab, transform.position, Quaternion.identity);

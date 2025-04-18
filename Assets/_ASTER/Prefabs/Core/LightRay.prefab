@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5869593928869011218}
   - component: {fileID: 6106488009960169004}
   - component: {fileID: 2647352142750809461}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LightRay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.76, y: 2.53, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.16, y: 1.72, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -157,7 +157,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 1, y: 1, z: 1}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -165,8 +165,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.4145317
-        value: 0.04638672
+        time: 0.9700928
+        value: 0.010307312
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -230,5 +230,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
-  maxDistance: 2.44
+  maxDistance: 10.02
   intensity: 1.61

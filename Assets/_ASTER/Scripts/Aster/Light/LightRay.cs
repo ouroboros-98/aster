@@ -1,5 +1,6 @@
 ﻿using System;
 using Aster.Core;
+using Aster.Towers;
 using Aster.Utils.Pool;
 using UnityEngine;
 
@@ -14,7 +15,10 @@ namespace Aster.Light
         private Vector3 _origin;
         private Color _color;
         private bool isActive = true;
+        private bool isUsed=false;
         [SerializeField] private float intensity;
+        private GameObject _hitMirror; // Store the mirror this ray hit
+        private Vector3 _hitPosition;
 
         private LineRenderer _lineRenderer;
 
@@ -24,17 +28,17 @@ namespace Aster.Light
         private void Awake()
         {
             _lineRenderer = GetComponent<LineRenderer>();
-            _lineRenderer.startWidth = 0.1f; // Adjust width as needed
-            _lineRenderer.endWidth = 0.1f;
+            _lineRenderer.startWidth = 0.05f; // Adjust width as needed
+            _lineRenderer.endWidth = 0.05f;
         }
 
-        public void Initialize(Vector3 origin, Vector3 direction, Color color, float intensity)
+        public void Initialize(Vector3 origin, Vector3 direction, Color color, float intensity, LightRay creator=null)
         {
             _origin = origin;
             _direction = direction.normalized;
             _color = color;
             this.intensity = intensity;
-
+            _creator=creator;
             _lineRenderer.startColor = color;
             _lineRenderer.endColor = color;
         }
@@ -42,27 +46,33 @@ namespace Aster.Light
         public void Reset()
         {
             isActive = false;
+            isUsed = false;
             _lineRenderer.enabled = false;
         }
 
         private void CheckForCreator()
         {
-            if (_creator != null && !_creator.isActive)
+            if (_creator != null && (!_creator.isActive|| !_creator.isUsed))
                 Destroy(gameObject);
         }
 
         private void Update()
         {
-            if (!isActive) return;
-
             CheckForCreator();
-
+            if (!isActive) return;
             var distance = maxDistance;
+            var ray= Physics.Raycast(_origin, _direction, out var hit, maxDistance);
             // Perform a raycast to detect objects in the path of the LightRay
-            if (Physics.Raycast(_origin, _direction, out var hit, maxDistance))
+            if (ray)
             {
                 distance = hit.distance; // Stop at the hit point
+                _hitPosition= hit.point;
                 HandleHit(hit.collider.gameObject);
+            }
+            else
+            {
+                isUsed=false;
+                _hitMirror=null;
             }
 
             // Update the LineRenderer to visually represent the LightRay
@@ -74,9 +84,25 @@ namespace Aster.Light
         {
             if (hitObject.CompareTag("Enemy"))
             {
-                Debug.Log($"Hit enemy: {hitObject.name}");
-                // Add logic to handle enemy hit (e.g., damage)
+                isActive = false;
             }
+            else if (hitObject.CompareTag("Mirror") && !isUsed)
+            {
+                // Ensure the ray only interacts with the mirror it directly hit
+                if (_hitMirror == null)
+                {
+                    _hitMirror = hitObject; // Set the mirror this ray hit
+                    isUsed = true;
+                    var mirror = hitObject.GetComponent<BaseTower>();
+                    mirror.OnLightRayHit(this);
+                }
+               
+            }
+        }
+
+        public Vector3 GetHitPosition()
+        {
+            return _hitPosition;
         }
     }
 }

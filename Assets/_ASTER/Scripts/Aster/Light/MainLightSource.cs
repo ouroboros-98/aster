@@ -1,18 +1,19 @@
 ﻿using System;
 using Aster.Core;
 using Aster.Core.Entity;
+using Aster.Utils.Attributes;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Aster.Light
 {
     public class MainLightSource : AsterMono
     {
-        private EntityHP entityHp;
+        [SerializeField, BoxedProperty, Label("HP")] protected EntityHP       hp;
         [SerializeField] private float radius;
         private float firstRadius,secondRadius,thirdRadius;
         private void Awake()
         {
-            entityHp = GetComponent<EntityHP>();
             firstRadius = radius / 3f;
             secondRadius = radius * 2f / 3f;
             thirdRadius = radius;
