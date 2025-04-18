@@ -1,7 +1,7 @@
-using Aster.Core.Core;
+using Aster.Core;
 using UnityEngine;
 
-namespace _ASTER.Scripts.Aster.Entity.Player
+namespace Aster.Entity.Player
 {
     public class PlayerMovementProvider : ITargetMovementProvider
     {

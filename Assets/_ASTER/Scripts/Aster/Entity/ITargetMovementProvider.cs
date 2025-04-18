@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _ASTER.Scripts.Aster.Entity
+namespace Aster.Entity
 {
     public interface ITargetMovementProvider
     {

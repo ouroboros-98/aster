@@ -1,6 +1,6 @@
 using Aster.Core.InputSystem;
 
-namespace Aster.Core.Core
+namespace Aster.Core
 {
     public class InputHandler
     {

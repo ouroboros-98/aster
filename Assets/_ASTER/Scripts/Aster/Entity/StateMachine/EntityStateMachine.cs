@@ -1,6 +1,6 @@
 using Aster.StateMachine;
 
-namespace _ASTER.Scripts.Aster.Entity.StateMachine
+namespace Aster.Entity.StateMachine
 {
     public class EntityStateMachine : StateMachine<IEntityState>
     {

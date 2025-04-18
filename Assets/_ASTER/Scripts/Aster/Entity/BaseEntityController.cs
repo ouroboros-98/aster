@@ -1,6 +1,6 @@
 using System;
-using _ASTER.Scripts.Aster.Entity;
-using _ASTER.Scripts.Aster.Entity.StateMachine;
+using Aster.Entity;
+using Aster.Entity.StateMachine;
 using Aster.Core;
 using Aster.Core.Entity;
 using Aster.StateMachine;

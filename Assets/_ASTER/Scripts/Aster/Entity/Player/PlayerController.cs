@@ -1,7 +1,7 @@
 using _ASTER.Scripts.Aster.Entity.StateMachine;
 using Aster.Entity;
 
-namespace _ASTER.Scripts.Aster.Entity.Player
+namespace Aster.Entity.Player
 {
     public class PlayerController : BaseEntityController
     {
