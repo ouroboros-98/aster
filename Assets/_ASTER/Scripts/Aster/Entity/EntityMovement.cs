@@ -1,10 +1,12 @@
 using UnityEngine;
 
-namespace _ASTER.Scripts.Aster.Entity
+namespace Aster.Entity
 {
     [System.Serializable]
     public class EntityMovement
     {
+        private const float THRESHOLD = 0.2f;
+
         [SerializeField, Range(0, 50)] private float moveSpeed = 5;
 
         private ITargetMovementProvider _movementProvider;
@@ -29,11 +31,14 @@ namespace _ASTER.Scripts.Aster.Entity
             float targetX = _movementProvider.TargetMovement.x;
             float targetZ = _movementProvider.TargetMovement.y;
 
-            Vector3 targetDirection = new(targetX, 0, targetZ);
-            Vector3 targetVelocity  = targetDirection.normalized * (moveSpeed * Time.fixedDeltaTime);
-            Vector3 targetPosition  = _rb.position + targetVelocity;
+            Vector3 targetDirection                                    = new(targetX, 0, targetZ);
+            if (targetDirection.magnitude < THRESHOLD) targetDirection = Vector3.zero;
+
+            Vector3 targetVelocity = targetDirection.normalized * (moveSpeed * Time.fixedDeltaTime);
+            Vector3 targetPosition = _rb.position + targetVelocity;
 
             _rb.MovePosition(targetPosition);
+            if (targetDirection != Vector3.zero) _rb.MoveRotation(Quaternion.LookRotation(targetDirection));
         }
     }
 }
