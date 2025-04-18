@@ -5,12 +5,11 @@ namespace Aster.Towers
 {
     public class Mirror : BaseTower
     {
+        [SerializeField] private LightRay lightRayPrefab;
         public override void OnLightRayHit(LightRay ray)
         {
             Vector3 newLightDirection = GetNewLightDirection(ray);
-            CreateNewLight(newLightDirection);
-            
-            
+            CreateNewLight(newLightDirection,ray);
         }
 
         private Vector3 GetNewLightDirection(LightRay ray)
@@ -22,9 +21,14 @@ namespace Aster.Towers
             return newLightDirection;
         }
 
-        private void CreateNewLight(Vector3 newLightDirection)
+        private void CreateNewLight(Vector3 newLightDirection, LightRay ray)
         {
-            //todo: make this function
+            Vector3 hitPosition = ray.GetHitPosition();
+            // Instantiate the LightRay prefab
+            var lightRay = Instantiate(lightRayPrefab,hitPosition, Quaternion.identity);
+        
+            // Initialize the LightRay
+            lightRay.Initialize(hitPosition, newLightDirection, Color.yellow, 1,ray);
         }
     }
 }
