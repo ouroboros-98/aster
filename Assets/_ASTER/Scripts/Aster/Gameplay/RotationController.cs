@@ -30,19 +30,15 @@ namespace Aster.Core
 
         #region EVENTS
 
-        public event Action<RotationInteractionContext> OnInteractionBegin;
-        public event Action<Angle>                      OnTargetAngleChanged;
-        public event Action                             OnDeactivate;
+        public event Action<RotationInteractionContext> OnInteractionBegin   = delegate { };
+        public event Action<Angle>                      OnTargetAngleChanged = delegate { };
+        public event Action                             OnDeactivate         = delegate { };
 
         #endregion
 
         private void Awake()
         {
             inputHandler = InputHandler.Instance;
-
-            OnInteractionBegin   = delegate { };
-            OnTargetAngleChanged = delegate { };
-            OnDeactivate         = delegate { };
         }
 
         public void OnEnable()

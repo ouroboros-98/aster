@@ -1,3 +1,4 @@
+using System;
 using Aster.Utils;
 using UnityEngine;
 
@@ -12,7 +13,6 @@ namespace Aster.Core
         private void Awake()
         {
             Reset();
-            Hide();
         }
 
         private void OnEnable()
@@ -27,6 +27,11 @@ namespace Aster.Core
             rotationController.OnInteractionBegin   -= OnInteractionBegin;
             rotationController.OnTargetAngleChanged -= OnTargetAngleChanged;
             rotationController.OnDeactivate         -= OnDeactivate;
+        }
+
+        private void Start()
+        {
+            Hide();
         }
 
         private void OnDeactivate()
@@ -51,6 +56,8 @@ namespace Aster.Core
         {
             Show();
             targetTransform = context.Interactable.RotationTransform;
+
+            transform.localScale = Vector3.one * context.Interactable.Radius;
 
             OnTargetAngleChanged(context.Interactable.RotationHandler.CurrentAngle);
         }

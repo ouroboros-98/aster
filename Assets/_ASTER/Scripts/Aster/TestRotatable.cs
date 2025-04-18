@@ -9,17 +9,12 @@ namespace Aster.Core
     public class TestRotatable : AsterMono, IRotatatble
     {
         [SerializeField, BoxedProperty] private RotationHandler rotationHandler = new();
+        [SerializeField]                private Transform       rotationTransform;
+        [SerializeField]                private float           radius = 1f;
 
         public RotationHandler RotationHandler   => rotationHandler;
-        public Transform       RotationTransform => transform;
-
-        public float TargetAngle = 0f;
-
-        [Button("EditorRotate")]
-        private void EditorRotate()
-        {
-            RotationHandler.Rotate(TargetAngle);
-        }
+        public Transform       RotationTransform => rotationTransform;
+        public float           Radius            => radius;
 
         private void Awake()
         {
@@ -33,7 +28,7 @@ namespace Aster.Core
 
         public void Reset()
         {
-            RotationHandler.Bind(transform);
+            RotationHandler.Bind(rotationTransform);
         }
 
         public Action<PlayerController> Interact()

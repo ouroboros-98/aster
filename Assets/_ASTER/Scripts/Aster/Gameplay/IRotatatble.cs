@@ -7,6 +7,8 @@ namespace Aster.Core
     {
         public RotationHandler RotationHandler   { get; }
         public Transform       RotationTransform { get; }
+        public float           Radius            { get; }
+
 
         bool IInteractable.CheckInput(InputHandler input)
         {
