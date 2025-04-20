@@ -18,7 +18,11 @@ namespace Aster.Core
         private void FinishGame(int hp)
         {
             Debug.Log("Game Over — Light Source Destroyed!");
-            Application.Quit();
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
         }
     }
 }

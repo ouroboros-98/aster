@@ -45,7 +45,6 @@ namespace Aster.Light
 
         private void GotHit(int damage)
         {
-            Debug.Log("before attack Light Source HP: " + (int)hp); // uses the implicit int cast
             hp.ChangeBy(-damage);
             Debug.Log("Current Light Source HP: " + (int)hp); // uses the implicit int cast
 
