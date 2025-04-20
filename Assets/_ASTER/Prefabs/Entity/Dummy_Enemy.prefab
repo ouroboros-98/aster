@@ -53,6 +53,9 @@ MonoBehaviour:
     _max: 1
   movement:
     moveSpeed: 2
+  attack:
+    damage: 0
+    initialTimeToAttack: 0
   damagePerLightHit: 1
 --- !u!1 &7597057923893123117
 GameObject:
@@ -180,10 +183,13 @@ MonoBehaviour:
   currentStateName: 
   rb: {fileID: 4753735800384319410}
   hp:
-    _current: 48
-    _max: 48
+    _current: 36
+    _max: 36
   movement:
     moveSpeed: 2
+  attack:
+    damage: 0
+    initialTimeToAttack: 0
   damagePerLightHit: 1
 --- !u!54 &4753735800384319410
 Rigidbody:
