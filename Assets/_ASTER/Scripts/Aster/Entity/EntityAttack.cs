@@ -21,14 +21,15 @@ namespace Aster.Entity
 
         public void HandleAttack(float time)
         {
+            Debug.Log("changed to attack");
             if (!IsInitialized)
             {
                 Debug.LogError("EntityAttack is not initialized. Please call Init() before using HandleAttack.");
                 return;
             }
-
             if (_currentTimeToAttack <= 0)
             {
+                Debug.Log("attacking");
                 _attackProvider.DoAttack(damage);
                 _currentTimeToAttack = initialTimeToAttack;
             }

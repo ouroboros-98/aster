@@ -32,7 +32,7 @@ namespace Aster.Entity.Enemy
             At(moveState, attackState,  When(() =>
             {
                 float distance = Vector3.Distance(transform.position, MainLightSource.Instance.transform.position);
-                return distance <= 0.5f;
+                return distance <= 1.2f;
             }));
 
             StateMachine.SetState(moveState);
