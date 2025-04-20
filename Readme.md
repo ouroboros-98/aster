@@ -9,9 +9,8 @@
 ### Milestone 1 (21.4.2025)
 
 - [ ] Implement Player Energy Meter (Amit)
-- [ ] Implement Tower Picker and Placement (Dolev)
 - [ ] Create enemy x light hit logic (Nadav)
-- [ ] Fix light reflection (Dolev)
+- [X] Fix light reflection (Dolev)
 - [ ] Enemy x Light Source Attack logic + Lose Condition (Amit)
 - [ ] Implement Splitter Tower (Nadav)
 - [ ] Implement Enemy HP Bar (Dolev)

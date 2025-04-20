@@ -9,35 +9,79 @@ namespace Aster.Towers
     public class Mirror : BaseTower
     {
         private List<LightRay> lightRays = new List<LightRay>();
-        public override void OnLightRayHit(LightRay ray)
+
+        private Dictionary<LightRay, LightRay> reflections = new();
+
+        private Vector3 MirrorNormal => transform.forward;
+
+        public override LightHitContext OnLightRayHit(LightHit lightHit)
         {
-            Vector3 newLightDirection = GetNewLightDirection(ray);
-            CreateNewLight(newLightDirection,ray);
+            UpdateReflection(lightHit.Ray, lightHit.HitPoint);
+
+            return new(lightHit, blockLight: true);
         }
 
-        private Vector3 GetNewLightDirection(LightRay ray)
-        {
-            float angleDeg = this.angle;
-            float angleRad = angleDeg * Mathf.Deg2Rad;
-            Vector3 normalVec = new Vector3(Mathf.Cos(angleRad), 0f, Mathf.Sin(angleRad));
-            var newLightDirection = Vector3.Reflect(ray.GetDirection(), normalVec);
-            return newLightDirection;
-        }
+        private Vector3 GetReflectionDir(LightRay ray) => Vector3.Reflect(ray.GetDirection(), MirrorNormal);
 
-        private void CreateNewLight(Vector3 newLightDirection, LightRay ray)
+        private void CreateLightReflection(LightRay rayIn)
         {
-            Vector3 hitPosition = ray.GetHitPosition();
+            Vector3 newLightDirection = GetReflectionDir(rayIn);
+
+            Vector3 hitPosition = rayIn.GetHitPosition();
             // Instantiate the LightRay prefab
-            var lightRay = RayPool.Instance.Get();
-        
+            var reflectionRay = RayPool.Instance.Get();
+
             // Initialize the LightRay
-            lightRay.Initialize(hitPosition, newLightDirection, Color.yellow, 1,ray);
-            lightRays.Add(lightRay);
+            reflectionRay.Initialize(hitPosition, newLightDirection, Color.yellow, 1, rayIn);
+
+            reflections[rayIn] = reflectionRay;
         }
 
         public void Update()
         {
-            
+            // List<LightRay> raysIn = new List<LightRay>(reflections.Keys);
+            //
+            // List<LightRay> raysToRemove = new();
+            //
+            // foreach (LightRay rayIn in raysIn)
+            // {
+            //     UpdateReflection(rayIn);
+            // }
+            //
+            // foreach (LightRay rayIn in raysToRemove)
+            // {
+            //     reflections.Remove(rayIn);
+            // }
+        }
+
+        public override void OnLightRayExit(LightRay ray)
+        {
+            LightRay rayOut = reflections[ray];
+            if (rayOut != null) RayPool.Instance.Return(rayOut);
+
+            reflections.Remove(ray);
+        }
+
+        private void UpdateReflection(LightRay rayIn, Vector3 hitPoint)
+        {
+            if (!ValidateReflection(rayIn))
+            {
+                CreateLightReflection(rayIn);
+                return;
+            }
+
+            LightRay rayOut       = reflections[rayIn];
+            Vector3  newDirection = GetReflectionDir(rayIn);
+
+            rayOut.Direction = newDirection.normalized;
+            rayOut.Origin    = hitPoint;
+        }
+
+        private bool ValidateReflection(LightRay rayIn)
+        {
+            if (!reflections.ContainsKey(rayIn)) return false;
+            LightRay ray = reflections[rayIn];
+            return ray != null && ray.gameObject.activeSelf && ray.enabled;
         }
     }
 }

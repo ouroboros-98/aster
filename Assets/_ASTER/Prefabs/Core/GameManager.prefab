@@ -173,4 +173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabb7cedd83d4b9385467be4c54882e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: Background
+    clip: {fileID: 8300000, guid: a7fb8215e90ec4b4f845f665c83b19f7, type: 3}
+    volume: 0.253
+    pitch: 1
+    loop: 1
+    spatialBlend: 0
+    source: {fileID: 0}

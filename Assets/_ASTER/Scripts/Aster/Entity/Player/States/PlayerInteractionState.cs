@@ -9,7 +9,7 @@ namespace Aster.Entity.Player.States
 
         public PlayerInteractionState(PlayerController player, PlayerInteractor interactor) : base(player)
         {
-            _player          = player;
+            _player     = player;
             _interactor = interactor;
         }
     }

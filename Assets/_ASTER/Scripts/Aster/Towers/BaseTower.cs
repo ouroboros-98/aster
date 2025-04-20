@@ -4,11 +4,9 @@ using Aster.Light;
 
 namespace Aster.Towers
 {
-    public abstract class BaseTower : AsterMono
+    public abstract class BaseTower : BaseLightHittable
     {
         protected EntityHP HP;
-        protected float angle;
-
-        public abstract void OnLightRayHit(LightRay ray);
+        protected float    angle;
     }
 }

@@ -7,10 +7,11 @@ namespace Aster.Towers
 {
     public class Emitter : BaseTower
     {
-        [SerializeField] private Vector3 mainLightPos; 
-        public override void OnLightRayHit(LightRay ray)
+        [SerializeField] private Vector3 mainLightPos;
+
+        public override LightHitContext OnLightRayHit(LightHit lightHit)
         {
-            return;
+            return new(lightHit);
         }
     }
 }

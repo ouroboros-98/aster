@@ -2,54 +2,91 @@
 using Aster.Core;
 using Aster.Towers;
 using Aster.Utils.Pool;
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Aster.Light
 {
     [RequireComponent(typeof(LineRenderer))]
     public class LightRay : AsterMono, IPoolable
     {
-        [SerializeField] private float maxDistance;
-        private LightRay _creator;
-        private Vector3 _direction;
+        [SerializeField] private float    maxDistance;
+        private                  LightRay _creator;
+        private                  Color    _color;
+        private                  bool     isActive = true;
+        [SerializeField] private float    intensity;
+
         private Vector3 _origin;
-        private Color _color;
-        private bool isActive = true;
-        private bool isUsed=false;
-        [SerializeField] private float intensity;
-        private GameObject _hitMirror; // Store the mirror this ray hit
-        private Vector3 _hitPosition;
-        
+        private Vector3 _endPoint;
+
+        public Vector3 Origin
+        {
+            get => _origin;
+            set
+            {
+                _origin = value;
+                _lineRenderer?.SetPosition(0, value);
+            }
+        }
+
+        public Vector3 EndPoint
+        {
+            get => _endPoint;
+            set
+            {
+                _endPoint = value;
+                _lineRenderer?.SetPosition(1, value);
+            }
+        }
+
+        public Vector3 Direction
+        {
+            get => (_endPoint       - Origin).normalized;
+            set { EndPoint = Origin + value.normalized * maxDistance; }
+        }
+
+        private BaseLightHittable _hittable;
+
+        private BaseLightHittable Hittable
+        {
+            get => _hittable;
+            set
+            {
+                if (_hittable != null && _hittable == value) return;
+                _hittable?.OnLightRayExit(this);
+                _hittable = value;
+            }
+        }
 
         private LineRenderer _lineRenderer;
-        private Vector3 _creatorInitialPosition;
-        private Vector3 _creatorInitialDirection;
+        private Vector3      _creatorInitialPosition;
+        private Vector3      _creatorInitialDirection;
 
-        public Vector3 GetDirection() => _direction;
-        public Vector3 GetOrigin() => _origin;
+        public Vector3 GetDirection() => Direction;
+        public Vector3 GetOrigin()    => Origin;
 
         private void Awake()
         {
-            _lineRenderer = GetComponent<LineRenderer>();
+            _lineRenderer            = GetComponent<LineRenderer>();
             _lineRenderer.startWidth = 0.05f; // Adjust width as needed
-            _lineRenderer.endWidth = 0.05f;
+            _lineRenderer.endWidth   = 0.05f;
         }
 
-        public void Initialize(Vector3 origin, Vector3 direction, Color color, float intensity, LightRay creator=null)
+        public void Initialize(Vector3 origin, Vector3 direction, Color color, float intensity, LightRay creator = null)
         {
-            _origin = origin;
-            _direction = direction.normalized;
-            _color = color;
-            this.intensity = intensity;
-            _creator=creator;
-            _lineRenderer.enabled = true;
+            this.Origin              = origin;
+            this.Direction           = direction.normalized;
+            _color                   = color;
+            this.intensity           = intensity;
+            _creator                 = creator;
+            Hittable                 = null;
+            _lineRenderer.enabled    = true;
             _lineRenderer.startColor = color;
-            _lineRenderer.endColor = color;
-            isUsed= false;
-            _hitMirror= null;
+            _lineRenderer.endColor   = color;
             if (_creator != null)
             {
-                _creatorInitialPosition = _creator.GetOrigin();
+                _creatorInitialPosition  = _creator.GetOrigin();
                 _creatorInitialDirection = _creator.GetDirection();
             }
         }
@@ -57,67 +94,50 @@ namespace Aster.Light
         public void Reset()
         {
             // isActive = false;
-            isUsed = false;
+            Hittable?.OnLightRayExit(this);
+
             _lineRenderer.enabled = false;
-            _hitMirror= null;
-            _creator= null;
+            _creator              = null;
+            Hittable              = null;
         }
 
         private void CheckForCreator()
         {
-            if (_creator != null && (!_creator.isActive|| !_creator.isUsed) || _creator != null && 
-                (_creator.GetOrigin() != _creatorInitialPosition || _creator.GetDirection() != _creatorInitialDirection))
+            if (_creator != null && (!_creator.isActive) || _creator != null &&
+                (_creator.GetOrigin()    != _creatorInitialPosition ||
+                 _creator.GetDirection() != _creatorInitialDirection))
                 RayPool.Instance.Return(this);
-            
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             CheckForCreator();
+
             if (!isActive) return;
-            var distance = maxDistance;
-            var ray= Physics.Raycast(_origin, _direction, out var hit, maxDistance);
-            // Perform a raycast to detect objects in the path of the LightRay
-            if (ray)
-            {
-                distance = hit.distance; // Stop at the hit point
-                _hitPosition= hit.point;
-                HandleHit(hit.collider.gameObject);
-            }
-            else
-            {
-                isUsed=false;
-                _hitMirror=null;
-            }
 
-            // Update the LineRenderer to visually represent the LightRay
-            _lineRenderer.SetPosition(0, _origin);
-            _lineRenderer.SetPosition(1, _origin + _direction * distance);
-        }
+            bool hasHit = false;
 
-        private void HandleHit(GameObject hitObject)
-        {
-            if (hitObject.CompareTag("Enemy"))
+            EndPoint = Origin + Direction * maxDistance;
+
+            RaycastHit[] hits = Physics.RaycastAll(Origin, Direction, maxDistance);
+
+            foreach (RaycastHit hit in hits)
             {
-                isActive = false;
-            }
-            else if (hitObject.CompareTag("Mirror") && !isUsed)
-            {
-                // Ensure the ray only interacts with the mirror it directly hit
-                if (_hitMirror == null)
+                if (!hit.collider.TryGetComponent(out BaseLightHittable hittable)) continue;
+
+                hasHit = true;
+                var hitContext = hittable.OnLightRayHit(new(this, hit.point, hittable));
+                Hittable = hittable;
+
+                if (hitContext.BlockLight)
                 {
-                    _hitMirror = hitObject; // Set the mirror this ray hit
-                    isUsed = true;
-                    var mirror = hitObject.GetComponent<BaseTower>();
-                    mirror.OnLightRayHit(this);
+                    EndPoint = hit.point;
                 }
-               
             }
+
+            if (!hasHit) Hittable = null;
         }
 
-        public Vector3 GetHitPosition()
-        {
-            return _hitPosition;
-        }
+        public Vector3 GetHitPosition() => EndPoint;
     }
 }

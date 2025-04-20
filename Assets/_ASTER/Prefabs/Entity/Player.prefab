@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5110649527445028344}
   - component: {fileID: 3222902280958609765}
   - component: {fileID: 2449936728090331779}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3845412887280689773}
   - component: {fileID: 9085018168031445250}
   - component: {fileID: 8344310593212954136}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 5832604781638920425}
   - component: {fileID: 2028746340851199716}
   - component: {fileID: 431208960469238901}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3897954385976959801}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerModel_Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

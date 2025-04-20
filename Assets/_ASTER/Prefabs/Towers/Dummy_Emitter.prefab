@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 1773348988892598707}
   - component: {fileID: 4070700470560574483}
   - component: {fileID: 6286596726486796663}
-  - component: {fileID: 6539536456047466048}
   m_Layer: 0
   m_Name: Emitter
   m_TagString: Untagged
@@ -63,7 +62,7 @@ Transform:
   m_GameObject: {fileID: 8938032009392044253}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.343, z: 0.61}
+  m_LocalPosition: {x: 0, y: 0.28802, z: 1.03}
   m_LocalScale: {x: 0.25061, y: 0.57603997, z: 0.37933}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -175,18 +174,3 @@ MonoBehaviour:
     rotationSpeed: 15
   rotationTransform: {fileID: 7322099045795750276}
   radius: 1.6
---- !u!114 &6539536456047466048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8938032009392044253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff9056cdbe9d4753b51c468560f59316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightRayPrefab: {fileID: 2647352142750809461, guid: 49f7c27499544fe448313d9c3d68aa77, type: 3}
-  rayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  rayIntensity: 1
