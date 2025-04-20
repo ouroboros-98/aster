@@ -1,4 +1,6 @@
-﻿namespace Aster.Light
+﻿using Aster.Utils.Pool;
+
+namespace Aster.Light
 {
     using UnityEngine;
 
