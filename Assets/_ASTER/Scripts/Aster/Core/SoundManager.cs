@@ -1,9 +1,9 @@
-﻿namespace Aster.Core
-{
-    using System;
-    using UnityEngine;
-    using Random = UnityEngine.Random;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
+namespace Aster.Core
+{
     public class SoundManager : MonoBehaviour
     {
         public Sound[] sounds;
@@ -56,5 +56,4 @@
             s.source.Play();
         }
     }
-
 }
