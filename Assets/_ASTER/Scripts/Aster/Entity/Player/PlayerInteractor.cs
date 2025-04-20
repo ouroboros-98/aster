@@ -1,6 +1,7 @@
 using System;
 using Aster.Core;
 using Aster.Utils;
+using DependencyInjection;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,8 +18,8 @@ namespace Aster.Entity.Player
 
         #region FIELDS
 
-        private InteractionContext _currentInteraction;
-        private InputHandler       _inputHandler;
+        private          InteractionContext _currentInteraction;
+        [Inject] private InputHandler       _inputHandler;
 
         [ShowNonSerializedField] private bool _interactButtonPressed;
         [ShowNonSerializedField] private bool _isInteracting;
@@ -43,8 +44,6 @@ namespace Aster.Entity.Player
 
         private void Awake()
         {
-            _inputHandler = InputHandler.Instance;
-
             Reset();
         }
 

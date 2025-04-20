@@ -1,13 +1,14 @@
 using System;
 using Aster.Core;
 using Aster.Utils;
+using DependencyInjection;
 using Unity.XR.OpenVR;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Aster.Core
 {
-    public class RotationController : AsterMono
+    public class RotationController : AsterMono, IDependencyProvider
     {
         [SerializeField, Range(0, 1f)] private float inputSensitivity = .9f;
 
@@ -15,8 +16,9 @@ namespace Aster.Core
 
         private RotationInteractionContext currentRotationInteraction;
 
-        private Angle        targetAngle;
-        private InputHandler inputHandler;
+        private Angle targetAngle;
+
+        [Inject] private InputHandler inputHandler;
 
         #endregion
 
@@ -36,10 +38,7 @@ namespace Aster.Core
 
         #endregion
 
-        private void Awake()
-        {
-            inputHandler = InputHandler.Instance;
-        }
+        [Provide] public RotationController Instance() => this;
 
         public void OnEnable()
         {

@@ -3,6 +3,7 @@ using Aster.Core;
 using Aster.Entity.StateMachine;
 using Aster.Entity;
 using Aster.Entity.Player.States;
+using DependencyInjection;
 using UnityEngine;
 
 namespace Aster.Entity.Player
@@ -10,6 +11,8 @@ namespace Aster.Entity.Player
     public class PlayerController : BaseEntityController
     {
         [SerializeField] private PlayerInteractor interactor;
+
+        [Inject] private InputHandler input;
 
         private ITargetMovementProvider movementProvider;
 
@@ -21,7 +24,7 @@ namespace Aster.Entity.Player
 
             base.Awake();
 
-            movementProvider = new PlayerMovementProvider();
+            movementProvider = new PlayerMovementProvider(input);
             movement.Init(rb, movementProvider);
         }
 

@@ -7,21 +7,6 @@ namespace Aster.Core
 {
     public class InputHandler
     {
-        private static InputHandler _instance;
-
-        public static InputHandler Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new InputHandler();
-                }
-
-                return _instance;
-            }
-        }
-
         public Aster_InputActions Actions { get; private set; }
 
         public Vector2 Movement => Actions.Player.Move.ReadValue<Vector2>();
@@ -33,7 +18,7 @@ namespace Aster.Core
         public event Action OnInteract;
         public event Action OnCancel;
 
-        private InputHandler()
+        public InputHandler()
         {
             Actions = new Aster_InputActions();
             Actions.Enable();

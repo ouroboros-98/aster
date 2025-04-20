@@ -8,9 +8,9 @@ namespace Aster.Entity.Player
         public  Vector2      TargetMovement => _inputHandler.Actions.Player.Move.ReadValue<Vector2>();
         private InputHandler _inputHandler;
 
-        public PlayerMovementProvider()
+        public PlayerMovementProvider(InputHandler inputHandler)
         {
-            _inputHandler = InputHandler.Instance;
+            _inputHandler = inputHandler;
         }
     }
 }
