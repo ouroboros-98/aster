@@ -42,6 +42,7 @@ namespace Aster.Core.Entity
 
         private int SetHP(int targetValue, bool triggerEvent = true)
         {
+            Debug.Log("change hp");
             int previousValue = _current;
 
             int value = targetValue;

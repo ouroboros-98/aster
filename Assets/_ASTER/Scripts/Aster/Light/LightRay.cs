@@ -1,5 +1,7 @@
 ﻿using System;
 using Aster.Core;
+using Aster.Entity;
+using Aster.Entity.Enemy;
 using Aster.Towers;
 using Aster.Utils.Pool;
 using UnityEngine;
@@ -72,7 +74,7 @@ namespace Aster.Light
             
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             CheckForCreator();
             if (!isActive) return;
@@ -105,7 +107,14 @@ namespace Aster.Light
         {
             if (hitObject.CompareTag("Enemy"))
             {
-                isActive = false;
+                isUsed = false;
+                var enemy = hitObject.GetComponent<EnemyController>();
+                if (enemy)
+                {
+                    Debug.Log("hit");
+                    enemy.LightHit();
+                }
+                
             }
             else if (hitObject.CompareTag("Mirror") && !isUsed)
             {

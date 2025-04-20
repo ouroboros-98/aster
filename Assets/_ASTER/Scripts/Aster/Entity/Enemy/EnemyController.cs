@@ -12,6 +12,7 @@ namespace Aster.Entity.Enemy
 {
     public class EnemyController : BaseEntityController, IPoolable
     {
+        [SerializeField] private int damagePerLightHit = 1; // amount of HP removed per light hit
         protected override void Awake()
         {
             base.Awake();
@@ -34,8 +35,16 @@ namespace Aster.Entity.Enemy
         {
             var movementProvider = new PrimitiveEnemyMovementProvider(transform);
             movementProvider.SetTarget(MainLightSource.Instance.transform);
-
+            hp.Set(hp.MaxHP);
             movement.Init(rb, movementProvider);
+        }
+        public void LightHit()
+        {
+            hp.ChangeBy(-damagePerLightHit);
+            if (hp <= 0)
+            {
+                EnemyPool.Instance.Return(this);
+            }
         }
     }
 }
