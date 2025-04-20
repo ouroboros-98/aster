@@ -10,7 +10,7 @@ namespace Aster.Light
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float arrivalThreshold = 0.1f;
 
-        public event Action OnArrivedAtLightSource;
+        public static event Action OnArrivedAtLightSource;
 
         private bool _isMovingToLightSource = false;
 
