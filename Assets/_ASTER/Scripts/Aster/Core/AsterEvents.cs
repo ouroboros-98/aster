@@ -21,6 +21,7 @@ namespace Aster.Core
         public Action<RotationInteractionContext> OnRotationInteractionBegin;
         public Action<InteractionContext>              OnInteractionEnd;
         public Action<LightPoint> OnLightPointAdded;
+        public Action<int> OnAttackLightSource;
         private AsterEvents()
         {
             OnInteractionBegin         =  delegate { };
@@ -28,6 +29,7 @@ namespace Aster.Core
             OnRotationInteractionBegin =  delegate { };
             OnRotationInteractionBegin += context => OnInteractionBegin?.Invoke(context);
             OnLightPointAdded =  delegate { };
+            OnAttackLightSource =  delegate { };
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿namespace _ASTER.Scripts.Aster.Entity
+﻿
+namespace Aster.Entity
 {
-    public class ITargetAttackProvider
+    public interface ITargetAttackProvider
     {
-        
+        void DoAttack(int damage);
     }
 }
