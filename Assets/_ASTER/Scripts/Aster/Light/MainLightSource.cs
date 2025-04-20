@@ -34,5 +34,23 @@ namespace Aster.Light
             return distance < thirdRadius ? 3 : 0;
         }
         
+        private void OnEnable()
+        {
+            AsterEvents.Instance.OnAttackLightSource += GotHit;
+        }
+        private void OnDisable()
+        {
+            AsterEvents.Instance.OnAttackLightSource -= GotHit;
+        }
+
+        private void GotHit(int damage)
+        {
+            hp.ChangeBy(-damage);
+            if (hp <= 0)
+            {
+                AsterEvents.Instance.OnLightSourceDestroyed?.Invoke(hp);
+            }
+        }
+        
     }
 }
