@@ -29,7 +29,11 @@ namespace Aster.Entity.Enemy
             var attackState = new EntityAttackState(this);
             
             At(moveState, moveState, When(() => false));
-            //At(moveState, attackState, When(); todo: do this condition
+            At(moveState, attackState,  When(() =>
+            {
+                float distance = Vector3.Distance(transform.position, MainLightSource.Instance.transform.position);
+                return distance <= 0.5f;
+            }));
 
             StateMachine.SetState(moveState);
         }
