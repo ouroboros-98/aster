@@ -32,7 +32,7 @@ namespace _ASTER.Scripts.Aster.Entity.Enemy
 
             float distance = direction.magnitude;
 
-            Debug.Log($"Enemy Position: {enemyPosition2D}, Target Position: {targetPosition2D}, Direction: {direction}, Distance: {distance}");
+            // Debug.Log($"Enemy Position: {enemyPosition2D}, Target Position: {targetPosition2D}, Direction: {direction}, Distance: {distance}");
             if (distance <= _minDistance) return Vector2.zero;
 
             return direction.normalized;

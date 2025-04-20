@@ -24,6 +24,7 @@ namespace Aster.Light
         private LineRenderer _lineRenderer;
         private Vector3 _creatorInitialPosition;
         private Vector3 _creatorInitialDirection;
+        
 
         public Vector3 GetDirection() => _direction;
         public Vector3 GetOrigin() => _origin;
@@ -47,7 +48,7 @@ namespace Aster.Light
             _lineRenderer.endColor = color;
             isUsed= false;
             _hitMirror= null;
-            if (_creator != null)
+            if (_creator)
             {
                 _creatorInitialPosition = _creator.GetOrigin();
                 _creatorInitialDirection = _creator.GetDirection();
@@ -65,7 +66,7 @@ namespace Aster.Light
 
         private void CheckForCreator()
         {
-            if (_creator != null && (!_creator.isActive|| !_creator.isUsed) || _creator != null && 
+            if (_creator && (!_creator.isActive|| !_creator.isUsed) || _creator && 
                 (_creator.GetOrigin() != _creatorInitialPosition || _creator.GetDirection() != _creatorInitialDirection))
                 RayPool.Instance.Return(this);
             
@@ -75,6 +76,11 @@ namespace Aster.Light
         {
             CheckForCreator();
             if (!isActive) return;
+            CastRay();
+        }
+
+        private void CastRay()
+        {
             var distance = maxDistance;
             var ray= Physics.Raycast(_origin, _direction, out var hit, maxDistance);
             // Perform a raycast to detect objects in the path of the LightRay
@@ -104,7 +110,7 @@ namespace Aster.Light
             else if (hitObject.CompareTag("Mirror") && !isUsed)
             {
                 // Ensure the ray only interacts with the mirror it directly hit
-                if (_hitMirror == null)
+                if (!_hitMirror)
                 {
                     _hitMirror = hitObject; // Set the mirror this ray hit
                     isUsed = true;
