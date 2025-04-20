@@ -19,8 +19,11 @@ namespace Aster.Light
         [SerializeField] private float intensity;
         private GameObject _hitMirror; // Store the mirror this ray hit
         private Vector3 _hitPosition;
+        
 
         private LineRenderer _lineRenderer;
+        private Vector3 _creatorInitialPosition;
+        private Vector3 _creatorInitialDirection;
 
         public Vector3 GetDirection() => _direction;
         public Vector3 GetOrigin() => _origin;
@@ -39,21 +42,33 @@ namespace Aster.Light
             _color = color;
             this.intensity = intensity;
             _creator=creator;
+            _lineRenderer.enabled = true;
             _lineRenderer.startColor = color;
             _lineRenderer.endColor = color;
+            isUsed= false;
+            _hitMirror= null;
+            if (_creator != null)
+            {
+                _creatorInitialPosition = _creator.GetOrigin();
+                _creatorInitialDirection = _creator.GetDirection();
+            }
         }
 
         public void Reset()
         {
-            isActive = false;
+            // isActive = false;
             isUsed = false;
             _lineRenderer.enabled = false;
+            _hitMirror= null;
+            _creator= null;
         }
 
         private void CheckForCreator()
         {
-            if (_creator != null && (!_creator.isActive|| !_creator.isUsed))
-                Destroy(gameObject);
+            if (_creator != null && (!_creator.isActive|| !_creator.isUsed) || _creator != null && 
+                (_creator.GetOrigin() != _creatorInitialPosition || _creator.GetDirection() != _creatorInitialDirection))
+                RayPool.Instance.Return(this);
+            
         }
 
         private void Update()
