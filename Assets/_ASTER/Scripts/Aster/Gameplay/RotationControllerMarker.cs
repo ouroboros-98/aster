@@ -1,19 +1,16 @@
 using System;
 using Aster.Utils;
+using DependencyInjection;
 using UnityEngine;
 
 namespace Aster.Core
 {
     public class RotationControllerMarker : AsterMono
     {
-        [SerializeField] private RotationController rotationController;
-        [SerializeField] private Transform          markerSpriteTransform;
-        [SerializeField] private Transform          targetTransform;
+        [Inject] private RotationController rotationController;
 
-        private void Awake()
-        {
-            Reset();
-        }
+        [SerializeField] private Transform markerSpriteTransform;
+        [SerializeField] private Transform targetTransform;
 
         private void OnEnable()
         {
@@ -60,11 +57,6 @@ namespace Aster.Core
             transform.localScale = Vector3.one * context.Interactable.Radius;
 
             OnTargetAngleChanged(context.Interactable.RotationHandler.CurrentAngle);
-        }
-
-        private void Reset()
-        {
-            ValidateComponent(ref rotationController, self: false, parents: true);
         }
     }
 }
