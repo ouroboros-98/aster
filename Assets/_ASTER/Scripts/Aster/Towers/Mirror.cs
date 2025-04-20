@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using Aster.Light;
+using Aster.Utils.Pool;
 using UnityEngine;
 
 namespace Aster.Towers
 {
     public class Mirror : BaseTower
     {
-        [SerializeField] private LightRay lightRayPrefab;
+        private List<LightRay> lightRays = new List<LightRay>();
         public override void OnLightRayHit(LightRay ray)
         {
             Vector3 newLightDirection = GetNewLightDirection(ray);
@@ -26,10 +28,16 @@ namespace Aster.Towers
         {
             Vector3 hitPosition = ray.GetHitPosition();
             // Instantiate the LightRay prefab
-            var lightRay = Instantiate(lightRayPrefab,hitPosition, Quaternion.identity);
+            var lightRay = RayPool.Instance.Get();
         
             // Initialize the LightRay
             lightRay.Initialize(hitPosition, newLightDirection, Color.yellow, 1,ray);
+            lightRays.Add(lightRay);
+        }
+
+        public void Update()
+        {
+            
         }
     }
 }
