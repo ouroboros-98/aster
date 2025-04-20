@@ -6,8 +6,8 @@ namespace Aster.Entity
     [System.Serializable]
     public class EntityAttack
     {
-        [SerializeField] private int damage;
-        [SerializeField] private float initialTimeToAttack;
+        [SerializeField] public int damage = 1;
+        [SerializeField] public float initialTimeToAttack = 3f;
         private float _currentTimeToAttack;
         
         private ITargetAttackProvider _attackProvider;
@@ -21,7 +21,6 @@ namespace Aster.Entity
 
         public void HandleAttack(float time)
         {
-            Debug.Log("changed to attack");
             if (!IsInitialized)
             {
                 Debug.LogError("EntityAttack is not initialized. Please call Init() before using HandleAttack.");
@@ -32,6 +31,7 @@ namespace Aster.Entity
                 Debug.Log("attacking");
                 _attackProvider.DoAttack(damage);
                 _currentTimeToAttack = initialTimeToAttack;
+
             }
             else
             {

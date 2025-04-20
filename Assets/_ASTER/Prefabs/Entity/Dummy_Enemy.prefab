@@ -55,7 +55,7 @@ MonoBehaviour:
   movement:
     moveSpeed: 2
   attack:
-    damage: 5
+    damage: 1
     initialTimeToAttack: 8
   damagePerLightHit: 1
 --- !u!54 &2526445337700528000
