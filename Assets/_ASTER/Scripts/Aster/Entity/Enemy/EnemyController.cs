@@ -31,7 +31,11 @@ namespace Aster.Entity.Enemy
             var attackState = new EntityAttackState(this);
 
             At(moveState, moveState, When(() => false));
-            //At(moveState, attackState, When(); todo: do this condition
+            At(moveState, attackState,  When(() =>
+            {
+                float distance = Vector3.Distance(transform.position, MainLightSource.Instance.transform.position);
+                return distance <= 1.2f;
+            }));
 
             StateMachine.SetState(moveState);
         }
@@ -45,6 +49,8 @@ namespace Aster.Entity.Enemy
 
             var attackProvider = new PrimitiveEnemyAttackProvider();
             attack.Init(attackProvider);
+            attack.damage = 1;  // for example, resetting damage
+            attack.initialTimeToAttack = 3f; 
         }
 
         public void LightHit()
