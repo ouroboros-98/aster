@@ -4,21 +4,19 @@ using Aster.Core;
 using Aster.Core.Entity;
 using Aster.Entity.StateMachine;
 using Aster.Light;
+using Aster.Utils.Pool;
 using NaughtyAttributes;
 using UnityEngine;
 
 namespace Aster.Entity.Enemy
 {
-    public class EnemyController : BaseEntityController
+    public class EnemyController : BaseEntityController, IPoolable
     {
         protected override void Awake()
         {
             base.Awake();
 
-            var movementProvider = new PrimitiveEnemyMovementProvider(transform);
-            movementProvider.SetTarget(MainLightSource.Instance.transform);
-
-            movement.Init(rb, movementProvider);
+            Reset();
         }
 
         protected override void SetupStateMachine()
@@ -30,6 +28,14 @@ namespace Aster.Entity.Enemy
             At(moveState, moveState, When(() => false));
 
             StateMachine.SetState(moveState);
+        }
+
+        public void Reset()
+        {
+            var movementProvider = new PrimitiveEnemyMovementProvider(transform);
+            movementProvider.SetTarget(MainLightSource.Instance.transform);
+
+            movement.Init(rb, movementProvider);
         }
     }
 }
