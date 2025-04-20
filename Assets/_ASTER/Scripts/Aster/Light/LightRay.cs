@@ -1,6 +1,9 @@
 ﻿using System;
 using Aster.Core;
+using Aster.Entity;
+using Aster.Entity.Enemy;
 using Aster.Towers;
+using Aster.Utils;
 using Aster.Utils.Pool;
 using NaughtyAttributes;
 using UnityEngine;
@@ -60,15 +63,17 @@ namespace Aster.Light
         }
 
         private LineRenderer _lineRenderer;
-        private Vector3      _creatorInitialPosition;
-        private Vector3      _creatorInitialDirection;
+
+        private Vector3 _creatorInitialPosition;
+        private Vector3 _creatorInitialDirection;
 
         public Vector3 GetDirection() => Direction;
         public Vector3 GetOrigin()    => Origin;
 
         private void Awake()
         {
-            _lineRenderer            = GetComponent<LineRenderer>();
+            ValidateComponent(ref _lineRenderer);
+
             _lineRenderer.startWidth = 0.05f; // Adjust width as needed
             _lineRenderer.endWidth   = 0.05f;
         }
@@ -84,7 +89,7 @@ namespace Aster.Light
             _lineRenderer.enabled    = true;
             _lineRenderer.startColor = color;
             _lineRenderer.endColor   = color;
-            if (_creator != null)
+            if (_creator)
             {
                 _creatorInitialPosition  = _creator.GetOrigin();
                 _creatorInitialDirection = _creator.GetDirection();
@@ -103,7 +108,7 @@ namespace Aster.Light
 
         private void CheckForCreator()
         {
-            if (_creator != null && (!_creator.isActive) || _creator != null &&
+            if (_creator && (!_creator.isActive) || _creator &&
                 (_creator.GetOrigin()    != _creatorInitialPosition ||
                  _creator.GetDirection() != _creatorInitialDirection))
                 RayPool.Instance.Return(this);
@@ -123,10 +128,10 @@ namespace Aster.Light
 
             foreach (RaycastHit hit in hits)
             {
-                if (!hit.collider.TryGetComponent(out BaseLightHittable hittable)) continue;
+                if (!hit.collider.ScanForComponent(out BaseLightHittable hittable, parents: true)) continue;
 
                 hasHit = true;
-                var hitContext = hittable.OnLightRayHit(new(this, hit.point, hittable));
+                var hitContext = hittable.OnLightRayHit(new(this, hit.point, hittable, Direction));
                 Hittable = hittable;
 
                 if (hitContext.BlockLight)

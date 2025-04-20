@@ -1,4 +1,5 @@
 using System;
+using Aster.Light;
 
 namespace Aster.Core
 {
@@ -19,13 +20,16 @@ namespace Aster.Core
         public Action<InteractionContext>              OnInteractionBegin;
         public Action<RotationInteractionContext> OnRotationInteractionBegin;
         public Action<InteractionContext>              OnInteractionEnd;
-
+        public Action<LightPoint> OnLightPointAdded;
+        public Action<int> OnAttackLightSource;
         private AsterEvents()
         {
             OnInteractionBegin         =  delegate { };
             OnInteractionEnd   =  delegate { };
             OnRotationInteractionBegin =  delegate { };
             OnRotationInteractionBegin += context => OnInteractionBegin?.Invoke(context);
+            OnLightPointAdded =  delegate { };
+            OnAttackLightSource =  delegate { };
         }
     }
 }

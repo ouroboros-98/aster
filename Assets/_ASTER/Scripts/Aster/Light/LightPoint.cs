@@ -1,4 +1,5 @@
 ﻿using System;
+using Aster.Core;
 using UnityEngine;
 
 namespace Aster.Light
@@ -9,9 +10,7 @@ namespace Aster.Light
         [SerializeField] private Transform lightSource;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float arrivalThreshold = 0.1f;
-
-        public static event Action OnArrivedAtLightSource;
-
+        
         private bool _isMovingToLightSource = false;
 
         private void OnCollisionEnter(Collision other)
@@ -44,7 +43,7 @@ namespace Aster.Light
 
         private void ArriveAtLightSource()
         {
-            OnArrivedAtLightSource?.Invoke();
+            AsterEvents.Instance.OnLightPointAdded?.Invoke(this);
             Destroy(gameObject); 
         }
     }

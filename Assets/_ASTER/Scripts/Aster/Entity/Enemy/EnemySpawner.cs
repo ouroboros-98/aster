@@ -1,14 +1,16 @@
 ﻿using Aster.Core;
+using Aster.Utils.Pool;
 using UnityEngine;
 
 namespace _ASTER.Scripts.Aster.Entity.Enemy
 {
     public class EnemySpawner : AsterMono
     {
-        [SerializeField] private GameObject _enemyPrefab;
         public void Spawn()
         {
-            Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
+            var enemy = EnemyPool.Instance.Get();
+            enemy.transform.position = transform.position;
+            enemy.transform.rotation = transform.rotation;
         }
     }
 }

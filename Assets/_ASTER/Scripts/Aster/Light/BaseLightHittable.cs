@@ -18,12 +18,14 @@ namespace Aster.Light
         public readonly LightRay          Ray;
         public readonly Vector3           HitPoint;
         public readonly BaseLightHittable Hittable;
+        public readonly Vector3           RayDirection;
 
-        public LightHit(LightRay ray, Vector3 hitPoint, BaseLightHittable hittable)
+        public LightHit(LightRay ray, Vector3 hitPoint, BaseLightHittable hittable, Vector3 rayDirection)
         {
-            Ray      = ray;
-            HitPoint = hitPoint;
-            Hittable = hittable;
+            Ray               = ray;
+            HitPoint          = hitPoint;
+            Hittable          = hittable;
+            RayDirection = rayDirection;
         }
     }
 
