@@ -39,20 +39,6 @@ namespace Aster.Core
         {
         
             Sound s = Array.Find(sounds, sound => sound.name == name);
-            if (randomPitch)
-            {
-                s.pitch = Random.Range(0.8f, 1.2f);
-                s.source.pitch = s.pitch;
-            }
-
-            if (isSpacial)
-            {
-                s.source.spatialBlend = 1f;
-            }
-            else
-            {
-                s.source.spatialBlend = 0f;
-            }
             s.source.Play();
         }
     }

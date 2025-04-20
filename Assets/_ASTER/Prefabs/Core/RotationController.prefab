@@ -93,7 +93,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
-  rotationController: {fileID: 2820816232398895190}
   markerSpriteTransform: {fileID: 1042500999763874943}
   targetTransform: {fileID: 0}
 --- !u!1 &5486954699071735200
@@ -112,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1042500999763874943
 Transform:
   m_ObjectHideFlags: 0

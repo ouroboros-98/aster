@@ -1,13 +1,14 @@
 ﻿using System;
 using Aster.Core;
 using Aster.Core.Entity;
+using Aster.Utils;
 using Aster.Utils.Attributes;
 using NaughtyAttributes;
 using UnityEngine;
 
 namespace Aster.Light
 {
-    public class MainLightSource : AsterMono
+    public class MainLightSource : AsterSingleton<MainLightSource>
     {
         [SerializeField, BoxedProperty, Label("HP")] protected EntityHP       hp;
         [SerializeField] private float radius;
