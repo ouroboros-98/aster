@@ -43,6 +43,7 @@ namespace Aster.Light
 
         private void ArriveAtLightSource()
         {
+            Debug.Log("ArriveAtLightSource");
             AsterEvents.Instance.OnLightPointAdded?.Invoke(this);
             Destroy(gameObject); 
         }
