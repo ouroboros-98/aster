@@ -32,16 +32,18 @@ namespace Aster.Entity.Enemy
 
             var moveState   = new EntityMoveState(this);
             var attackState = new EntityAttackState(this);
-
+            At(attackState, moveState,  When(() =>
+            {
+                float distance = Vector3.Distance(transform.position, MainLightSource.Instance.transform.position);
+                return distance > 1.2f;
+            }));
             At(moveState, moveState, When(() => false));
-            At(moveState, attackState, When(() =>
-                                            {
-                                                float distance =
-                                                    Vector3.Distance(transform.position,
-                                                                     MainLightSource.Instance.transform.position);
-                                                return distance <= 1.2f;
-                                            }));
-
+            At(moveState, attackState,  When(() =>
+            {
+                float distance = Vector3.Distance(transform.position, MainLightSource.Instance.transform.position);
+                return distance <= 1.2f;
+            }));
+            
             StateMachine.SetState(moveState);
         }
 
