@@ -5,6 +5,7 @@ using Aster.Core;
 using Aster.Core.Entity;
 using Aster.Entity.StateMachine;
 using Aster.Light;
+using Aster.Utils;
 using Aster.Utils.Pool;
 using Mono.Cecil;
 using NaughtyAttributes;
@@ -15,6 +16,8 @@ namespace Aster.Entity.Enemy
     public class EnemyController : BaseEntityController, IPoolable
     {
         [SerializeField] private int damagePerLightHit = 1; // amount of HP removed per light hit
+
+        [SerializeField] private SerializableTimer invincibilityFrames = new(0.1f);
 
         protected override void Awake()
         {
@@ -31,11 +34,13 @@ namespace Aster.Entity.Enemy
             var attackState = new EntityAttackState(this);
 
             At(moveState, moveState, When(() => false));
-            At(moveState, attackState,  When(() =>
-            {
-                float distance = Vector3.Distance(transform.position, MainLightSource.Instance.transform.position);
-                return distance <= 1.2f;
-            }));
+            At(moveState, attackState, When(() =>
+                                            {
+                                                float distance =
+                                                    Vector3.Distance(transform.position,
+                                                                     MainLightSource.Instance.transform.position);
+                                                return distance <= 1.2f;
+                                            }));
 
             StateMachine.SetState(moveState);
         }
@@ -49,16 +54,24 @@ namespace Aster.Entity.Enemy
 
             var attackProvider = new PrimitiveEnemyAttackProvider();
             attack.Init(attackProvider);
-            attack.damage = 1;  // for example, resetting damage
-            attack.initialTimeToAttack = 3f; 
+            attack.damage              = 1; // for example, resetting damage
+            attack.initialTimeToAttack = 3f;
+
+            invincibilityFrames.Stop();
         }
 
         public void LightHit()
         {
+            if (invincibilityFrames.IsRunning) return;
+
             hp.ChangeBy(-damagePerLightHit);
             if (hp <= 0)
             {
                 EnemyPool.Instance.Return(this);
+            }
+            else
+            {
+                invincibilityFrames.Start();
             }
         }
     }
