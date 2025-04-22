@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Aster.Utils.Pool
 {
+    [DefaultExecutionOrder(-100)]
     public class AsterPool<T> : AsterSingleton<AsterPool<T>>, IPool<T> where T : AsterMono, IPoolable
     {
         [SerializeField] private int       initialSize;

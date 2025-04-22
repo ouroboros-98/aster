@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Aster.Core;
 using Aster.Entity;
 using Aster.Entity.Enemy;
 using Aster.Towers;
-using Aster.Utils;
+using Aster.Utils.Attributes;
 using Aster.Utils.Pool;
 using NaughtyAttributes;
 using UnityEngine;
@@ -14,39 +17,24 @@ namespace Aster.Light
     [RequireComponent(typeof(LineRenderer))]
     public class LightRay : AsterMono, IPoolable
     {
-        [SerializeField] private float    maxDistance;
-        private                  LightRay _creator;
-        private                  Color    _color;
-        private                  bool     isActive = true;
-        [SerializeField] private float    intensity;
+        private const float MAX_DISTANCE = 100f;
 
-        private Vector3 _origin;
-        private Vector3 _endPoint;
+        [SerializeField, BoxedProperty] private RayData _rayData = null;
 
-        public Vector3 Origin
+        private ILightCaster _lightCaster;
+
+        private Dictionary<BaseLightHittable, LightHitContext> rayHits = new();
+
+        public RayData Data
         {
-            get => _origin;
+            get => _rayData;
             set
             {
-                _origin = value;
-                _lineRenderer?.SetPosition(0, value);
+                UnsubscribeRayEvents();
+                _rayData = value;
+                SubscribeRayEvents();
+                if (_rayData != null) _lineRenderer.enabled = true;
             }
-        }
-
-        public Vector3 EndPoint
-        {
-            get => _endPoint;
-            set
-            {
-                _endPoint = value;
-                _lineRenderer?.SetPosition(1, value);
-            }
-        }
-
-        public Vector3 Direction
-        {
-            get => (_endPoint       - Origin).normalized;
-            set { EndPoint = Origin + value.normalized * maxDistance; }
         }
 
         private BaseLightHittable _hittable;
@@ -67,82 +55,128 @@ namespace Aster.Light
         private Vector3 _creatorInitialPosition;
         private Vector3 _creatorInitialDirection;
 
-        public Vector3 GetDirection() => Direction;
-        public Vector3 GetOrigin()    => Origin;
+
+        private void OnEnable() => SubscribeRayEvents();
+
+        private void OnDisable()
+        {
+            UnsubscribeRayEvents();
+            RefreshHittables(new HashSet<BaseLightHittable>());
+        }
+
+        private void SubscribeRayEvents()
+        {
+            if (_rayData == null) return;
+
+            _rayData.OriginChange   += OnOriginChanged;
+            _rayData.EndPointChange += OnEndPointChanged;
+            _rayData.WidthChange    += OnWidthChanged;
+            _rayData.ColorChange    += OnColorChanged;
+            _rayData.OnDestroy      += OnDestroy;
+
+            _rayData.ForceUpdate();
+        }
+
+        private void UnsubscribeRayEvents()
+        {
+            if (_rayData == null) return;
+
+            _rayData.OriginChange   -= OnOriginChanged;
+            _rayData.EndPointChange -= OnEndPointChanged;
+            _rayData.WidthChange    -= OnWidthChanged;
+            _rayData.ColorChange    -= OnColorChanged;
+            _rayData.OnDestroy      -= OnDestroy;
+        }
 
         private void Awake()
         {
             ValidateComponent(ref _lineRenderer);
 
-            _lineRenderer.startWidth = 0.05f; // Adjust width as needed
-            _lineRenderer.endWidth   = 0.05f;
-        }
-
-        public void Initialize(Vector3 origin, Vector3 direction, Color color, float intensity, LightRay creator = null)
-        {
-            this.Origin              = origin;
-            this.Direction           = direction.normalized;
-            _color                   = color;
-            this.intensity           = intensity;
-            _creator                 = creator;
-            Hittable                 = null;
-            _lineRenderer.enabled    = true;
-            _lineRenderer.startColor = color;
-            _lineRenderer.endColor   = color;
-            if (_creator)
-            {
-                _creatorInitialPosition  = _creator.GetOrigin();
-                _creatorInitialDirection = _creator.GetDirection();
-            }
+            _lightCaster = new LightRayCaster();
         }
 
         public void Reset()
         {
-            // isActive = false;
             Hittable?.OnLightRayExit(this);
 
-            _lineRenderer.enabled = false;
-            _creator              = null;
-            Hittable              = null;
-        }
+            Data = null;
 
-        private void CheckForCreator()
-        {
-            if (_creator && (!_creator.isActive) || _creator &&
-                (_creator.GetOrigin()    != _creatorInitialPosition ||
-                 _creator.GetDirection() != _creatorInitialDirection))
-                RayPool.Instance.Return(this);
+            _lineRenderer.enabled = false;
+            Hittable              = null;
+
+            rayHits.Clear();
         }
 
         private void FixedUpdate()
         {
-            CheckForCreator();
+            if (!Data.CheckExists()) return;
 
-            if (!isActive) return;
+            List<LightHit> hits = _lightCaster.GetHits(Data);
 
-            bool hasHit = false;
+            HashSet<BaseLightHittable> hittables = new();
 
-            EndPoint = Origin + Direction * maxDistance;
-
-            RaycastHit[] hits = Physics.RaycastAll(Origin, Direction, maxDistance);
-
-            foreach (RaycastHit hit in hits)
+            if (hits.Count == 0)
             {
-                if (!hit.collider.ScanForComponent(out BaseLightHittable hittable, parents: true)) continue;
-
-                hasHit = true;
-                var hitContext = hittable.OnLightRayHit(new(this, hit.point, hittable, Direction));
-                Hittable = hittable;
-
-                if (hitContext.BlockLight)
-                {
-                    EndPoint = hit.point;
-                }
+                Data.EndPoint = Data.Origin + Data.Direction * RayData.MAX_DISTANCE;
             }
 
-            if (!hasHit) Hittable = null;
+            foreach (var hit in hits)
+            {
+                if (Data.CheckIgnoreHittable(hit.Hittable)) continue;
+
+                var hitContext = hit.Hittable.OnLightRayHit(new(this, hit.HitPoint, hit.Hittable));
+
+                hittables.Add(hit.Hittable);
+
+                if (!HandleHit(hitContext)) break;
+            }
+
+            RefreshHittables(hittables);
         }
 
-        public Vector3 GetHitPosition() => EndPoint;
+        private void RefreshHittables(HashSet<BaseLightHittable> hittables)
+        {
+            HashSet<BaseLightHittable> allHittables = new(rayHits.Keys);
+
+            HashSet<BaseLightHittable> toRemove = new(allHittables);
+            toRemove.ExceptWith(hittables);
+
+            foreach (var hittable in toRemove)
+            {
+                debugPrint($"Removing {hittable.gameObject.name}");
+
+                hittable.OnLightRayExit(this);
+                rayHits.Remove(hittable);
+            }
+
+            debugPrint($"Hittables: {string.Join(", ", hittables.Select(h => h.gameObject.name))}");
+        }
+
+        private bool HandleHit(LightHitContext hitContext)
+        {
+            rayHits[hitContext.Hit.Hittable] = hitContext;
+
+            return !hitContext.BlockLight;
+        }
+
+        private RaycastHit[] GetHits()
+        {
+            return Physics.RaycastAll(Data.Origin, Data.Direction, RayData.MAX_DISTANCE);
+        }
+
+        void OnOriginChanged(Vector3   value) => _lineRenderer?.SetPosition(0, value);
+        void OnEndPointChanged(Vector3 value) => _lineRenderer?.SetPosition(1, value);
+        void OnWidthChanged(float      width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width;
+        void OnColorChanged(Color      color) => _lineRenderer.startColor = _lineRenderer.endColor = color;
+
+        private void OnDestroy()
+        {
+            _lineRenderer.enabled = false;
+            rayHits.Clear();
+
+            RayPool.Instance.Return(this);
+        }
+
+        public static implicit operator RayData(LightRay lightRay) => lightRay._rayData;
     }
 }

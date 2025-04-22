@@ -1,3 +1,4 @@
+using System;
 using Aster.Core;
 using UnityEngine;
 
@@ -15,17 +16,17 @@ namespace Aster.Light
 
     public readonly struct LightHit
     {
-        public readonly LightRay          Ray;
+        public readonly RayData           Ray;
         public readonly Vector3           HitPoint;
         public readonly BaseLightHittable Hittable;
-        public readonly Vector3           RayDirection;
 
-        public LightHit(LightRay ray, Vector3 hitPoint, BaseLightHittable hittable, Vector3 rayDirection)
+        public readonly float Distance => Vector3.Distance(Ray.Origin, HitPoint);
+
+        public LightHit(RayData ray, Vector3 hitPoint, BaseLightHittable hittable)
         {
-            Ray               = ray;
-            HitPoint          = hitPoint;
-            Hittable          = hittable;
-            RayDirection = rayDirection;
+            Ray      = ray;
+            HitPoint = hitPoint;
+            Hittable = hittable;
         }
     }
 
@@ -34,10 +35,18 @@ namespace Aster.Light
         public readonly LightHit Hit;
         public readonly bool     BlockLight;
 
-        public LightHitContext(LightHit hit, bool blockLight = false)
+        public LightHitContext(LightHit hit, bool blockLight = false, float blockDistance = 0f)
         {
             Hit        = hit;
             BlockLight = blockLight;
+
+            if (blockLight) HandleBlocking(blockDistance);
+        }
+
+        private void HandleBlocking(float distance)
+        {
+            Vector3 offset = -distance * Hit.Ray.Direction;
+            Hit.Ray.EndPoint = Hit.HitPoint + offset;
         }
     }
 }

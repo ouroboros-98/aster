@@ -1,0 +1,92 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Aster.Light;
+using UnityEngine;
+
+namespace Aster.Towers
+{
+    public class SplitterManipulator : LightManipulator<List<SplittedRay>>
+    {
+        private readonly Splitter           _splitterTower;
+        private readonly SplitterParameters _splitterParameters;
+
+        private SplitterRayTransformation[] _splitterTransformations;
+
+        public SplitterManipulator(Splitter splitter) : base(splitter)
+        {
+            _splitterTower      = splitter;
+            _splitterParameters = splitter.Parameters;
+
+            SetupTransformations();
+        }
+
+        private void SetupTransformations()
+        {
+            int count = _splitterParameters.SplitCount;
+
+            _splitterTransformations = new SplitterRayTransformation[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                _splitterTransformations[i] = new SplitterRayTransformation(_splitterTower, i);
+            }
+        }
+
+        protected override List<SplittedRay> CreateManipulation(LightHit lightHit)
+        {
+            return CreateDefaultList(lightHit);
+        }
+
+        protected override List<SplittedRay> UpdateManipulation(LightHit hit, List<SplittedRay> splittedRays)
+        {
+            splittedRays.ForEach(ray => ray.UpdateTransformation(hit));
+
+            return splittedRays;
+        }
+
+        protected override void DestroyManipulation(RayData ray, List<SplittedRay> splitRays)
+        {
+            splitRays.ForEach(outRay => outRay.Destroy());
+            splitRays.Clear();
+        }
+
+        private List<SplittedRay> CreateDefaultList(LightHit hit)
+        {
+            List<SplittedRay> result = new();
+
+            for (int i = 0; i < _splitterParameters.SplitCount; i++)
+            {
+                SplittedRay splitRay = new(hit, _splitterTransformations[i]);
+                splitRay.IgnoreHittable(_splitterTower);
+                splitRay.ExistsWhen(() => hit.Ray != null && _splitterTower.LightReceiver.IsReceiving(hit.Ray));
+                result.Add(splitRay);
+            }
+            //
+            // RayData ray = hit.Ray;
+            //
+            // Vector3 hitPosition = hit.HitPoint;
+            // Vector3 baseDir     = ray.Direction;
+            //
+            // float[] angleOffsets = CalculateAngleOffsets();
+            //
+            // for (int i = 0; i < 4; i++)
+            // {
+            //     SplitLightData splitLightData =
+            //         new SplitLightData(hit, angleOffsets[i], _splitterParameters.SpawnOffsetDistance, _splitterTower);
+            //
+            //     result.Add(splitLightData);
+            // }
+
+            return result;
+        }
+
+        // private float[] CalculateAngleOffsets()
+        // {
+        //     float   halfCone     = _splitterParameters.SplitConeAngle * 0.5f;
+        //     float[] angleOffsets = new float[4] { -halfCone, -halfCone * 0.33f, halfCone * 0.33f, halfCone };
+        //
+        //     return angleOffsets;
+        // }
+    }
+}

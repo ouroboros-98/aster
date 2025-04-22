@@ -17,21 +17,30 @@ namespace Aster.Core
             }
         }
 
-        public Action<InteractionContext>              OnInteractionBegin;
+        public Action<RayData> OnRayCreated;
+
+        public Action<InteractionContext>         OnInteractionBegin;
         public Action<RotationInteractionContext> OnRotationInteractionBegin;
-        public Action<InteractionContext>              OnInteractionEnd;
+        public Action<InteractionContext>         OnInteractionEnd;
+
         public Action<LightPoint> OnLightPointAdded;
+
         public Action<int> OnAttackLightSource;
         public Action<int> OnLightSourceDestroyed;
+
         private AsterEvents()
         {
+            OnRayCreated = delegate { };
+
             OnInteractionBegin         =  delegate { };
-            OnInteractionEnd   =  delegate { };
+            OnInteractionEnd           =  delegate { };
             OnRotationInteractionBegin =  delegate { };
             OnRotationInteractionBegin += context => OnInteractionBegin?.Invoke(context);
-            OnLightPointAdded =  delegate { };
-            OnAttackLightSource =  delegate { };
-            OnLightSourceDestroyed =  delegate { };
+
+            OnLightPointAdded = delegate { };
+
+            OnAttackLightSource    = delegate { };
+            OnLightSourceDestroyed = delegate { };
         }
     }
 }
