@@ -33,6 +33,11 @@ namespace Aster.Core.UI
                 towerOption.SetEnergy(playerEnergy.GetPlayerEnergy());
             }
         }
+        public TowerPickUI[] GetTowerOptions()
+        {
+            return towerOptions;
+        }
+        
         private void OnValidate()
         {
             UpdateTowerPositions();

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3222902280958609765}
   - component: {fileID: 2449936728090331779}
   - component: {fileID: -6682651310392658795}
+  - component: {fileID: 6835934791794599002}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -54,8 +55,14 @@ MonoBehaviour:
   hp:
     _current: 0
     _max: 0
+    _onHPChange:
+      m_PersistentCalls:
+        m_Calls: []
   movement:
     moveSpeed: 5
+  attack:
+    damage: 1
+    initialTimeToAttack: 3
   interactor: {fileID: 0}
 --- !u!54 &2449936728090331779
 Rigidbody:
@@ -96,6 +103,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3051699d4640fc8f5785b8070e0566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6835934791794599002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917282175937161519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1282df9a4264510b7a07e329f498ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerOptionsManager: {fileID: 0}
+  playerEnergy: {fileID: -6682651310392658795}
 --- !u!1 &3216540328443234355
 GameObject:
   m_ObjectHideFlags: 0
