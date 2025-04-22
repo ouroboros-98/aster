@@ -18,12 +18,13 @@ namespace Aster.Core.UI
         private void Start()
         {
             AsterEvents.Instance.OnLightPointAdded += IncrementEnergy;
+            AsterEvents.Instance.OnLightPointRemoved += IncrementEnergyInt;
         }
 
         private void OnDisable()
         {
             AsterEvents.Instance.OnLightPointAdded -= IncrementEnergy;
-
+            AsterEvents.Instance.OnLightPointRemoved -= IncrementEnergyInt;
         }
         private void IncrementEnergy(LightPoint lightPoint)
         {
@@ -33,6 +34,19 @@ namespace Aster.Core.UI
                 towerOption.SetEnergy(playerEnergy.GetPlayerEnergy());
             }
         }
+        private void IncrementEnergyInt(int energy)
+        {
+            textMeshPro.text = playerEnergy.GetPlayerEnergy().ToString();
+            foreach (var towerOption in towerOptions)
+            {
+                towerOption.SetEnergy(playerEnergy.GetPlayerEnergy());
+            }
+        }
+        public TowerPickUI[] GetTowerOptions()
+        {
+            return towerOptions;
+        }
+        
         private void OnValidate()
         {
             UpdateTowerPositions();

@@ -1,4 +1,6 @@
-﻿namespace Aster.Core.UI
+﻿using Aster.Towers;
+
+namespace Aster.Core.UI
 {
     using UnityEngine;
     using TMPro;
@@ -14,9 +16,11 @@
             [SerializeField] private TMP_Text energyText;
 
             // Energy value for which the panel is considered full (100% height).
-            [SerializeField] private float energyThreshold = 50f;
+            [SerializeField] private int energyThreshold = 50;
             
-            [SerializeField] private GameObject model;
+            [SerializeField] private BaseTower model;
+
+            [SerializeField] private RectTransform redPanel;
 
             // The original height of the panel when full.
             private float maxPanelHeight;
@@ -47,7 +51,18 @@
                     energyPanel.sizeDelta = new Vector2(size.x, currentFill * maxPanelHeight);
                 }
             }
-            
+            public RectTransform GetRedPanel()
+            {
+                return redPanel;
+            }
+            public int GetEnergyThreshold()
+            {
+                return energyThreshold;
+            }
+            public BaseTower GetModel()
+            {
+                return model;
+            }
             // This method is executed whenever a change is made in the Editor.
             private void OnValidate()
             {

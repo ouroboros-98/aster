@@ -137,6 +137,33 @@ namespace Aster.Core.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""R1"",
+                    ""type"": ""Button"",
+                    ""id"": ""d077fa1a-defd-4362-bb39-23baf15fa8c3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""L1"",
+                    ""type"": ""Button"",
+                    ""id"": ""e487fab9-c413-48bc-a112-6372ff9a28cc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectTower"",
+                    ""type"": ""Button"",
+                    ""id"": ""e340fd22-ac9d-423d-b544-a330d81de971"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -315,6 +342,72 @@ namespace Aster.Core.InputSystem
                     ""action"": ""RotationInteraction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5cd0679d-ee4e-408d-a686-73ffd4f8d488"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""R1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94419b7c-518c-4192-ba28-185b8f29f4d0"",
+                    ""path"": ""<Keyboard>/period"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""R1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50da39dd-b981-40ad-acb0-9a231498f9de"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""L1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f4b40446-6f57-4555-923d-d2c87005fa31"",
+                    ""path"": ""<Keyboard>/comma"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""L1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10b4215c-04d9-4a6e-899f-6b22361f8cf6"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectTower"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4752e391-6812-4300-b56f-67f4cb62e4c7"",
+                    ""path"": ""<Keyboard>/semicolon"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectTower"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -344,7 +437,7 @@ namespace Aster.Core.InputSystem
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""15cef263-9014-4fd5-94d9-4e4a6234a6ef"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -905,6 +998,9 @@ namespace Aster.Core.InputSystem
             m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
             m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
             m_Player_RotationInteraction = m_Player.FindAction("RotationInteraction", throwIfNotFound: true);
+            m_Player_R1 = m_Player.FindAction("R1", throwIfNotFound: true);
+            m_Player_L1 = m_Player.FindAction("L1", throwIfNotFound: true);
+            m_Player_SelectTower = m_Player.FindAction("SelectTower", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1003,6 +1099,9 @@ namespace Aster.Core.InputSystem
         private readonly InputAction m_Player_Cancel;
         private readonly InputAction m_Player_Rotate;
         private readonly InputAction m_Player_RotationInteraction;
+        private readonly InputAction m_Player_R1;
+        private readonly InputAction m_Player_L1;
+        private readonly InputAction m_Player_SelectTower;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1034,6 +1133,18 @@ namespace Aster.Core.InputSystem
             /// Provides access to the underlying input action "Player/RotationInteraction".
             /// </summary>
             public InputAction @RotationInteraction => m_Wrapper.m_Player_RotationInteraction;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/R1".
+            /// </summary>
+            public InputAction @R1 => m_Wrapper.m_Player_R1;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/L1".
+            /// </summary>
+            public InputAction @L1 => m_Wrapper.m_Player_L1;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/SelectTower".
+            /// </summary>
+            public InputAction @SelectTower => m_Wrapper.m_Player_SelectTower;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1075,6 +1186,15 @@ namespace Aster.Core.InputSystem
                 @RotationInteraction.started += instance.OnRotationInteraction;
                 @RotationInteraction.performed += instance.OnRotationInteraction;
                 @RotationInteraction.canceled += instance.OnRotationInteraction;
+                @R1.started += instance.OnR1;
+                @R1.performed += instance.OnR1;
+                @R1.canceled += instance.OnR1;
+                @L1.started += instance.OnL1;
+                @L1.performed += instance.OnL1;
+                @L1.canceled += instance.OnL1;
+                @SelectTower.started += instance.OnSelectTower;
+                @SelectTower.performed += instance.OnSelectTower;
+                @SelectTower.canceled += instance.OnSelectTower;
             }
 
             /// <summary>
@@ -1101,6 +1221,15 @@ namespace Aster.Core.InputSystem
                 @RotationInteraction.started -= instance.OnRotationInteraction;
                 @RotationInteraction.performed -= instance.OnRotationInteraction;
                 @RotationInteraction.canceled -= instance.OnRotationInteraction;
+                @R1.started -= instance.OnR1;
+                @R1.performed -= instance.OnR1;
+                @R1.canceled -= instance.OnR1;
+                @L1.started -= instance.OnL1;
+                @L1.performed -= instance.OnL1;
+                @L1.canceled -= instance.OnL1;
+                @SelectTower.started -= instance.OnSelectTower;
+                @SelectTower.performed -= instance.OnSelectTower;
+                @SelectTower.canceled -= instance.OnSelectTower;
             }
 
             /// <summary>
@@ -1436,6 +1565,27 @@ namespace Aster.Core.InputSystem
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnRotationInteraction(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "R1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnR1(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "L1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnL1(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "SelectTower" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSelectTower(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
