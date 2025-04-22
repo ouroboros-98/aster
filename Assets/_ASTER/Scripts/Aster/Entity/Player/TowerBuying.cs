@@ -61,7 +61,7 @@ namespace Aster.Entity.Player
             int cost = towerOption.GetEnergyThreshold();
             if (playerEnergy.GetPlayerEnergy() >= cost)
             {
-                playerEnergy.ReducePlayerEnergy(cost);
+                AsterEvents.Instance.OnLightPointRemoved?.Invoke(cost);
                 spawnPoint = transform;
                 var newYSpawn= 0.5f;
                 Instantiate(
