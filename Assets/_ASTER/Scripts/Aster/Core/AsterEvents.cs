@@ -1,5 +1,6 @@
 using System;
 using Aster.Light;
+using UnityEngine;
 
 namespace Aster.Core
 {
@@ -23,6 +24,7 @@ namespace Aster.Core
         public Action<LightPoint> OnLightPointAdded;
         public Action<int> OnAttackLightSource;
         public Action<int> OnLightSourceDestroyed;
+        public Action<Vector3> OnEnemyDeath;
         private AsterEvents()
         {
             OnInteractionBegin         =  delegate { };
@@ -32,6 +34,7 @@ namespace Aster.Core
             OnLightPointAdded =  delegate { };
             OnAttackLightSource =  delegate { };
             OnLightSourceDestroyed =  delegate { };
+            OnEnemyDeath = delegate { };
         }
     }
 }
