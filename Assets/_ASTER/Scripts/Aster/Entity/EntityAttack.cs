@@ -1,4 +1,5 @@
-﻿using Aster.Entity;
+﻿using Aster.Core;
+using Aster.Entity;
 using UnityEngine;
 
 namespace Aster.Entity
@@ -28,7 +29,9 @@ namespace Aster.Entity
             }
             if (_currentTimeToAttack <= 0)
             {
+                
                 Debug.Log("attacking");
+                SoundManager.Instance.Play("EnemyHit", true);
                 _attackProvider.DoAttack(damage);
                 _currentTimeToAttack = initialTimeToAttack;
 
