@@ -24,9 +24,9 @@ namespace Aster.Towers
             return new(hit, blockLight: true);
         }
 
-        public override void OnLightRayExit(LightRay ray)
+        public override void OnLightRayExit(LightRayObject rayObject)
         {
-            lightReceiver.Deregister(ray.Data);
+            lightReceiver.Deregister(rayObject.Data);
         }
     }
 }

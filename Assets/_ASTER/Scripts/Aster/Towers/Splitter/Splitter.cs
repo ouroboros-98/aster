@@ -47,7 +47,7 @@ namespace Aster.Towers
         private readonly float    _angleOffset;
         private readonly float    _originOffset;
         private readonly Splitter _splitterTower;
-        private readonly RayData  _lightRay;
+        private readonly LightRay  _lightRay;
 
         public SplitLightData(LightHit hit, float angleOffset, float originOffset, Splitter splitterTower)
         {
@@ -58,16 +58,16 @@ namespace Aster.Towers
             _lightRay = CreateRay(hit);
         }
 
-        private RayData CreateRay(LightHit hit)
+        private LightRay CreateRay(LightHit hit)
         {
             Vector3 newDir = CalculateDirection(hit);
             Vector3 origin = CalculateOrigin(hit, newDir);
 
-            RayData rayData = hit.Ray.ContinueRay(origin: origin, direction: newDir);
-            rayData.IgnoreHittable(_splitterTower);
-            rayData.ExistsWhen(() => hit.Ray != null && _splitterTower.LightReceiver.IsReceiving(hit.Ray));
+            LightRay ray = hit.Ray.ContinueRay(origin: origin, direction: newDir);
+            ray.IgnoreHittable(_splitterTower);
+            ray.ExistsWhen(() => hit.Ray != null && _splitterTower.LightReceiver.IsReceiving(hit.Ray));
 
-            return rayData;
+            return ray;
         }
 
         private Vector3 CalculateOrigin(LightHit hit, Vector3 newDir) =>

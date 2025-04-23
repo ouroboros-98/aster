@@ -8,7 +8,7 @@ namespace Aster.Light
     {
         public abstract LightHitContext OnLightRayHit(LightHit lightHit);
 
-        public virtual void OnLightRayExit(LightRay ray)
+        public virtual void OnLightRayExit(LightRayObject rayObject)
         {
             // Optional: Implement if needed
         }
@@ -16,13 +16,13 @@ namespace Aster.Light
 
     public readonly struct LightHit
     {
-        public readonly RayData           Ray;
+        public readonly LightRay           Ray;
         public readonly Vector3           HitPoint;
         public readonly BaseLightHittable Hittable;
 
         public readonly float Distance => Vector3.Distance(Ray.Origin, HitPoint);
 
-        public LightHit(RayData ray, Vector3 hitPoint, BaseLightHittable hittable)
+        public LightHit(LightRay ray, Vector3 hitPoint, BaseLightHittable hittable)
         {
             Ray      = ray;
             HitPoint = hitPoint;

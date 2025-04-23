@@ -9,7 +9,7 @@ namespace Aster.Towers
         protected readonly LightReceiver LightReceiver;
         protected readonly Transform     Transform;
 
-        private Dictionary<RayData, T> _manipulations;
+        private Dictionary<LightRay, T> _manipulations;
 
         public LightManipulator(BaseTower tower)
         {
@@ -53,7 +53,7 @@ namespace Aster.Towers
             manipulation = UpdateManipulation(hit, manipulation);
         }
 
-        private void OnDeregister(RayData ray)
+        private void OnDeregister(LightRay ray)
         {
             if (!_manipulations.ContainsKey(ray)) return;
 
@@ -65,6 +65,6 @@ namespace Aster.Towers
 
         protected abstract T    CreateManipulation(LightHit lightHit);
         protected abstract T    UpdateManipulation(LightHit hit, T manipulation);
-        protected abstract void DestroyManipulation(RayData ray, T manipulation);
+        protected abstract void DestroyManipulation(LightRay ray, T manipulation);
     }
 }

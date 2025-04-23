@@ -6,11 +6,11 @@ namespace Aster.Towers
 {
     public class LightReceiver
     {
-        private Dictionary<RayData, LightHit> _lightHits;
+        private Dictionary<LightRay, LightHit> _lightHits;
 
         public event Action<LightHit> Entry        = delegate { };
         public event Action<LightHit> Update       = delegate { };
-        public event Action<RayData>  OnDeregister = delegate { };
+        public event Action<LightRay>  OnDeregister = delegate { };
 
 
         public LightReceiver()
@@ -28,12 +28,12 @@ namespace Aster.Towers
             Update?.Invoke(hit);
         }
 
-        public bool IsReceiving(RayData ray)
+        public bool IsReceiving(LightRay ray)
         {
             return _lightHits.ContainsKey(ray);
         }
 
-        public LightHit this[RayData ray]
+        public LightHit this[LightRay ray]
         {
             get
             {
@@ -44,7 +44,7 @@ namespace Aster.Towers
             }
         }
 
-        public void Deregister(RayData data)
+        public void Deregister(LightRay data)
         {
             _lightHits.Remove(data);
             OnDeregister?.Invoke(data);

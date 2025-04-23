@@ -19,9 +19,8 @@ namespace Aster.Core
 
         [SerializeField, HideInNormalInspector] private bool debug = false;
 
-        protected void ValidateComponent<T>(ref T component,        bool self     = true, bool parents = false,
-                                            bool  children = false, bool optional = false)
-            where T : Component
+        protected void ValidateRawComponent<T>(ref T component,        bool self     = true, bool parents = false,
+                                               bool  children = false, bool optional = false)
         {
             if (component == null)
             {
@@ -35,6 +34,13 @@ namespace Aster.Core
                     Debug.LogError($"Missing component of type {typeof(T)} on {gameObject.name}");
                 }
             }
+        }
+
+        protected void ValidateComponent<T>(ref T component,        bool self     = true, bool parents = false,
+                                            bool  children = false, bool optional = false)
+            where T : Component
+        {
+            ValidateRawComponent<T>(ref component, self, parents, children, optional);
         }
 
         protected void debugPrint(object message)

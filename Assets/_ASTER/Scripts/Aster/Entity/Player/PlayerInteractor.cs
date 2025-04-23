@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Aster.Core;
 using Aster.Utils;
 using DependencyInjection;
@@ -105,7 +106,7 @@ namespace Aster.Entity.Player
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out IInteractable interactable)) return;
+            if (!other.ScanForComponent(out IInteractable interactable, parents: true, children: true)) return;
             this.interactable = interactable;
 
             print("Interactable found");
@@ -113,8 +114,8 @@ namespace Aster.Entity.Player
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.TryGetComponent(out IInteractable interactable)) return;
-            if (this.interactable != interactable) return;
+            if (!other.ScanForComponents(out IInteractable[] interactables, parents: true, children: true)) return;
+            if (!interactables.Contains(interactable)) return;
 
             print("Interactable lost");
             this.interactable = null;

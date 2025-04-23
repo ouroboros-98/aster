@@ -70,7 +70,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   movement:
-    moveSpeed: 2
+    moveSpeed: 0.3
   attack:
     damage: 1
     initialTimeToAttack: 8

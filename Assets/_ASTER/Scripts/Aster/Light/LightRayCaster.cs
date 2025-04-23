@@ -6,13 +6,13 @@ namespace Aster.Light
 {
     public class LightRayCaster : ILightCaster
     {
-        public List<LightHit> GetHits(RayData ray)
+        public List<LightHit> GetHits(LightRay ray)
         {
             List<LightHit> result = new();
 
-            RaycastHit[] hits = Physics.RaycastAll(ray.Origin, ray.Direction, RayData.MAX_DISTANCE);
+            RaycastHit[] hits = Physics.RaycastAll(ray.Origin, ray.Direction, LightRay.MAX_DISTANCE);
 
-            Debug.DrawRay(ray.Origin, ray.Direction * RayData.MAX_DISTANCE, Color.red, 0.005f);
+            Debug.DrawRay(ray.Origin, ray.Direction * LightRay.MAX_DISTANCE, Color.red, 0.005f);
 
             foreach (RaycastHit hit in hits)
             {

@@ -4,11 +4,11 @@ using UnityEngine.PlayerLoop;
 
 namespace Aster.Light
 {
-    public abstract class TransformedRay : RayData
+    public abstract class TransformedRay : LightRay
     {
-        protected RayData SourceRay;
+        protected LightRay SourceRay;
 
-        public TransformedRay(RayData source) : base(source)
+        public TransformedRay(LightRay source) : base(source)
         {
             SourceRay = source;
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,25 +15,25 @@ using UnityEngine.Serialization;
 namespace Aster.Light
 {
     [RequireComponent(typeof(LineRenderer))]
-    public class LightRay : AsterMono, IPoolable
+    public class LightRayObject : AsterMono, IPoolable
     {
         private const float MAX_DISTANCE = 100f;
 
-        [SerializeField, BoxedProperty] private RayData _rayData = null;
+        [FormerlySerializedAs("_rayData")] [SerializeField, BoxedProperty] private LightRay lightRay = null;
 
         private ILightCaster _lightCaster;
 
         private Dictionary<BaseLightHittable, LightHitContext> rayHits = new();
 
-        public RayData Data
+        public LightRay Data
         {
-            get => _rayData;
+            get => lightRay;
             set
             {
                 UnsubscribeRayEvents();
-                _rayData = value;
+                lightRay = value;
                 SubscribeRayEvents();
-                if (_rayData != null) _lineRenderer.enabled = true;
+                if (lightRay != null) _lineRenderer.enabled = true;
             }
         }
 
@@ -66,26 +66,26 @@ namespace Aster.Light
 
         private void SubscribeRayEvents()
         {
-            if (_rayData == null) return;
+            if (lightRay == null) return;
 
-            _rayData.OriginChange   += OnOriginChanged;
-            _rayData.EndPointChange += OnEndPointChanged;
-            _rayData.WidthChange    += OnWidthChanged;
-            _rayData.ColorChange    += OnColorChanged;
-            _rayData.OnDestroy      += OnDestroy;
+            lightRay.OriginChange   += OnOriginChanged;
+            lightRay.EndPointChange += OnEndPointChanged;
+            lightRay.WidthChange    += OnWidthChanged;
+            lightRay.ColorChange    += OnColorChanged;
+            lightRay.OnDestroy      += OnDestroy;
 
-            _rayData.ForceUpdate();
+            lightRay.ForceUpdate();
         }
 
         private void UnsubscribeRayEvents()
         {
-            if (_rayData == null) return;
+            if (lightRay == null) return;
 
-            _rayData.OriginChange   -= OnOriginChanged;
-            _rayData.EndPointChange -= OnEndPointChanged;
-            _rayData.WidthChange    -= OnWidthChanged;
-            _rayData.ColorChange    -= OnColorChanged;
-            _rayData.OnDestroy      -= OnDestroy;
+            lightRay.OriginChange   -= OnOriginChanged;
+            lightRay.EndPointChange -= OnEndPointChanged;
+            lightRay.WidthChange    -= OnWidthChanged;
+            lightRay.ColorChange    -= OnColorChanged;
+            lightRay.OnDestroy      -= OnDestroy;
         }
 
         private void Awake()
@@ -117,7 +117,7 @@ namespace Aster.Light
 
             if (hits.Count == 0)
             {
-                Data.EndPoint = Data.Origin + Data.Direction * RayData.MAX_DISTANCE;
+                Data.EndPoint = Data.Origin + Data.Direction * LightRay.MAX_DISTANCE;
             }
 
             foreach (var hit in hits)
@@ -161,7 +161,7 @@ namespace Aster.Light
 
         private RaycastHit[] GetHits()
         {
-            return Physics.RaycastAll(Data.Origin, Data.Direction, RayData.MAX_DISTANCE);
+            return Physics.RaycastAll(Data.Origin, Data.Direction, LightRay.MAX_DISTANCE);
         }
 
         void OnOriginChanged(Vector3   value) => _lineRenderer?.SetPosition(0, value);
@@ -177,6 +177,6 @@ namespace Aster.Light
             RayPool.Instance.Return(this);
         }
 
-        public static implicit operator RayData(LightRay lightRay) => lightRay._rayData;
+        public static implicit operator LightRay(LightRayObject lightRayObject) => lightRayObject.lightRay;
     }
 }

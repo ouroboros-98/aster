@@ -15,7 +15,7 @@ namespace Aster.Towers
         }
 
         private readonly Mirror               _mirror;
-        private          IPool<LightRay>      _rayPool;
+        private          IPool<LightRayObject>      _rayPool;
         private          MirrorTransformation _mirrorTransformation;
 
         public MirrorManipulator(Mirror mirror) : base(mirror)
@@ -42,7 +42,7 @@ namespace Aster.Towers
             return reflection;
         }
 
-        protected override void DestroyManipulation(RayData ray, ReflectedRay reflection)
+        protected override void DestroyManipulation(LightRay ray, ReflectedRay reflection)
         {
             reflection.Destroy();
         }

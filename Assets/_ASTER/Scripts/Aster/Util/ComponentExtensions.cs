@@ -10,9 +10,9 @@ namespace Aster.Utils
                                                out  T         outComponent,
                                                bool           self     = true,
                                                bool           parents  = false,
-                                               bool           children = false) where T : Component
+                                               bool           children = false)
         {
-            outComponent = null;
+            outComponent = default(T);
 
             if (self)
             {
@@ -39,7 +39,7 @@ namespace Aster.Utils
                                                 out  T[]       outComponents,
                                                 bool           self     = true,
                                                 bool           parents  = false,
-                                                bool           children = false) where T : Component
+                                                bool           children = false)
         {
             HashSet<T> components = new();
 

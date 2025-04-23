@@ -7,9 +7,9 @@ namespace Aster.Light
 {
     public class RayManager : AsterMono
     {
-        private IPool<LightRay> rayPool;
+        private IPool<LightRayObject> rayPool;
 
-        private HashSet<RayData> _activeRays;
+        private HashSet<LightRay> _activeRays;
 
 
         private void Awake()
@@ -24,11 +24,11 @@ namespace Aster.Light
             GameEvents.OnRayCreated -= OnRayCreated;
         }
 
-        private void OnRayCreated(RayData ray)
+        private void OnRayCreated(LightRay ray)
         {
-            LightRay lightRay = rayPool.Get();
+            LightRayObject lightRayObject = rayPool.Get();
 
-            lightRay.Data = ray;
+            lightRayObject.Data = ray;
         }
     }
 }

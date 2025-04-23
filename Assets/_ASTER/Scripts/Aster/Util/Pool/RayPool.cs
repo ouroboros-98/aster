@@ -2,7 +2,7 @@
 
 namespace Aster.Utils.Pool
 {
-    public class RayPool : AsterPool<LightRay>
+    public class RayPool : AsterPool<LightRayObject>
     {
         
     }

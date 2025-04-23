@@ -1,4 +1,5 @@
 ﻿using Aster.Utils.Pool;
+using UnityEngine.Serialization;
 
 namespace Aster.Light
 {
@@ -6,11 +7,11 @@ namespace Aster.Light
 
     public class LightRaySpawner : MonoBehaviour
     {
-        [SerializeField] private LightRay lightRayPrefab;
+        [FormerlySerializedAs("lightRayPrefab")] [SerializeField] private LightRayObject lightRayObjectPrefab;
 
-        [SerializeField] private RayData rayData = new();
+        [FormerlySerializedAs("rayData")] [SerializeField] private LightRay ray = new();
 
-        [SerializeField] private LightRay rayObject;
+        [SerializeField] private LightRayObject rayObject;
 
         private Vector3    lastPosition;
         private Quaternion lastRotation;
@@ -21,13 +22,13 @@ namespace Aster.Light
             lastPosition = transform.position;
             lastRotation = transform.rotation;
             
-            rayData = new(rayData);
+            ray = new(ray);
         }
 
         private void FixedUpdate()
         {
-            rayData.Origin    = transform.position;
-            rayData.Direction = transform.forward;
+            ray.Origin    = transform.position;
+            ray.Direction = transform.forward;
         }
     }
 }

@@ -9,21 +9,21 @@ namespace Aster.Light
     {
         public void Apply(LightHit hit) => Apply(hit, hit.Ray);
 
-        public virtual void Apply(LightHit hit, RayData rayOut)
+        public virtual void Apply(LightHit hit, LightRay lightRayOut)
         {
-            RayData rayIn = hit.Ray;
+            LightRay lightRayIn = hit.Ray;
 
-            rayOut.Direction = ApplyDirection(hit, rayIn, rayIn.Direction);
-            rayOut.Origin    = ApplyOrigin(hit, rayIn, rayIn.Origin);
-            rayOut.Intensity = ApplyIntensity(hit, rayIn, rayIn.Intensity);
-            rayOut.Width     = ApplyWidth(hit, rayIn, rayIn.Width);
-            rayOut.Color     = ApplyColor(hit, rayIn, rayIn.Color);
+            lightRayOut.Direction = ApplyDirection(hit, lightRayIn, lightRayIn.Direction);
+            lightRayOut.Origin    = ApplyOrigin(hit, lightRayIn, lightRayIn.Origin);
+            lightRayOut.Intensity = ApplyIntensity(hit, lightRayIn, lightRayIn.Intensity);
+            lightRayOut.Width     = ApplyWidth(hit, lightRayIn, lightRayIn.Width);
+            lightRayOut.Color     = ApplyColor(hit, lightRayIn, lightRayIn.Color);
         }
 
-        public RayData ContinueRay(LightHit hit)
+        public LightRay ContinueRay(LightHit hit)
         {
-            RayData ray             = hit.Ray;
-            RayData continuationRay = hit.Ray.ContinueRay();
+            LightRay ray             = hit.Ray;
+            LightRay continuationRay = hit.Ray.ContinueRay();
 
             Apply(hit, continuationRay);
 
@@ -32,10 +32,10 @@ namespace Aster.Light
             return continuationRay;
         }
 
-        protected virtual Vector3 ApplyOrigin(LightHit    hit, RayData ray, Vector3 origin)    => origin;
-        protected virtual Vector3 ApplyDirection(LightHit hit, RayData ray, Vector3 direction) => direction;
-        protected virtual float   ApplyIntensity(LightHit hit, RayData ray, float   intensity) => intensity;
-        protected virtual float   ApplyWidth(LightHit     hit, RayData ray, float   width)     => width;
-        protected virtual Color   ApplyColor(LightHit     hit, RayData ray, Color   color)     => color;
+        protected virtual Vector3 ApplyOrigin(LightHit    hit, LightRay ray, Vector3 origin)    => origin;
+        protected virtual Vector3 ApplyDirection(LightHit hit, LightRay ray, Vector3 direction) => direction;
+        protected virtual float   ApplyIntensity(LightHit hit, LightRay ray, float   intensity) => intensity;
+        protected virtual float   ApplyWidth(LightHit     hit, LightRay ray, float   width)     => width;
+        protected virtual Color   ApplyColor(LightHit     hit, LightRay ray, Color   color)     => color;
     }
 }
