@@ -21,7 +21,7 @@ namespace Aster.Core
         public Action<InteractionContext>              OnInteractionBegin;
         public Action<RotationInteractionContext> OnRotationInteractionBegin;
         public Action<InteractionContext>              OnInteractionEnd;
-        public Action<LightPoint> OnLightPointAdded;
+        public Action<int> OnLightPointAdded;
         public Action<int> OnLightPointRemoved;
         public Action<int> OnAttackLightSource;
         public Action<int> OnLightSourceDestroyed;

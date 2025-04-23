@@ -21,7 +21,7 @@ namespace Aster.Entity.Player
             AsterEvents.Instance.OnLightPointRemoved -= ReducePlayerEnergy;
         }
 
-        private void IncrementEnergy(LightPoint obj)
+        private void IncrementEnergy(int energy)
         {
             _playerEnergy++; 
         }

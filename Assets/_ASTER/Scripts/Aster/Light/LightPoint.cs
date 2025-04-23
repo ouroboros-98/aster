@@ -18,6 +18,7 @@ namespace Aster.Light
         {
             if (other.gameObject.CompareTag("Player"))
             {
+                SoundManager.Instance.Play("EnergyTaken");
                 StartMovingToLightSource();
             }
         }
@@ -45,8 +46,8 @@ namespace Aster.Light
         private void ArriveAtLightSource()
         {
             Debug.Log("ArriveAtLightSource");
-            AsterEvents.Instance.OnLightPointAdded?.Invoke(this);
-            Destroy(gameObject); 
+            AsterEvents.Instance.OnLightPointAdded?.Invoke(1);
+            Reset();
         }
 
         public void Reset()

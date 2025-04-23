@@ -26,7 +26,7 @@ namespace Aster.Core.UI
             AsterEvents.Instance.OnLightPointAdded -= IncrementEnergy;
             AsterEvents.Instance.OnLightPointRemoved -= IncrementEnergyInt;
         }
-        private void IncrementEnergy(LightPoint lightPoint)
+        private void IncrementEnergy(int energy)
         {
             textMeshPro.text = playerEnergy.GetPlayerEnergy().ToString();
             foreach (var towerOption in towerOptions)
