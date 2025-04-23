@@ -41,7 +41,7 @@ namespace Aster.Core
             Sound s = Array.Find(sounds, sound => sound.name == name);
             if (randomPitch)
             {
-                s.source.pitch = UnityEngine.Random.Range(0.3f, 1.1f);
+                s.source.pitch = Random.Range(0.5f, 1.3f);
             }
             s.source.Play();
         }
