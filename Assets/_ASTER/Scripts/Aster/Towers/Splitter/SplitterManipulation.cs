@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Aster.Towers
 {
-    public class SplitterRayTransformation : RayTransformation
+    public class SplitterManipulation : CompositeRayManipulation
     {
         private readonly int      _index;
         private readonly Splitter _splitterTower;
@@ -13,30 +13,30 @@ namespace Aster.Towers
 
         private SplitterParameters Parameters => _splitterTower.Parameters;
 
-        public SplitterRayTransformation(Splitter splitterTower, int index) :
+        public SplitterManipulation(Splitter splitterTower, int index) :
             base()
         {
             _splitterTower = splitterTower;
             _index         = index;
             _angleOffset   = CalculateAngleOffset();
+
+            Append(Manipulate.Intensity(ApplyIntensity));
+            Append(Manipulate.Direction(ApplyDirection));
+            Append(Manipulate.Origin(ApplyOrigin));
         }
 
-        protected override float ApplyIntensity(LightHit hit, LightRay ray, float intensity) =>
-            intensity / Parameters.SplitCount;
+        private float ApplyIntensity(LightRay rayIn) =>
+            rayIn.Intensity / Parameters.SplitCount;
 
-        protected override Vector3 ApplyDirection(LightHit hit, LightRay ray, Vector3 direction)
+        private Vector3 ApplyDirection(LightRay ray) =>
+            Quaternion.AngleAxis(_angleOffset, Vector3.up) * ray.Direction;
+
+        private Vector3 ApplyOrigin(LightRay ray)
         {
-            // float offset  = _angleOffset;
-            // float baseDir = ((Vector3)(ray.Direction)).XZ().ToAngle();
-
-            return Quaternion.AngleAxis(_angleOffset, Vector3.up) * ray.Direction;
-        }
-
-        protected override Vector3 ApplyOrigin(LightHit hit, LightRay ray, Vector3 origin)
-        {
+            Vector3 origin              = ray.Origin;
             Vector3 towerOrigin         = _splitterTower.transform.position;
             Vector3 adjustedTowerOrigin = towerOrigin.With(y: origin.y);
-                
+
             return adjustedTowerOrigin + ray.Direction * Parameters.SpawnOffsetDistance;
         }
 

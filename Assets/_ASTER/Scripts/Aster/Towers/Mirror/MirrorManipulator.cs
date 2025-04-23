@@ -7,28 +7,28 @@ namespace Aster.Towers
 {
     public class MirrorManipulator : LightManipulator<MirrorManipulator.ReflectedRay>
     {
-        public class ReflectedRay : ContinuedRay<MirrorTransformation>
+        public class ReflectedRay : ContinuedRay<MirrorManipulation>
         {
-            public ReflectedRay(LightHit source, MirrorTransformation transformation) : base(source, transformation)
+            public ReflectedRay(LightHit source, MirrorManipulation manipulation) : base(source, manipulation)
             {
             }
         }
 
         private readonly Mirror               _mirror;
         private          IPool<LightRayObject>      _rayPool;
-        private          MirrorTransformation _mirrorTransformation;
+        private          MirrorManipulation _mirrorManipulation;
 
         public MirrorManipulator(Mirror mirror) : base(mirror)
         {
             _mirror = mirror;
 
             _rayPool              = RayPool.Instance;
-            _mirrorTransformation = new MirrorTransformation(mirror.transform);
+            _mirrorManipulation = new MirrorManipulation(mirror.transform);
         }
 
         protected override ReflectedRay CreateManipulation(LightHit lightHit)
         {
-            ReflectedRay reflectionData = new(lightHit, _mirrorTransformation);
+            ReflectedRay reflectionData = new(lightHit, _mirrorManipulation);
 
             reflectionData.IgnoreHittable(_mirror);
 

@@ -11,7 +11,7 @@ namespace Aster.Towers
         private readonly Splitter           _splitterTower;
         private readonly SplitterParameters _splitterParameters;
 
-        private SplitterRayTransformation[] _splitterTransformations;
+        private SplitterManipulation[] _splitterTransformations;
 
         public SplitterManipulator(Splitter splitter) : base(splitter)
         {
@@ -25,11 +25,11 @@ namespace Aster.Towers
         {
             int count = _splitterParameters.SplitCount;
 
-            _splitterTransformations = new SplitterRayTransformation[count];
+            _splitterTransformations = new SplitterManipulation[count];
 
             for (int i = 0; i < count; i++)
             {
-                _splitterTransformations[i] = new SplitterRayTransformation(_splitterTower, i);
+                _splitterTransformations[i] = new SplitterManipulation(_splitterTower, i);
             }
         }
 

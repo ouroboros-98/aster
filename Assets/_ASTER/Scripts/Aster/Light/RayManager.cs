@@ -16,12 +16,12 @@ namespace Aster.Light
         {
             rayPool = RayPool.Instance;
 
-            GameEvents.OnRayCreated += OnRayCreated;
+            GameEvents.OnRayActivated += OnRayCreated;
         }
 
         private void OnDestroy()
         {
-            GameEvents.OnRayCreated -= OnRayCreated;
+            GameEvents.OnRayActivated -= OnRayCreated;
         }
 
         private void OnRayCreated(LightRay ray)

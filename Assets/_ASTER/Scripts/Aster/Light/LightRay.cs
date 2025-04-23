@@ -124,35 +124,29 @@ namespace Aster.Light
 
         private void OnDirectionChange(Vector3Normalized direction) => EndPoint = _origin + direction * MAX_DISTANCE;
 
-        public LightRay()
+        public LightRay(bool activate = true)
         {
-            IsActive = true;
-
             DirectionChange += OnDirectionChange;
 
-            existencePredicates = new();
             ignoreHittables     = new();
+            existencePredicates = new();
 
-            AsterEvents.Instance.OnRayCreated?.Invoke(this);
+            if (activate) Activate();
         }
 
-        public LightRay(LightRay source) : base()
+        public LightRay(LightRay source, bool activate = true) : this(false)
         {
+            Set(source);
+
+            if (activate) Activate();
+        }
+
+        public void Activate()
+        {
+            if (IsActive) return;
+
             IsActive = true;
-
-            DirectionChange += OnDirectionChange;
-
-            _origin    = source._origin;
-            _endPoint  = source._endPoint;
-            _direction = source._direction;
-            _intensity = source._intensity;
-            _width     = source._width;
-            _color     = source._color;
-
-            existencePredicates = new();
-            ignoreHittables     = new();
-
-            AsterEvents.Instance.OnRayCreated?.Invoke(this);
+            AsterEvents.Instance.OnRayActivated?.Invoke(this);
         }
 
         private void RecalculateDirection() => _direction = Direction;
@@ -170,6 +164,16 @@ namespace Aster.Light
             IntensityChange?.Invoke(_intensity);
             WidthChange?.Invoke(_width);
             ColorChange?.Invoke(_color);
+        }
+
+        public void Set(LightRay ray)
+        {
+            this.Origin    = ray.Origin;
+            this.Direction = ray.Direction;
+            this.Intensity = ray.Intensity;
+            this.Width     = ray.Width;
+            this.Color     = ray.Color;
+            this.EndPoint  = ray.EndPoint;
         }
 
         public void IgnoreHittable(BaseLightHittable hittable)

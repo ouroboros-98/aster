@@ -2,9 +2,9 @@ using Aster.Light;
 
 namespace Aster.Towers
 {
-    public class SplittedRay : ContinuedRay<SplitterRayTransformation>
+    public class SplittedRay : ContinuedRay<SplitterManipulation>
     {
-        public SplittedRay(LightHit source, SplitterRayTransformation transformation) : base(source, transformation)
+        public SplittedRay(LightHit source, SplitterManipulation manipulation) : base(source, manipulation)
         {
         }
     }

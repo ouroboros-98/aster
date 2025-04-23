@@ -17,7 +17,7 @@ namespace Aster.Core
             }
         }
 
-        public Action<LightRay> OnRayCreated;
+        public Action<LightRay> OnRayActivated;
 
         public Action<InteractionContext>         OnInteractionBegin;
         public Action<RotationInteractionContext> OnRotationInteractionBegin;
@@ -30,7 +30,7 @@ namespace Aster.Core
 
         private AsterEvents()
         {
-            OnRayCreated = delegate { };
+            OnRayActivated = delegate { };
 
             OnInteractionBegin         =  delegate { };
             OnInteractionEnd           =  delegate { };
