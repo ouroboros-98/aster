@@ -1,4 +1,5 @@
 ﻿using System;
+using Aster.Utils.Pool;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
@@ -28,8 +29,7 @@ namespace Aster.Core
         {
             if (Random.value < chanceToDrop)
             {
-                Instantiate(lightPointPrefab, enemyPos, Quaternion.identity); 
-                // TODO: CHANGE TO POOLING
+                EnergyPool.Instance.Get(enemyPos, Quaternion.identity);
             }
         }
     }
