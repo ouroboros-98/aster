@@ -9,7 +9,7 @@ namespace Aster.Light
     {
         private IPool<LightRayObject> rayPool;
 
-        private HashSet<LightRay> _activeRays;
+        private HashSet<ILightRay> _activeRays;
 
 
         private void Awake()
@@ -24,7 +24,7 @@ namespace Aster.Light
             GameEvents.OnRayActivated -= OnRayCreated;
         }
 
-        private void OnRayCreated(LightRay ray)
+        private void OnRayCreated(ILightRay ray)
         {
             LightRayObject lightRayObject = rayPool.Get();
 

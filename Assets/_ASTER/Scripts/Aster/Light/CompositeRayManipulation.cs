@@ -21,7 +21,7 @@ namespace Aster.Light
             _manipulations = new(compositeRayManipulation._manipulations);
         }
 
-        public override void Apply(LightHit hit, LightRay rayIn, LightRay rayOut)
+        public override void Apply(LightHit hit, ILightRay rayIn, ILightRay rayOut)
         {
             if (_manipulations.Count == 0) return;
 

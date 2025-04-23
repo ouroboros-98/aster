@@ -1,4 +1,5 @@
-﻿using Aster.Utils.Pool;
+﻿using System.Collections;
+using Aster.Utils.Pool;
 using UnityEngine.Serialization;
 
 namespace Aster.Light
@@ -9,7 +10,7 @@ namespace Aster.Light
     {
         [FormerlySerializedAs("lightRayPrefab")] [SerializeField] private LightRayObject lightRayObjectPrefab;
 
-        [FormerlySerializedAs("rayData")] [SerializeField] private LightRay ray = new();
+        [FormerlySerializedAs("rayData")] [SerializeField] private ILightRay ray = new LightRay();
 
         [SerializeField] private LightRayObject rayObject;
 
@@ -21,8 +22,8 @@ namespace Aster.Light
         {
             lastPosition = transform.position;
             lastRotation = transform.rotation;
-            
-            ray = new(ray);
+
+            ray = ray.Clone();
         }
 
         private void FixedUpdate()

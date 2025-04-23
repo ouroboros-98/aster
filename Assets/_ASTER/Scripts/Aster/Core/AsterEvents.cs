@@ -17,7 +17,7 @@ namespace Aster.Core
             }
         }
 
-        public Action<LightRay> OnRayActivated;
+        public Action<ILightRay> OnRayActivated;
 
         public Action<InteractionContext>         OnInteractionBegin;
         public Action<RotationInteractionContext> OnRotationInteractionBegin;

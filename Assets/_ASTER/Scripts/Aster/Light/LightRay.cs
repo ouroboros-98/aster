@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Aster.Light
 {
     [System.Serializable]
-    public class LightRay
+    public class LightRay : ILightRay
     {
         public static readonly Color DEFAULT_COLOR = Color.white;
 
@@ -134,7 +134,7 @@ namespace Aster.Light
             if (activate) Activate();
         }
 
-        public LightRay(LightRay source, bool activate = true) : this(false)
+        public LightRay(ILightRay source, bool activate = true) : this(false)
         {
             Set(source);
 
@@ -166,7 +166,7 @@ namespace Aster.Light
             ColorChange?.Invoke(_color);
         }
 
-        public void Set(LightRay ray)
+        public void Set(ILightRay ray)
         {
             this.Origin    = ray.Origin;
             this.Direction = ray.Direction;
@@ -198,6 +198,17 @@ namespace Aster.Light
 
             Destroy();
             return false;
+        }
+
+        public ILightRay Clone(bool activated = true) => new LightRay(this, activated);
+
+        public ILightRay Continue()
+        {
+            if (!IsActive) return null;
+
+            ILightRay ray = Clone();
+            this.OnDestroy += ray.Destroy;
+            return ray;
         }
     }
 }

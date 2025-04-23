@@ -45,7 +45,7 @@ namespace Aster.Towers
             return splittedRays;
         }
 
-        protected override void DestroyManipulation(LightRay ray, List<SplittedRay> splitRays)
+        protected override void DestroyManipulation(ILightRay ray, List<SplittedRay> splitRays)
         {
             splitRays.ForEach(outRay => outRay.Destroy());
             splitRays.Clear();

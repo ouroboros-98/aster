@@ -6,7 +6,7 @@ namespace Aster.Light
 {
     public class LightRayCaster : ILightCaster
     {
-        public List<LightHit> GetHits(LightRay ray)
+        public List<LightHit> GetHits(ILightRay ray)
         {
             List<LightHit> result = new();
 

@@ -28,7 +28,7 @@ namespace Aster.Towers
             Append(ApplyDirection);
         }
 
-        private Vector3 ReflectDirection(LightRay rayIn)
+        private Vector3 ReflectDirection(ILightRay rayIn)
         {
             return Vector3.Reflect(rayIn.Direction, _transform.forward);
         }

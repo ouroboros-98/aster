@@ -16,13 +16,13 @@ namespace Aster.Light
 
     public readonly struct LightHit
     {
-        public readonly LightRay           Ray;
+        public readonly ILightRay         Ray;
         public readonly Vector3           HitPoint;
         public readonly BaseLightHittable Hittable;
 
         public readonly float Distance => Vector3.Distance(Ray.Origin, HitPoint);
 
-        public LightHit(LightRay ray, Vector3 hitPoint, BaseLightHittable hittable)
+        public LightHit(ILightRay ray, Vector3 hitPoint, BaseLightHittable hittable)
         {
             Ray      = ray;
             HitPoint = hitPoint;

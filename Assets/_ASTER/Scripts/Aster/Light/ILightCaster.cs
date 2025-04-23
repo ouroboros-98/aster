@@ -4,6 +4,6 @@ namespace Aster.Light
 {
     public interface ILightCaster
     {
-        List<LightHit> GetHits(LightRay ray);
+        List<LightHit> GetHits(ILightRay ray);
     }
 }

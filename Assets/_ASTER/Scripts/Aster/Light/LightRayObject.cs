@@ -19,13 +19,13 @@ namespace Aster.Light
     {
         private const float MAX_DISTANCE = 100f;
 
-        [FormerlySerializedAs("_rayData")] [SerializeField, BoxedProperty] private LightRay lightRay = null;
+        [FormerlySerializedAs("_rayData")] [SerializeField, BoxedProperty] private ILightRay lightRay = null;
 
         private ILightCaster _lightCaster;
 
         private Dictionary<BaseLightHittable, LightHitContext> rayHits = new();
 
-        public LightRay Data
+        public ILightRay Data
         {
             get => lightRay;
             set
@@ -124,7 +124,7 @@ namespace Aster.Light
             {
                 if (Data.CheckIgnoreHittable(hit.Hittable)) continue;
 
-                var hitContext = hit.Hittable.OnLightRayHit(new(this, hit.HitPoint, hit.Hittable));
+                var hitContext = hit.Hittable.OnLightRayHit(new(this.lightRay, hit.HitPoint, hit.Hittable));
 
                 hittables.Add(hit.Hittable);
 
@@ -176,7 +176,5 @@ namespace Aster.Light
 
             RayPool.Instance.Return(this);
         }
-
-        public static implicit operator LightRay(LightRayObject lightRayObject) => lightRayObject.lightRay;
     }
 }

@@ -25,13 +25,13 @@ namespace Aster.Towers
             Append(Manipulate.Origin(ApplyOrigin));
         }
 
-        private float ApplyIntensity(LightRay rayIn) =>
+        private float ApplyIntensity(ILightRay rayIn) =>
             rayIn.Intensity / Parameters.SplitCount;
 
-        private Vector3 ApplyDirection(LightRay ray) =>
+        private Vector3 ApplyDirection(ILightRay ray) =>
             Quaternion.AngleAxis(_angleOffset, Vector3.up) * ray.Direction;
 
-        private Vector3 ApplyOrigin(LightRay ray)
+        private Vector3 ApplyOrigin(ILightRay ray)
         {
             Vector3 origin              = ray.Origin;
             Vector3 towerOrigin         = _splitterTower.transform.position;

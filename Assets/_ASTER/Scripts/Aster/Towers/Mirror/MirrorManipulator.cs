@@ -42,7 +42,7 @@ namespace Aster.Towers
             return reflection;
         }
 
-        protected override void DestroyManipulation(LightRay ray, ReflectedRay reflection)
+        protected override void DestroyManipulation(ILightRay ray, ReflectedRay reflection)
         {
             reflection.Destroy();
         }

@@ -7,9 +7,9 @@ namespace Aster.Light
 {
     public abstract partial class RayManipulation
     {
-        public abstract void Apply(LightHit hit, LightRay rayIn, LightRay rayOut);
-        public          void Apply(LightHit hit, LightRay rayOut) => Apply(hit, hit.Ray, rayOut);
-        public          void Apply(LightHit hit) => Apply(hit, hit.Ray);
+        public abstract void Apply(LightHit hit, ILightRay rayIn, ILightRay rayOut);
+        public          void Apply(LightHit hit, ILightRay rayOut) => Apply(hit, hit.Ray, rayOut);
+        public          void Apply(LightHit hit)  => Apply(hit, hit.Ray);
 
         public LightRay GetManipulatedRay(LightHit hit, LightRay rayIn)
         {
@@ -20,10 +20,10 @@ namespace Aster.Light
             return rayOut;
         }
 
-        public LightRay ContinueRay(LightHit hit)
+        public ILightRay ContinueRay(LightHit hit)
         {
-            LightRay ray             = hit.Ray;
-            LightRay continuationRay = hit.Ray.ContinueRay();
+            ILightRay ray             = hit.Ray;
+            ILightRay continuationRay = hit.Ray.Continue();
 
             Apply(hit, continuationRay);
 

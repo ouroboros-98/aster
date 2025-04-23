@@ -6,7 +6,7 @@ namespace Aster.Utils
 {
     public static class RayDataExtensions
     {
-        public static LightRay ContinueRay(this LightRay ray,          Vector3? origin = null, Vector3? direction = null,
+        public static LightRay ContinueRay(this ILightRay ray,          Vector3? origin = null, Vector3? direction = null,
                                           Color?       color = null, float?   width  = null, float?   intensity = null)
         {
             LightRay newRay = new()
