@@ -12,7 +12,8 @@ namespace Aster.Towers
         [Inject] private RotationController _rotationController;
         [Inject] private InputHandler       _inputHandler;
 
-        private IRotatatble  _rotatable;
+        private IRotatatble  _emitterRotatable;
+        private IRotatatble  _currentRotatable;
         private TargetingRay _targetingRay;
         private Angle        _targetAngle;
 
@@ -20,8 +21,8 @@ namespace Aster.Towers
 
         private void Awake()
         {
-            _rotatable    = GetComponent<IRotatatble>();
-            _targetingRay = null;
+            _emitterRotatable = GetComponent<IRotatatble>();
+            _targetingRay     = null;
         }
 
         private void OnEnable()
@@ -38,7 +39,7 @@ namespace Aster.Towers
 
         private void OnInteractionEnd(InteractionContext obj)
         {
-            if (obj.Interactable != _rotatable) return;
+            if (obj.Interactable != _currentRotatable) return;
 
             _targetingRay.Destroy();
             _targetingRay                            =  null;
@@ -47,30 +48,34 @@ namespace Aster.Towers
 
         private void OnRotationInteractionBegin(RotationInteractionContext context)
         {
-            if (context.Interactable != _rotatable) return;
+            _currentRotatable = context.Interactable;
 
             _rotationController.OnTargetAngleChanged += UpdateTargetAngle;
             _targetingRay                            =  new();
 
-            UpdateTargetAngle(context.Interactable.RotationHandler.CurrentAngle);
+            _targetAngle = _emitterRotatable.RotationHandler.CurrentAngle;
+
+            UpdateTargetingRay();
         }
 
         private void UpdateTargetAngle(Angle angle)
         {
+            if (_currentRotatable != _emitterRotatable) return;
+
             _targetAngle = angle;
 
             UpdateTargetingRay();
         }
 
-        public void UpdateTargetingRay()
+        private void UpdateTargetingRay()
         {
             if (_targetingRay == null) return;
 
-            float radius = _rotatable.Radius;
+            float radius = _emitterRotatable.Radius;
 
             Vector3 direction = Quaternion.Euler(0, _targetAngle, 0) * Vector3.forward;
 
-            Vector3 baseOrigin = _rotatable.RotationTransform.position.With(y: transform.position.y);
+            Vector3 baseOrigin = _emitterRotatable.RotationTransform.position.With(y: transform.position.y);
             Vector3 rayOrigin  = baseOrigin + (direction * radius);
 
             debugPrint($"TargetAngle: {_targetAngle}, , Direction: {direction}, BaseOrigin: {baseOrigin}, RayOrigin: {rayOrigin}");

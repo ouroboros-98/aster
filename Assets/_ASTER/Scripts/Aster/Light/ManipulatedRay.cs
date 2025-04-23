@@ -11,7 +11,6 @@ namespace Aster.Light
         private readonly ILightRay       _innerRay;
         private          RayManipulation _manipulation;
 
-
         public ManipulatedRay(ILightRay innerRay, RayManipulation manipulation) : base()
         {
             _innerRay     = innerRay;

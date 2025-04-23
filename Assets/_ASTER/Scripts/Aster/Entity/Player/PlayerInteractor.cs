@@ -106,10 +106,16 @@ namespace Aster.Entity.Player
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.ScanForComponent(out IInteractable interactable, parents: true, children: true)) return;
-            this.interactable = interactable;
+            if (!other.ScanForComponents(out IInteractable[] interactables, parents: true, children: true)) return;
 
-            print("Interactable found");
+            foreach (IInteractable interactable in interactables)
+            {
+                if (interactable.GameObject.CompareTag("Targeting")) continue;
+
+                this.interactable = interactable;
+
+                print("Interactable found");
+            }
         }
 
         private void OnTriggerExit(Collider other)

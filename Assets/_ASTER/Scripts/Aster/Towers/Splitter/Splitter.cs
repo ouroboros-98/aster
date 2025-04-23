@@ -1,7 +1,4 @@
-﻿using System;
-using Aster.Light;
-using Aster.Utils;
-using Aster.Utils.Attributes;
+﻿using Aster.Utils.Attributes;
 using Aster.Utils.Pool;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -39,57 +36,6 @@ namespace Aster.Towers
         {
             splitterManipulator?.Unbind();
             splitterManipulator = new(this);
-        }
-    }
-
-    public class SplitLightData : IDisposable
-    {
-        private readonly float    _angleOffset;
-        private readonly float    _originOffset;
-        private readonly Splitter _splitterTower;
-        private readonly ILightRay  _lightRay;
-
-        public SplitLightData(LightHit hit, float angleOffset, float originOffset, Splitter splitterTower)
-        {
-            _angleOffset   = angleOffset;
-            _originOffset  = originOffset;
-            _splitterTower = splitterTower;
-
-            _lightRay = CreateRay(hit);
-        }
-
-        private ILightRay CreateRay(LightHit hit)
-        {
-            Vector3 newDir = CalculateDirection(hit);
-            Vector3 origin = CalculateOrigin(hit, newDir);
-
-            ILightRay ray = hit.Ray.ContinueRay(origin: origin, direction: newDir);
-            ray.IgnoreHittable(_splitterTower);
-            ray.ExistsWhen(() => hit.Ray != null && _splitterTower.LightReceiver.IsReceiving(hit.Ray));
-
-            return ray;
-        }
-
-        private Vector3 CalculateOrigin(LightHit hit, Vector3 newDir) =>
-            hit.HitPoint + newDir.normalized * _originOffset;
-
-        private Vector3 CalculateDirection(LightHit hit) =>
-            Quaternion.AngleAxis(_angleOffset, Vector3.up) * hit.Ray.Direction;
-
-        public void Update(LightHit hit)
-        {
-            _lightRay.Direction = CalculateDirection(hit);
-            _lightRay.Origin    = CalculateOrigin(hit, _lightRay.Direction);
-        }
-
-        public void Destroy()
-        {
-            _lightRay.Destroy();
-        }
-
-        public void Dispose()
-        {
-            Destroy();
         }
     }
 }

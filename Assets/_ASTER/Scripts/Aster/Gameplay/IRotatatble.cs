@@ -15,5 +15,6 @@ namespace Aster.Core
             InputAction inputAction = input.RotationInteraction;
             return inputAction.WasPressedThisFrame();
         }
+        
     }
 }

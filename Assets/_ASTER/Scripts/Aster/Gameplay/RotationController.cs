@@ -106,6 +106,8 @@ namespace Aster.Core
             this.targetAngle = normalizedAngle;
 
             OnTargetAngleChanged?.Invoke(targetAngle);
+            
+            RotationHandler.ActiveTargetingAngle = targetAngle;
         }
 
         private Vector2 GetTargetDirection() => inputHandler.Rotation;

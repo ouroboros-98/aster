@@ -18,8 +18,15 @@ namespace Aster.Core
 
         [SerializeField, Range(0, 50f), Tooltip("0 for instant rotation")] private float rotationSpeed = 2;
 
+        public float RotationSpeed
+        {
+            get => rotationSpeed;
+            set => rotationSpeed = value;
+        }
+
         private Angle _currentAngle;
         private Angle _targetAngle;
+        private Angle _activeTargetingAngle;
 
         private RotationData _currentRotation;
         private Transform    _transform;
@@ -30,7 +37,14 @@ namespace Aster.Core
 
         public Angle CurrentAngle => _currentAngle;
         public Angle TargetAngle  => _targetAngle;
-        public bool  IsRotating   => _currentRotation is { IsFinished: false };
+
+        public Angle ActiveTargetingAngle
+        {
+            get => _activeTargetingAngle;
+            set => _activeTargetingAngle = value;
+        }
+
+        public bool IsRotating => _currentRotation is { IsFinished: false };
 
         #endregion
 
@@ -94,6 +108,5 @@ namespace Aster.Core
                 OnRotationFinish?.Invoke(angle);
             }
         }
-
     }
 }

@@ -159,11 +159,6 @@ namespace Aster.Light
             return !hitContext.BlockLight;
         }
 
-        private RaycastHit[] GetHits()
-        {
-            return Physics.RaycastAll(Data.Origin, Data.Direction, LightRay.MAX_DISTANCE);
-        }
-
         void OnOriginChanged(Vector3   value) => _lineRenderer?.SetPosition(0, value);
         void OnEndPointChanged(Vector3 value) => _lineRenderer?.SetPosition(1, value);
         void OnWidthChanged(float      width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width;

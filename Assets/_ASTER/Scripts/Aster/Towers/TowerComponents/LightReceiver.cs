@@ -1,16 +1,32 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Aster.Light;
 
 namespace Aster.Towers
 {
     public class LightReceiver
     {
+        private bool targetOnlyMode = false;
+
+        public bool TargetOnlyMode
+        {
+            get => targetOnlyMode;
+            set
+            {
+                if (value == targetOnlyMode) return;
+                targetOnlyMode = value;
+
+                _lightHits.Keys.ToList().ForEach(ray => Deregister(ray));
+                _lightHits.Clear();
+            }
+        }
+
         private Dictionary<ILightRay, LightHit> _lightHits;
 
-        public event Action<LightHit> Entry        = delegate { };
-        public event Action<LightHit> Update       = delegate { };
-        public event Action<ILightRay>  OnDeregister = delegate { };
+        public event Action<LightHit>  Entry        = delegate { };
+        public event Action<LightHit>  Update       = delegate { };
+        public event Action<ILightRay> OnDeregister = delegate { };
 
 
         public LightReceiver()
