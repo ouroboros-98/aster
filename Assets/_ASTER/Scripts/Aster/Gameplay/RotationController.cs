@@ -24,7 +24,8 @@ namespace Aster.Core
 
         #region PROPERTIES
 
-        public bool IsActive => currentRotationInteraction != null;
+        public bool  IsActive    => currentRotationInteraction != null;
+        public Angle TargetAngle => targetAngle;
 
         private RotationHandler RotationHandler => currentRotationInteraction.Interactable.RotationHandler;
 

@@ -40,7 +40,18 @@ namespace Aster.Core
                                             bool  children = false, bool optional = false)
             where T : Component
         {
-            ValidateRawComponent<T>(ref component, self, parents, children, optional);
+            if (component == null)
+            {
+                component = GetComponent<T>();
+                if (self     && component == null) component = GetComponent<T>();
+                if (parents  && component == null) component = GetComponentInParent<T>();
+                if (children && component == null) component = GetComponentInChildren<T>();
+
+                if (component == null && !optional)
+                {
+                    Debug.LogError($"Missing component of type {typeof(T)} on {gameObject.name}");
+                }
+            }
         }
 
         protected void debugPrint(object message)

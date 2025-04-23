@@ -1,6 +1,7 @@
 using System;
 using Aster.Core;
 using Aster.Light;
+using Aster.Utils;
 using DependencyInjection;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Aster.Towers
 
         private IRotatatble  _rotatable;
         private TargetingRay _targetingRay;
+        private Angle        _targetAngle;
 
         private bool IsTargetingRayActive => _targetingRay != null && _targetingRay.IsActive;
 
@@ -38,20 +40,24 @@ namespace Aster.Towers
         {
             if (obj.Interactable != _rotatable) return;
 
-            _rotatable = null;
             _targetingRay.Destroy();
+            _targetingRay                            =  null;
+            _rotationController.OnTargetAngleChanged -= UpdateTargetAngle;
         }
 
         private void OnRotationInteractionBegin(RotationInteractionContext context)
         {
             if (context.Interactable != _rotatable) return;
 
-            _targetingRay = new();
+            _rotationController.OnTargetAngleChanged += UpdateTargetAngle;
+            _targetingRay                            =  new();
+
+            UpdateTargetAngle(context.Interactable.RotationHandler.CurrentAngle);
         }
 
-        private void FixedUpdate()
+        private void UpdateTargetAngle(Angle angle)
         {
-            if (!IsTargetingRayActive) return;
+            _targetAngle = angle;
 
             UpdateTargetingRay();
         }
@@ -62,11 +68,15 @@ namespace Aster.Towers
 
             float radius = _rotatable.Radius;
 
-            Vector2 direction2D = _inputHandler.Rotation;
-            Vector3 direction3D = new Vector3(direction2D.x, 0, direction2D.y);
+            Vector3 direction = Quaternion.Euler(0, _targetAngle, 0) * Vector3.forward;
 
-            _targetingRay.Origin    = _rotatable.RotationTransform.position + (direction3D * radius);
-            _targetingRay.Direction = direction3D;
+            Vector3 baseOrigin = _rotatable.RotationTransform.position.With(y: transform.position.y);
+            Vector3 rayOrigin  = baseOrigin + (direction * radius);
+
+            debugPrint($"TargetAngle: {_targetAngle}, , Direction: {direction}, BaseOrigin: {baseOrigin}, RayOrigin: {rayOrigin}");
+
+            _targetingRay.Origin    = rayOrigin;
+            _targetingRay.Direction = direction;
         }
     }
 }

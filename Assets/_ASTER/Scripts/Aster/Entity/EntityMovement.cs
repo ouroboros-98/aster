@@ -11,7 +11,7 @@ namespace Aster.Entity
 
         private ITargetMovementProvider _movementProvider;
         private Rigidbody               _rb;
-        private bool IsInitialized => (_rb != null) && (_movementProvider != null);
+        private bool                    IsInitialized => (_rb != null) && (_movementProvider != null);
 
         public void Init(Rigidbody rb, ITargetMovementProvider movementProvider)
         {
@@ -30,10 +30,11 @@ namespace Aster.Entity
             float targetX = _movementProvider.TargetMovement.x;
             float targetZ = _movementProvider.TargetMovement.y;
 
-            Vector3 targetDirection                                    = new(targetX, 0, targetZ);
+            Vector3 targetDirection = new(targetX, 0, targetZ);
             if (targetDirection.magnitude < THRESHOLD)
             {
-                targetDirection = Vector3.zero;
+                targetDirection     = Vector3.zero;
+                _rb.angularVelocity = Vector3.zero;
             }
 
             Vector3 targetVelocity = targetDirection.normalized * (moveSpeed * Time.fixedDeltaTime);
