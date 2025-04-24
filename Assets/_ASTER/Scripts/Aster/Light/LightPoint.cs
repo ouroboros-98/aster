@@ -1,10 +1,11 @@
 ﻿using System;
 using Aster.Core;
+using Aster.Utils.Pool;
 using UnityEngine;
 
 namespace Aster.Light
 {
-    public class LightPoint : MonoBehaviour
+    public class LightPoint : AsterMono, IPoolable
     {
         [SerializeField] private float speed = 5f;
         [SerializeField] private Transform lightSource;
@@ -17,6 +18,7 @@ namespace Aster.Light
         {
             if (other.gameObject.CompareTag("Player"))
             {
+                SoundManager.Instance.Play("EnergyTaken");
                 StartMovingToLightSource();
             }
         }
@@ -43,8 +45,15 @@ namespace Aster.Light
 
         private void ArriveAtLightSource()
         {
-            AsterEvents.Instance.OnLightPointAdded?.Invoke(this);
-            Destroy(gameObject); 
+            Debug.Log("ArriveAtLightSource");
+            AsterEvents.Instance.OnLightPointAdded?.Invoke(1);
+            Reset();
+        }
+
+        public void Reset()
+        {
+            _isMovingToLightSource = false;
+            rb.isKinematic = false;
         }
     }
 }

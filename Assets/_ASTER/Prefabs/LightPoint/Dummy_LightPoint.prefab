@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6538016454608401659}
   - component: {fileID: 4301242349124500778}
   - component: {fileID: 359096298352561260}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dummy_LightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

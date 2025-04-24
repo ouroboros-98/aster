@@ -12,15 +12,16 @@ namespace Aster.Entity.Player
         private void OnEnable()
         {
             AsterEvents.Instance.OnLightPointAdded += IncrementEnergy;
+            AsterEvents.Instance.OnLightPointRemoved += ReducePlayerEnergy;
         }
 
         private void OnDisable()
         {
             AsterEvents.Instance.OnLightPointAdded -= IncrementEnergy;
-
+            AsterEvents.Instance.OnLightPointRemoved -= ReducePlayerEnergy;
         }
 
-        private void IncrementEnergy(LightPoint obj)
+        private void IncrementEnergy(int energy)
         {
             _playerEnergy++; 
         }
@@ -30,12 +31,11 @@ namespace Aster.Entity.Player
             return _playerEnergy;
         }
 
-        public bool ReducePlayerEnergy(int value)
+        public void ReducePlayerEnergy(int value)
         {
             if (_playerEnergy < value)
-                return false;
+                return;
             _playerEnergy -= value;
-            return true;
         }
     }
 }
