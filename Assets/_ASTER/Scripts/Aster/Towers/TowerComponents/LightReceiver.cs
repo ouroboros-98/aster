@@ -36,12 +36,18 @@ namespace Aster.Towers
 
         public void Register(LightHit hit)
         {
+            if (!ShouldAcceptHit(hit)) return;
             bool isNew = !_lightHits.ContainsKey(hit.Ray);
             _lightHits[hit.Ray] = hit;
 
             if (isNew) Entry?.Invoke(hit);
 
             Update?.Invoke(hit);
+        }
+
+        protected virtual bool ShouldAcceptHit(LightHit hit)
+        {
+            return true;
         }
 
         public bool IsReceiving(ILightRay ray)

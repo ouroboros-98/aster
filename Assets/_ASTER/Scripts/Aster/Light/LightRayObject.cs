@@ -104,6 +104,8 @@ namespace Aster.Light
             _lineRenderer.enabled = false;
             Hittable              = null;
 
+            transform.position = Vector3.zero;
+
             rayHits.Clear();
         }
 

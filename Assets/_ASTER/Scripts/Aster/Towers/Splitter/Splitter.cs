@@ -9,6 +9,9 @@ namespace Aster.Towers
     {
         [SerializeField, BoxedProperty] private SplitterParameters _splitterParameters = new(4, 45, .1f);
 
+        private         LightReceiver _lightReceiver;
+        public override LightReceiver LightReceiver => _lightReceiver;
+
         private SplitterParameters  lastParameterState;
         private SplitterManipulator splitterManipulator;
 
@@ -16,6 +19,7 @@ namespace Aster.Towers
 
         private void Awake()
         {
+            _lightReceiver = new LightReceiver();
             OnUpdateParameters();
         }
 

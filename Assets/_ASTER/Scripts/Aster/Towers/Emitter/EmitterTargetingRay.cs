@@ -63,7 +63,10 @@ namespace Aster.Towers
             if (_currentRotatable != _emitterRotatable) return;
 
             _targetAngle = angle;
+        }
 
+        private void FixedUpdate()
+        {
             UpdateTargetingRay();
         }
 

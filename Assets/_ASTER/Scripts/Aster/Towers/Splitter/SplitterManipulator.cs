@@ -62,31 +62,8 @@ namespace Aster.Towers
                 splitRay.ExistsWhen(() => hit.Ray != null && _splitterTower.LightReceiver.IsReceiving(hit.Ray));
                 result.Add(splitRay);
             }
-            //
-            // RayData ray = hit.Ray;
-            //
-            // Vector3 hitPosition = hit.HitPoint;
-            // Vector3 baseDir     = ray.Direction;
-            //
-            // float[] angleOffsets = CalculateAngleOffsets();
-            //
-            // for (int i = 0; i < 4; i++)
-            // {
-            //     SplitLightData splitLightData =
-            //         new SplitLightData(hit, angleOffsets[i], _splitterParameters.SpawnOffsetDistance, _splitterTower);
-            //
-            //     result.Add(splitLightData);
-            // }
 
             return result;
         }
-
-        // private float[] CalculateAngleOffsets()
-        // {
-        //     float   halfCone     = _splitterParameters.SplitConeAngle * 0.5f;
-        //     float[] angleOffsets = new float[4] { -halfCone, -halfCone * 0.33f, halfCone * 0.33f, halfCone };
-        //
-        //     return angleOffsets;
-        // }
     }
 }

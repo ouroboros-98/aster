@@ -14,19 +14,18 @@ namespace Aster.Towers
     {
         protected EntityHP HP;
 
-        protected LightReceiver lightReceiver = new();
-        public    LightReceiver LightReceiver => lightReceiver;
+        public abstract LightReceiver LightReceiver { get; }
 
         public bool Duplicated = false;
 
         public override LightHitContext OnLightRayHit(LightHit lightHit)
         {
-            if (lightReceiver.TargetOnlyMode && lightHit.Ray is not TargetingRay)
+            if (LightReceiver.TargetOnlyMode && lightHit.Ray is not TargetingRay)
             {
                 return new LightHitContext(lightHit, blockLight: false);
             }
 
-            lightReceiver.Register(lightHit);
+            LightReceiver.Register(lightHit);
 
             return CreateHitContext(lightHit);
         }
@@ -38,12 +37,14 @@ namespace Aster.Towers
 
         public override void OnLightRayExit(LightRayObject rayObject)
         {
-            lightReceiver.Deregister(rayObject.Data);
+            LightReceiver.Deregister(rayObject.Data);
         }
     }
 
     public abstract class TargetingTowerDuplicator<TTower> : AsterMono where TTower : BaseTower
     {
+        private LayerMask LAYER_MASK_TARGETING;
+
         protected int ColliderExcludeLayers;
 
         [SerializeField, ReadOnly] protected TTower      Original;
@@ -56,6 +57,7 @@ namespace Aster.Towers
 
         private void Awake()
         {
+            LAYER_MASK_TARGETING = LayerMask.NameToLayer("Targeting");
             Reset();
 
             ColliderExcludeLayers = LayerMask.GetMask("Player");
@@ -125,6 +127,12 @@ namespace Aster.Towers
 
             Debug.Log($"Original TargetingMode: {Original.LightReceiver.TargetOnlyMode}. Duplicated TargetingMode: {Duplicate.LightReceiver.TargetOnlyMode}",
                       this);
+
+            duplicateGO.layer = LAYER_MASK_TARGETING;
+            foreach (Transform t in duplicateGO.transform.GetComponentInChildren<Transform>())
+            {
+                t.gameObject.layer = LAYER_MASK_TARGETING;
+            }
 
             // DisableMeshRenderers();
             ConfigureColliders();

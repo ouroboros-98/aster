@@ -16,10 +16,10 @@ TagManager:
   - UI
   - Lights
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Towers
+  - Targeting
+  - Enemy
+  - InvisibleWalls
   - 
   - 
   - 

@@ -16,13 +16,11 @@ namespace Aster.Light
 
             foreach (RaycastHit hit in hits)
             {
-                if (!hit.collider.ScanForComponents(out BaseLightHittable[] hittables, parents: true, children: true))
+                if (!hit.collider.ScanForComponent(out BaseLightHittable hittable, parents: true,
+                                                   children: true))
                     continue;
 
-                foreach (var hittable in hittables)
-                {
-                    result.Add(new(ray, hit.point, hittable));
-                }
+                result.Add(new(ray, hit.point, hittable));
             }
 
             result.Sort((x, y) => x.Distance.CompareTo(y.Distance));
