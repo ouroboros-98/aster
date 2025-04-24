@@ -1,3 +1,5 @@
+
+using Aster.Utils;
 using UnityEngine;
 
 namespace Aster.Gameplay.Waves
@@ -7,12 +9,13 @@ namespace Aster.Gameplay.Waves
     {
         public override void OnWaveStart()
         {
-            throw new System.NotImplementedException();
+            Angle firstEnemyAngle = 270f;
+            EnemySpawner.SpawnEnemy(firstEnemyAngle);
         }
 
         public override void OnWaveEnd()
         {
-            throw new System.NotImplementedException();
+            return; 
         }
     }
 }

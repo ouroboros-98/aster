@@ -92,7 +92,7 @@ namespace Aster.Light
         {
             ValidateComponent(ref _lineRenderer);
 
-            _lightCaster = new LightRayCaster();
+            _lightCaster = new LightSphereCaster();
         }
 
         public void Reset()
