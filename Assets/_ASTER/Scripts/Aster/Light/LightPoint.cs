@@ -54,6 +54,7 @@ namespace Aster.Light
         {
             _isMovingToLightSource = false;
             rb.isKinematic = false;
+            EnergyPool.Instance.Return(this);
         }
     }
 }
