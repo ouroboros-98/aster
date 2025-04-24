@@ -1,5 +1,6 @@
 ﻿using System;
 using Aster.Core;
+using Aster.Core.UI.EnemyIndicator;
 using Aster.Entity.Enemy;
 using Aster.Light;
 using Aster.Utils;
@@ -13,11 +14,9 @@ namespace _ASTER.Scripts.Aster.Entity.Enemy
         [SerializeField] private float spawnDistance;
 
         private Transform              mainLightSource;
-        private IPool<EnemyController> _enemyPool;
 
         private void Awake()
         {
-            _enemyPool      = EnemyPool.Instance;
             mainLightSource = MainLightSource.Instance.transform;
         }
 
@@ -27,6 +26,8 @@ namespace _ASTER.Scripts.Aster.Entity.Enemy
             var enemy = EnemyPool.Instance.Get();
             enemy.transform.position = transform.position;
             enemy.transform.rotation = transform.rotation;
+            var indicator = IndicatorPool.Instance.Get();
+            indicator.Init(enemy.transform);
         }
 
         public void SpawnEnemy(Angle direction)

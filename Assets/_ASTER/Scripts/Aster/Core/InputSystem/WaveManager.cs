@@ -1,4 +1,5 @@
 ﻿using _ASTER.Scripts.Aster.Entity.Enemy;
+using Aster.Core.UI.EnemyIndicator;
 
 namespace Aster.Core.InputSystem
 {
@@ -12,6 +13,7 @@ namespace Aster.Core.InputSystem
         [SerializeField] private int initialEnemies = 5;
         [SerializeField] private float difficultyFactor = 0.9f;
         [SerializeField] private int additionalEnemiesPerWave = 2;
+        
 
         private WaveData currentWave = new WaveData();
 
