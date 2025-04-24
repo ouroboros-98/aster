@@ -63,10 +63,10 @@ namespace Aster.Entity.Player
             {
                 AsterEvents.Instance.OnLightPointRemoved?.Invoke(cost);
                 spawnPoint = transform;
-                var newYSpawn= 0.5f;
+                // var newYSpawn= 0.5f;
                 Instantiate(
                     towerOption.GetModel(),
-                    spawnPoint.position + new Vector3(0, newYSpawn, 0),
+                    spawnPoint.position,
                     spawnPoint.rotation
                 );
             }
