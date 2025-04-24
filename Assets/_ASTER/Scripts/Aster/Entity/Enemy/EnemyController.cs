@@ -70,6 +70,7 @@ namespace Aster.Entity.Enemy
             if (hp <= 0)
             {
                 AsterEvents.Instance.OnEnemyDeath?.Invoke(this.transform.position);
+                Debug.Log("IM DEAD");
                 EnemyPool.Instance.Return(this);
             }
             else

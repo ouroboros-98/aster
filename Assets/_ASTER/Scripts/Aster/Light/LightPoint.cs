@@ -47,14 +47,13 @@ namespace Aster.Light
         {
             Debug.Log("ArriveAtLightSource");
             AsterEvents.Instance.OnLightPointAdded?.Invoke(1);
-            Reset();
+            EnergyPool.Instance.Return(this);
         }
 
         public void Reset()
         {
             _isMovingToLightSource = false;
             rb.isKinematic = false;
-            EnergyPool.Instance.Return(this);
         }
     }
 }
