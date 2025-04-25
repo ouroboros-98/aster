@@ -6,6 +6,7 @@ using Aster.Core;
 using Aster.Entity;
 using Aster.Entity.Enemy;
 using Aster.Towers;
+using Aster.Utils;
 using Aster.Utils.Attributes;
 using Aster.Utils.Pool;
 using NaughtyAttributes;
@@ -25,13 +26,16 @@ namespace Aster.Light
 
         private Dictionary<BaseLightHittable, LightHitContext> rayHits = new();
 
+        [SerializeField, BoxedProperty] LightRayLogger RayLogger = new();
+
         public ILightRay Data
         {
             get => lightRay;
             set
             {
                 UnsubscribeRayEvents();
-                lightRay = value;
+                lightRay           = value;
+                RayLogger.LightRay = lightRay;
                 SubscribeRayEvents();
                 if (lightRay != null) _lineRenderer.enabled = true;
             }
@@ -81,7 +85,7 @@ namespace Aster.Light
                 OnColorChanged(TargetingRay.TARGETING_RAY_COLOR);
             }
 
-            lightRay.OnDestroy += OnDestroy;
+            lightRay.OnDestroy += OnRayDestroyed;
 
             lightRay.ForceUpdate();
         }
@@ -94,7 +98,7 @@ namespace Aster.Light
             lightRay.EndPointChange -= OnEndPointChanged;
             lightRay.WidthChange    -= OnWidthChanged;
             lightRay.ColorChange    -= OnColorChanged;
-            lightRay.OnDestroy      -= OnDestroy;
+            lightRay.OnDestroy      -= OnRayDestroyed;
         }
 
         private void Awake()
@@ -143,6 +147,8 @@ namespace Aster.Light
             }
 
             RefreshHittables(hittables);
+
+            RayLogger.Update();
         }
 
         private void RefreshHittables(HashSet<BaseLightHittable> hittables)
@@ -180,6 +186,7 @@ namespace Aster.Light
         {
             _lineRenderer.enabled = false;
             rayHits.Clear();
+            RayLogger.LightRay = null;
 
             RayPool.Instance.Return(this);
         }
