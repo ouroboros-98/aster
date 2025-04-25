@@ -429,7 +429,6 @@ GameObject:
   m_Component:
   - component: {fileID: 461963909}
   - component: {fileID: 461963908}
-  - component: {fileID: 461963907}
   m_Layer: 0
   m_Name: IndicatorUI
   m_TagString: Untagged
@@ -437,18 +436,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &461963907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461963906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae9587b11e6e4a3a8fb7b0c710f87d20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!223 &461963908
 Canvas:
   m_ObjectHideFlags: 0
@@ -1842,7 +1829,7 @@ MonoBehaviour:
   debug: 0
   initialSize: 24
   prefab: {fileID: 9046470628750800965, guid: bc0028cd694a10445a273475b97e612a, type: 3}
-  parent: {fileID: 1811808996}
+  parent: {fileID: 461963909}
 --- !u!4 &1811808996
 Transform:
   m_ObjectHideFlags: 0
@@ -2602,7 +2589,7 @@ PrefabInstance:
     - target: {fileID: 6306811646646343083, guid: 483b3db6c3ed2ed40a1ae68ce39cbe75, type: 3}
       propertyPath: enemyIndicatorManager
       value: 
-      objectReference: {fileID: 461963907}
+      objectReference: {fileID: 0}
     - target: {fileID: 6306811646646343083, guid: 483b3db6c3ed2ed40a1ae68ce39cbe75, type: 3}
       propertyPath: 'spawners.Array.data[0]'
       value: 
