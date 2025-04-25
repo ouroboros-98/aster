@@ -55,7 +55,7 @@ namespace Aster.Towers
             return _lightHits.ContainsKey(ray);
         }
 
-        public LightHit this[LightRay ray]
+        public LightHit this[ILightRay ray]
         {
             get
             {

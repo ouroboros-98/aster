@@ -7,27 +7,32 @@ namespace Aster.Light
     {
         public static BaseLightHittable IgnoreHittable { get; set; } = null;
 
-        private static readonly Color _targetingRayColor = new(0.8039216f, 0.1568628f, 0.1098039f);
-        public override         Color Color => _targetingRayColor;
+        public static readonly Color TARGETING_RAY_COLOR = new(0.8039216f, 0.1568628f, 0.1098039f);
 
         private bool visible = false;
 
         public TargetingRay(bool activate = true) : base(activate)
         {
-            base.Color = _targetingRayColor;
             ForceUpdate();
         }
 
         public TargetingRay(ILightRay source, bool activate = true, BaseLightHittable firstHittable = null) :
             base(source, activate)
         {
-            base.Color = _targetingRayColor;
         }
 
         bool ILightRay.CheckIgnoreHittable(BaseLightHittable hittable)
         {
+            if (hittable == null) return true;
+
             bool isEnemy          = hittable is EnemyHittable;
-            bool isIgnoreHittable = hittable != null && hittable == IgnoreHittable;
+            bool isIgnoreHittable = (hittable == IgnoreHittable);
+
+            if (!isIgnoreHittable && !hittable.IsTargetingOnly)
+            {
+                isIgnoreHittable |= IgnoreHittable != null && hittable.transform.IsChildOf(IgnoreHittable.transform);
+            }
+
             return isEnemy || isIgnoreHittable || base.CheckIgnoreHittable(hittable);
         }
 

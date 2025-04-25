@@ -71,8 +71,17 @@ namespace Aster.Light
             lightRay.OriginChange   += OnOriginChanged;
             lightRay.EndPointChange += OnEndPointChanged;
             lightRay.WidthChange    += OnWidthChanged;
-            lightRay.ColorChange    += OnColorChanged;
-            lightRay.OnDestroy      += OnDestroy;
+
+            if (lightRay is not TargetingRay)
+            {
+                lightRay.ColorChange += OnColorChanged;
+            }
+            else
+            {
+                OnColorChanged(TargetingRay.TARGETING_RAY_COLOR);
+            }
+
+            lightRay.OnDestroy += OnDestroy;
 
             lightRay.ForceUpdate();
         }
@@ -145,13 +154,9 @@ namespace Aster.Light
 
             foreach (var hittable in toRemove)
             {
-                debugPrint($"Removing {hittable.gameObject.name}");
-
                 hittable.OnLightRayExit(this);
                 rayHits.Remove(hittable);
             }
-
-            debugPrint($"Hittables: {string.Join(", ", hittables.Select(h => h.gameObject.name))}");
         }
 
         private bool HandleHit(LightHitContext hitContext)

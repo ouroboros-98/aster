@@ -44,6 +44,7 @@ namespace Aster.Core
         public void Reset()
         {
             ValidateComponent(ref rotationTransform);
+
             RotationHandler.Bind(rotationTransform);
         }
 

@@ -23,13 +23,14 @@ namespace Aster.Towers
             Append(Manipulate.Intensity(ApplyIntensity));
             Append(Manipulate.Direction(ApplyDirection));
             Append(Manipulate.Origin(ApplyOrigin));
+            Append(Manipulate.Color(ApplyColor));
         }
 
         private float ApplyIntensity(ILightRay rayIn) =>
             rayIn.Intensity / Parameters.SplitCount;
 
         private Vector3 ApplyDirection(ILightRay ray) =>
-            Quaternion.AngleAxis(_angleOffset, Vector3.up) * ray.Direction;
+            Quaternion.AngleAxis(_angleOffset + Parameters.DirectionOffset, Vector3.up) * ray.Direction;
 
         private Vector3 ApplyOrigin(ILightRay ray)
         {
@@ -38,6 +39,14 @@ namespace Aster.Towers
             Vector3 adjustedTowerOrigin = towerOrigin.With(y: origin.y);
 
             return adjustedTowerOrigin + ray.Direction * Parameters.SpawnOffsetDistance;
+        }
+
+        private Color ApplyColor(ILightRay ray)
+        {
+            if (!Parameters.Refract) return ray.Color;
+
+            Color color = Color.HSVToRGB(_index / (float)Parameters.SplitCount, 1, 1);
+            return color;
         }
 
 

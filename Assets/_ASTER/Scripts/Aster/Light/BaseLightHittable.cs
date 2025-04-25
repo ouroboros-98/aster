@@ -1,28 +1,35 @@
 using System;
 using Aster.Core;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Aster.Light
 {
     public abstract class BaseLightHittable : AsterMono, IDuplicatable
     {
-        private            TargetingRayMarker _targetingRayMarker;
-        public             bool               IsTargetingOnly => _targetingRayMarker != null;
-        protected abstract LightHitContext    OnLightRayHit(LightHit lightHit);
+        private TargetingRayMarker _targetingRayMarker;
+
+        [ShowNonSerializedField] private bool _isTargetingOnly;
+        public bool IsTargetingOnly => _isTargetingOnly;
+
+        protected abstract LightHitContext OnLightRayHit(LightHit lightHit);
 
         protected virtual void Awake()
         {
             Reset();
         }
 
-        private void Reset()
+        protected virtual void Reset()
         {
             _targetingRayMarker = GetComponentInParent<TargetingRayMarker>();
+            _isTargetingOnly    = _targetingRayMarker != null;
         }
 
         public LightHitContext LightHit(LightHit hit)
         {
-            if (hit.Ray is not TargetingRay && IsTargetingOnly)
+            bool isTargetingRay = hit.Ray is TargetingRay;
+
+            if (!isTargetingRay && _isTargetingOnly)
             {
                 return new LightHitContext(hit, blockLight: false);
             }

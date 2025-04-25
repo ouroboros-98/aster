@@ -28,7 +28,7 @@ namespace Aster.Core.Entity
 
         [SerializeField] private int _max;
 
-        public event Action<HPChangeContext>                  OnHPChange;
+        public event Action<HPChangeContext>                 OnHPChange;
         [SerializeField] private UnityEvent<HPChangeContext> _onHPChange;
 
         public int MaxHP => _max;
@@ -46,7 +46,6 @@ namespace Aster.Core.Entity
 
         private int SetHP(int targetValue, bool triggerEvent = true)
         {
-            Debug.Log("change hp");
             int previousValue = _current;
 
             int value = targetValue;
