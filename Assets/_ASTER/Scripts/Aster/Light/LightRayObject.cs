@@ -126,7 +126,7 @@ namespace Aster.Light
             {
                 if (Data.CheckIgnoreHittable(hit.Hittable)) continue;
 
-                var hitContext = hit.Hittable.OnLightRayHit(new(this.lightRay, hit.HitPoint, hit.Hittable));
+                var hitContext = hit.Hittable.LightHit(new(this.lightRay, hit.HitPoint, hit.Hittable));
 
                 hittables.Add(hit.Hittable);
 
@@ -161,10 +161,15 @@ namespace Aster.Light
             return !hitContext.BlockLight;
         }
 
-        void OnOriginChanged(Vector3   value) => _lineRenderer?.SetPosition(0, value);
-        void OnEndPointChanged(Vector3 value) => _lineRenderer?.SetPosition(1, value);
-        void OnWidthChanged(float      width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width;
-        void OnColorChanged(Color      color) => _lineRenderer.startColor = _lineRenderer.endColor = color;
+        void OnOriginChanged(Vector3 value) => _lineRenderer?.SetPosition(0, value);
+
+        void OnEndPointChanged(Vector3 value)
+        {
+            _lineRenderer?.SetPosition(1, value);
+        }
+
+        void OnWidthChanged(float width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width;
+        void OnColorChanged(Color color) => _lineRenderer.startColor = _lineRenderer.endColor = color;
 
         private void OnDestroy()
         {

@@ -17,7 +17,7 @@ namespace Aster.Entity.Enemy
             ValidateComponent(ref enemyController);
         }
 
-        public override LightHitContext OnLightRayHit(LightHit lightHit)
+        protected override LightHitContext OnLightRayHit(LightHit lightHit)
         {
             enemyController.LightHit();
 

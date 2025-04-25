@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using Aster.Core;
 using Aster.Core.Entity;
 using Aster.Light;
 using Aster.Utils;
 using DependencyInjection;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -18,13 +20,8 @@ namespace Aster.Towers
 
         public bool Duplicated = false;
 
-        public override LightHitContext OnLightRayHit(LightHit lightHit)
+        protected override LightHitContext OnLightRayHit(LightHit lightHit)
         {
-            if (LightReceiver.TargetOnlyMode && lightHit.Ray is not TargetingRay)
-            {
-                return new LightHitContext(lightHit, blockLight: false);
-            }
-
             LightReceiver.Register(lightHit);
 
             return CreateHitContext(lightHit);
@@ -123,6 +120,8 @@ namespace Aster.Towers
             Duplicate            = duplicateGO.AddComponent<TTower>();
             Duplicate.Duplicated = true;
 
+            Duplicate.AddComponent<TargetingRayMarker>();
+
             Duplicate.LightReceiver.TargetOnlyMode = true;
 
             Debug.Log($"Original TargetingMode: {Original.LightReceiver.TargetOnlyMode}. Duplicated TargetingMode: {Duplicate.LightReceiver.TargetOnlyMode}",
@@ -136,6 +135,10 @@ namespace Aster.Towers
 
             // DisableMeshRenderers();
             ConfigureColliders();
+
+            duplicateGO.transform.GetComponentsInChildren<IDuplicatable>()
+                       .ToList()
+                       .ForEach(x => x.OnDuplicate());
         }
 
         protected abstract IRotatatble ConfigureRotatable(GameObject duplicate);

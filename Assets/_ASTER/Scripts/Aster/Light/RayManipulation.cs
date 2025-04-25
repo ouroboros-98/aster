@@ -9,11 +9,11 @@ namespace Aster.Light
     {
         public abstract void Apply(LightHit hit, ILightRay rayIn, ILightRay rayOut);
         public          void Apply(LightHit hit, ILightRay rayOut) => Apply(hit, hit.Ray, rayOut);
-        public          void Apply(LightHit hit)  => Apply(hit, hit.Ray);
+        public          void Apply(LightHit hit) => Apply(hit, hit.Ray);
 
-        public LightRay GetManipulatedRay(LightHit hit, LightRay rayIn)
+        public ILightRay GetManipulatedRay(LightHit hit, ILightRay rayIn)
         {
-            LightRay rayOut = new LightRay(rayIn, activate: false);
+            ILightRay rayOut = rayIn.Clone(false);
 
             Apply(hit, rayIn, rayOut);
 

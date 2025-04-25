@@ -19,6 +19,7 @@ namespace Aster.Light
                 if (!hit.collider.ScanForComponent(out BaseLightHittable hittable, parents: true,
                                                    children: true))
                     continue;
+                if (hit.distance == 0 && hit.point == Vector3.zero) continue;
 
                 result.Add(new(ray, hit.point, hittable));
             }

@@ -25,7 +25,7 @@ namespace Aster.Light
         {
             if (_manipulations.Count == 0) return;
 
-            LightRay ray = new LightRay(rayIn, false);
+            ILightRay ray = rayIn.Clone(false);
 
             foreach (RayManipulation manipulation in _manipulations)
             {

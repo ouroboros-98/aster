@@ -4,13 +4,41 @@ using UnityEngine;
 
 namespace Aster.Light
 {
-    public abstract class BaseLightHittable : AsterMono
+    public abstract class BaseLightHittable : AsterMono, IDuplicatable
     {
-        public abstract LightHitContext OnLightRayHit(LightHit lightHit);
+        private            TargetingRayMarker _targetingRayMarker;
+        public             bool               IsTargetingOnly => _targetingRayMarker != null;
+        protected abstract LightHitContext    OnLightRayHit(LightHit lightHit);
+
+        protected virtual void Awake()
+        {
+            Reset();
+        }
+
+        private void Reset()
+        {
+            _targetingRayMarker = GetComponentInParent<TargetingRayMarker>();
+        }
+
+        public LightHitContext LightHit(LightHit hit)
+        {
+            if (hit.Ray is not TargetingRay && IsTargetingOnly)
+            {
+                return new LightHitContext(hit, blockLight: false);
+            }
+
+            return OnLightRayHit(hit);
+        }
+
 
         public virtual void OnLightRayExit(LightRayObject rayObject)
         {
             // Optional: Implement if needed
+        }
+
+        public void OnDuplicate()
+        {
+            Reset();
         }
     }
 
