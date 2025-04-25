@@ -52,8 +52,8 @@ MonoBehaviour:
   currentStateName: 
   rb: {fileID: 0}
   hp:
-    _current: 3
-    _max: 3
+    _current: 1
+    _max: 1
     _onHPChange:
       m_PersistentCalls:
         m_Calls:
@@ -70,7 +70,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   movement:
-    moveSpeed: 0.3
+    moveSpeed: 0.25
   attack:
     damage: 1
     initialTimeToAttack: 8

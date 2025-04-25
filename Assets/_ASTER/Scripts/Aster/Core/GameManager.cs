@@ -15,7 +15,7 @@ namespace Aster.Core
             AsterEvents.Instance.OnLightSourceDestroyed -= FinishGame;
         }
 
-        private void FinishGame(int hp)
+        private void FinishGame()
         {
             Debug.Log("Game Over — Light Source Destroyed!");
 #if UNITY_EDITOR

@@ -10,6 +10,7 @@ namespace Aster.Light
         private TargetingRayMarker _targetingRayMarker;
 
         [ShowNonSerializedField] private bool _isTargetingOnly;
+
         public bool IsTargetingOnly => _isTargetingOnly;
 
         protected abstract LightHitContext OnLightRayHit(LightHit lightHit);

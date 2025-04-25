@@ -19,7 +19,7 @@ namespace Aster.Entity.Enemy
 
         protected override LightHitContext OnLightRayHit(LightHit lightHit)
         {
-            enemyController.LightHit();
+            enemyController.LightHit(lightHit);
 
             return new(lightHit);
         }

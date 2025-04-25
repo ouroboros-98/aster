@@ -10,12 +10,12 @@ namespace Aster.Core.Entity
     {
         public readonly struct HPChangeContext
         {
-            public readonly int CurrentValue;
-            public readonly int PreviousValue;
-            public readonly int Delta;
-            public readonly int MaxValue;
+            public readonly float CurrentValue;
+            public readonly float PreviousValue;
+            public readonly float Delta;
+            public readonly float MaxValue;
 
-            public HPChangeContext(int currentValue, int previousValue, int delta, int maxValue)
+            public HPChangeContext(float currentValue, float previousValue, float delta, float maxValue)
             {
                 CurrentValue  = currentValue;
                 PreviousValue = previousValue;
@@ -24,16 +24,16 @@ namespace Aster.Core.Entity
             }
         }
 
-        [SerializeField, OnValueChanged("Set")] private int _current;
+        [SerializeField, OnValueChanged("Set")] private float _current;
 
-        [SerializeField] private int _max;
+        [SerializeField] private float _max;
 
         public event Action<HPChangeContext>                 OnHPChange;
         [SerializeField] private UnityEvent<HPChangeContext> _onHPChange;
 
-        public int MaxHP => _max;
+        public float MaxHP => _max;
 
-        public EntityHP(int max, int? current = null)
+        public EntityHP(float max, float? current = null)
         {
             max  = (max < 1) ? 1 : max;
             _max = max;
@@ -44,18 +44,18 @@ namespace Aster.Core.Entity
             OnHPChange = delegate { };
         }
 
-        private int SetHP(int targetValue, bool triggerEvent = true)
+        private float SetHP(float targetValue, bool triggerEvent = true)
         {
-            int previousValue = _current;
+            float previousValue = _current;
 
-            int value = targetValue;
+            float value = targetValue;
 
             value = (value < 0) ? 0 : value;
             value = (value > _max) ? _max : value;
 
             _current = value;
 
-            int delta = _current - previousValue;
+            float delta = _current - previousValue;
 
             if (triggerEvent)
             {
@@ -67,9 +67,9 @@ namespace Aster.Core.Entity
             return value;
         }
 
-        public void Set(int      targetValue) => SetHP(targetValue);
-        public void ChangeBy(int delta)       => SetHP(_current + delta);
+        public void Set(float      targetValue) => SetHP(targetValue);
+        public void ChangeBy(float delta)       => SetHP(_current + delta);
 
-        public static implicit operator int(EntityHP hp) => hp._current;
+        public static implicit operator float(EntityHP hp) => hp._current;
     }
 }

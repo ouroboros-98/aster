@@ -26,7 +26,7 @@ namespace Aster.Core
         public Action<int>                        OnLightPointAdded;
         public Action<int>                        OnLightPointRemoved;
         public Action<int>                        OnAttackLightSource;
-        public Action<int>                        OnLightSourceDestroyed;
+        public Action                        OnLightSourceDestroyed;
 
         public Action<Vector3> OnEnemyDeath;
 

@@ -62,21 +62,15 @@ namespace Aster.Entity.Enemy
             invincibilityFrames.Stop();
         }
 
-        public void LightHit()
+        public void LightHit(LightHit hit)
         {
-            if (invincibilityFrames.IsRunning) return;
+            hp.ChangeBy(-hit.Ray.Intensity * Time.fixedDeltaTime);
 
-            hp.ChangeBy(-damagePerLightHit);
-            if (hp <= 0)
-            {
-                AsterEvents.Instance.OnEnemyDeath?.Invoke(this.transform.position);
-                Debug.Log("IM DEAD");
-                EnemyPool.Instance.Return(this);
-            }
-            else
-            {
-                invincibilityFrames.Start();
-            }
+            if (hp > 0) return;
+
+            AsterEvents.Instance.OnEnemyDeath?.Invoke(this.transform.position);
+
+            EnemyPool.Instance.Return(this);
         }
     }
 }
