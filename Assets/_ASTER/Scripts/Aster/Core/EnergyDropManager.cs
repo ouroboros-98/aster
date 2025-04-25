@@ -29,6 +29,7 @@ namespace Aster.Core
         {
             if (Random.value < chanceToDrop)
             {
+                Debug.Log("ASKING FOR ENERGY");
                 EnergyPool.Instance.Get(enemyPos, Quaternion.identity);
             }
         }
