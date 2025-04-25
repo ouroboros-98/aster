@@ -180,9 +180,19 @@ namespace Aster.Light
         }
 
         void OnWidthChanged(float width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width;
-        void OnColorChanged(Color color) => _lineRenderer.startColor = _lineRenderer.endColor = color;
 
-        private void OnDestroy()
+        void OnColorChanged(Color color)
+        {
+            // _lineRenderer.startColor = _lineRenderer.endColor = color;
+            _lineRenderer.material.SetColor("_Color", new(color.r, color.g, color.b, Data.Intensity));
+        }
+
+        void OnIntensityChanged(float intensity)
+        {
+            OnColorChanged(Data.Color);
+        }
+
+        private void OnRayDestroyed()
         {
             _lineRenderer.enabled = false;
             rayHits.Clear();

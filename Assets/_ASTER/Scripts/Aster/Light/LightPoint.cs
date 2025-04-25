@@ -7,11 +7,11 @@ namespace Aster.Light
 {
     public class LightPoint : AsterMono, IPoolable
     {
-        [SerializeField] private float speed = 5f;
+        [SerializeField] private float     speed = 5f;
         [SerializeField] private Transform lightSource;
         [SerializeField] private Rigidbody rb;
-        [SerializeField] private float arrivalThreshold = 0.1f;
-        
+        [SerializeField] private float     arrivalThreshold = 0.1f;
+
         private bool _isMovingToLightSource = false;
 
         private void OnCollisionEnter(Collision other)
@@ -26,7 +26,7 @@ namespace Aster.Light
         private void StartMovingToLightSource()
         {
             _isMovingToLightSource = true;
-            rb.isKinematic = true; // So physics doesn't interfere
+            rb.isKinematic         = true; // So physics doesn't interfere
         }
 
         private void Update()
@@ -52,8 +52,9 @@ namespace Aster.Light
 
         public void Reset()
         {
+            lightSource            = MainLightSource.Instance.transform;
             _isMovingToLightSource = false;
-            rb.isKinematic = false;
+            rb.isKinematic         = false;
         }
     }
 }
