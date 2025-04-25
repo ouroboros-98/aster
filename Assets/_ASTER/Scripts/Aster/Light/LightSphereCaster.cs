@@ -16,6 +16,9 @@ namespace Aster.Light
 
             foreach (RaycastHit hit in hits)
             {
+                if (LightRayIgnore.IgnoreList.Contains(hit.transform))
+                    continue;
+
                 if (!hit.collider.ScanForComponent(out BaseLightHittable hittable, parents: true,
                                                    children: true))
                     continue;
