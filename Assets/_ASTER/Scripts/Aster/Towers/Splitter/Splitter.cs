@@ -22,8 +22,8 @@ namespace Aster.Towers
         {
             base.Awake();
 
-            _lightReceiver = new LightReceiver();
-            OnUpdateParameters();
+            _lightReceiver      = new LightReceiver();
+            splitterManipulator = new(this);
         }
 
         protected override LightHitContext OnLightRayHit(LightHit lightHit)
@@ -39,20 +39,6 @@ namespace Aster.Towers
         private void Start()
         {
             lastParameterState = _splitterParameters;
-        }
-
-        private void Update()
-        {
-            if (_splitterParameters == lastParameterState) return;
-
-            lastParameterState = _splitterParameters;
-            OnUpdateParameters();
-        }
-
-        void OnUpdateParameters()
-        {
-            splitterManipulator?.Unbind();
-            splitterManipulator = new(this);
         }
     }
 }

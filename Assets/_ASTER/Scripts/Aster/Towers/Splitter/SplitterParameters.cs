@@ -26,18 +26,5 @@ namespace Aster.Towers
             this.refract             = refract;
             this.directionOffset     = directionOffset;
         }
-
-        public static bool operator ==(SplitterParameters left, SplitterParameters right)
-        {
-            return left.splitCount == right.splitCount
-                && Mathf.Approximately(left.splitConeAngle,      right.splitConeAngle)
-                && Mathf.Approximately(left.spawnOffsetDistance, right.spawnOffsetDistance)
-                && left.refract == right.refract;
-        }
-
-        public static bool operator !=(SplitterParameters left, SplitterParameters right)
-        {
-            return !(left == right);
-        }
     }
 }

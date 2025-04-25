@@ -10,15 +10,20 @@ namespace Aster.Towers
         private readonly Splitter _splitterTower;
 
         private float _angleOffset;
+        private int   _splitCount;
+        private float _splitConeAngle;
+
 
         private SplitterParameters Parameters => _splitterTower.Parameters;
 
         public SplitterManipulation(Splitter splitterTower, int index) :
             base()
         {
-            _splitterTower = splitterTower;
-            _index         = index;
-            _angleOffset   = CalculateAngleOffset();
+            _splitterTower  = splitterTower;
+            _index          = index;
+            _splitConeAngle = Parameters.SplitConeAngle;
+            _splitCount     = Parameters.SplitCount;
+            _angleOffset    = CalculateAngleOffset();
 
             Append(Manipulate.Intensity(ApplyIntensity));
             Append(Manipulate.Direction(ApplyDirection));
@@ -29,8 +34,18 @@ namespace Aster.Towers
         private float ApplyIntensity(ILightRay rayIn) =>
             rayIn.Intensity / Parameters.SplitCount;
 
-        private Vector3 ApplyDirection(ILightRay ray) =>
-            Quaternion.AngleAxis(_angleOffset + Parameters.DirectionOffset, Vector3.up) * ray.Direction;
+        private Vector3 ApplyDirection(ILightRay ray)
+        {
+            if (Parameters.SplitCount != _splitCount ||
+                !Mathf.Approximately(Parameters.SplitConeAngle, _splitConeAngle))
+            {
+                _angleOffset    = CalculateAngleOffset();
+                _splitCount     = Parameters.SplitCount;
+                _splitConeAngle = Parameters.SplitConeAngle;
+            }
+
+            return Quaternion.AngleAxis(_angleOffset + Parameters.DirectionOffset, Vector3.up) * ray.Direction;
+        }
 
         private Vector3 ApplyOrigin(ILightRay ray)
         {
