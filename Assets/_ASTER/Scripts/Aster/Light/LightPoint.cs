@@ -45,7 +45,7 @@ namespace Aster.Light
 
         private void ArriveAtLightSource()
         {
-            Debug.Log("ArriveAtLightSource");
+            debugPrint("ArriveAtLightSource");
             AsterEvents.Instance.OnLightPointAdded?.Invoke(1);
             EnergyPool.Instance.Return(this);
         }
