@@ -17,7 +17,7 @@ namespace Aster.Core.UI
 
             // Energy value for which the panel is considered full (100% height).
             [SerializeField] private int energyThreshold = 50;
-            
+
             [SerializeField] private BaseTower model;
 
             [SerializeField] private RectTransform redPanel;
@@ -26,20 +26,20 @@ namespace Aster.Core.UI
             private float maxPanelHeight;
 
             // Current energy value.
-            private float currentEnergy;
-            [SerializeField] private float lerpSpeed = 5f;
-            private float _targetFillRatio = 0f;
+            private                  float currentEnergy;
+            [SerializeField] private float lerpSpeed        = 5f;
+            private                  float _targetFillRatio = 0f;
 
             private void Awake()
             {
                 if (energyPanel != null)
                 {
-                     maxPanelHeight = energyPanel.rect.height;
+                    maxPanelHeight = energyPanel.rect.height;
                     Vector2 size = energyPanel.sizeDelta;
                     energyPanel.sizeDelta = new Vector2(size.x, 0f);
                 }
-                
             }
+
             private void Update()
             {
                 if (energyPanel != null)
@@ -51,18 +51,22 @@ namespace Aster.Core.UI
                     energyPanel.sizeDelta = new Vector2(size.x, currentFill * maxPanelHeight);
                 }
             }
+
             public RectTransform GetRedPanel()
             {
                 return redPanel;
             }
+
             public int GetEnergyThreshold()
             {
                 return energyThreshold;
             }
+
             public BaseTower GetModel()
             {
                 return model;
             }
+
             // This method is executed whenever a change is made in the Editor.
             private void OnValidate()
             {
@@ -76,6 +80,7 @@ namespace Aster.Core.UI
                     energyText.text = energyThreshold.ToString();
                 }
             }
+
             public void SetEnergy(float energy)
             {
                 currentEnergy = Mathf.Max(energy, 0f);

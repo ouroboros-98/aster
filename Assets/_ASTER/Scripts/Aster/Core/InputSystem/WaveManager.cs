@@ -8,18 +8,18 @@ namespace Aster.Core.InputSystem
     public class WaveManager : MonoBehaviour
     {
         [SerializeField] private EnemySpawner[] spawners;
-        [SerializeField] private float initialSpawnInterval = 5f;
-        [SerializeField] private int initialEnemies = 5;
-        [SerializeField] private float difficultyFactor = 0.9f;
-        [SerializeField] private int additionalEnemiesPerWave = 2;
+        [SerializeField] private float          initialSpawnInterval     = 5f;
+        [SerializeField] private int            initialEnemies           = 5;
+        [SerializeField] private float          difficultyFactor         = 0.9f;
+        [SerializeField] private int            additionalEnemiesPerWave = 2;
 
         private WaveData currentWave = new WaveData();
 
         private void Start()
         {
-            currentWave.WaveNumber = 1;
+            currentWave.WaveNumber     = 1;
             currentWave.EnemiesToSpawn = initialEnemies;
-            currentWave.SpawnInterval = initialSpawnInterval;
+            currentWave.SpawnInterval  = initialSpawnInterval;
             StartCoroutine(SpawnWaves());
         }
 
@@ -30,7 +30,7 @@ namespace Aster.Core.InputSystem
                 yield return StartCoroutine(SpawnWave());
                 currentWave.WaveNumber++;
                 currentWave.EnemiesToSpawn += additionalEnemiesPerWave;
-                currentWave.SpawnInterval *= difficultyFactor;
+                currentWave.SpawnInterval  *= difficultyFactor;
             }
         }
 

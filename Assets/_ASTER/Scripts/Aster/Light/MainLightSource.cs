@@ -10,14 +10,17 @@ namespace Aster.Light
 {
     public class MainLightSource : AsterSingleton<MainLightSource>
     {
-        [SerializeField, BoxedProperty, Label("HP")] protected EntityHP       hp;
+        [SerializeField, BoxedProperty, Label("HP")] protected EntityHP hp;
+
         [SerializeField] private float radius;
-        private float firstRadius,secondRadius,thirdRadius;
+
+        private float firstRadius, secondRadius, thirdRadius;
+
         private void Awake()
         {
-            firstRadius = radius / 3f;
+            firstRadius  = radius      / 3f;
             secondRadius = radius * 2f / 3f;
-            thirdRadius = radius;
+            thirdRadius  = radius;
         }
 
         public int GetRadiusArea(GameObject target)
@@ -27,17 +30,20 @@ namespace Aster.Light
             {
                 return 1;
             }
+
             if (distance < secondRadius)
             {
                 return 2;
             }
+
             return distance < thirdRadius ? 3 : 0;
         }
-        
+
         private void OnEnable()
         {
             AsterEvents.Instance.OnAttackLightSource += GotHit;
         }
+
         private void OnDisable()
         {
             AsterEvents.Instance.OnAttackLightSource -= GotHit;
@@ -53,6 +59,5 @@ namespace Aster.Light
                 AsterEvents.Instance.OnLightSourceDestroyed?.Invoke(hp);
             }
         }
-        
     }
 }

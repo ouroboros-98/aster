@@ -19,6 +19,11 @@ namespace Aster.Entity.Enemy
 
         [SerializeField] private SerializableTimer invincibilityFrames = new(0.1f);
 
+        private MainLightSource _mainLightSource;
+
+        private float DistanceFromMainLight =>
+            Vector3.Distance(transform.position, _mainLightSource.transform.position);
+
         protected override void Awake()
         {
             base.Awake();
@@ -32,18 +37,10 @@ namespace Aster.Entity.Enemy
 
             var moveState   = new EntityMoveState(this);
             var attackState = new EntityAttackState(this);
-            At(attackState, moveState,  When(() =>
-            {
-                float distance = Vector3.Distance(transform.position, MainLightSource.Instance.transform.position);
-                return distance > 1.2f;
-            }));
-            At(moveState, moveState, When(() => false));
-            At(moveState, attackState,  When(() =>
-            {
-                float distance = Vector3.Distance(transform.position, MainLightSource.Instance.transform.position);
-                return distance <= 1.2f;
-            }));
-            
+
+            At(attackState, moveState,   When(() => DistanceFromMainLight > 1.2f));
+            At(moveState,   attackState, When(() => DistanceFromMainLight <= 1.2f));
+
             StateMachine.SetState(moveState);
         }
 
@@ -54,7 +51,10 @@ namespace Aster.Entity.Enemy
             hp.Set(hp.MaxHP);
             movement.Init(rb, movementProvider);
 
+            _mainLightSource = MainLightSource.Instance;
+
             var attackProvider = new PrimitiveEnemyAttackProvider();
+
             attack.Init(attackProvider);
             attack.damage              = 1; // for example, resetting damage
             attack.initialTimeToAttack = 3f;
