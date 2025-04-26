@@ -69,6 +69,7 @@ namespace Aster.Towers
         public void Deregister(ILightRay data)
         {
             _lightHits.Remove(data);
+
             OnDeregister?.Invoke(data);
         }
 

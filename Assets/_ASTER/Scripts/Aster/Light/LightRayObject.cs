@@ -72,9 +72,10 @@ namespace Aster.Light
         {
             if (lightRay == null) return;
 
-            lightRay.OriginChange   += OnOriginChanged;
-            lightRay.EndPointChange += OnEndPointChanged;
-            lightRay.WidthChange    += OnWidthChanged;
+            lightRay.OriginChange    += OnOriginChanged;
+            lightRay.EndPointChange  += OnEndPointChanged;
+            lightRay.IntensityChange += OnIntensityChanged;
+            lightRay.WidthChange     += OnWidthChanged;
 
             if (lightRay is not TargetingRay)
             {
@@ -94,11 +95,12 @@ namespace Aster.Light
         {
             if (lightRay == null) return;
 
-            lightRay.OriginChange   -= OnOriginChanged;
-            lightRay.EndPointChange -= OnEndPointChanged;
-            lightRay.WidthChange    -= OnWidthChanged;
-            lightRay.ColorChange    -= OnColorChanged;
-            lightRay.OnDestroy      -= OnRayDestroyed;
+            lightRay.OriginChange    -= OnOriginChanged;
+            lightRay.EndPointChange  -= OnEndPointChanged;
+            lightRay.IntensityChange -= OnIntensityChanged;
+            lightRay.WidthChange     -= OnWidthChanged;
+            lightRay.ColorChange     -= OnColorChanged;
+            lightRay.OnDestroy       -= OnRayDestroyed;
         }
 
         private void Awake()
@@ -183,13 +185,14 @@ namespace Aster.Light
 
         void OnColorChanged(Color color)
         {
-            // _lineRenderer.startColor = _lineRenderer.endColor = color;
-            _lineRenderer.material.SetColor("_Color", new(color.r, color.g, color.b, Data.Intensity));
+            Color matColor = _lineRenderer.material.GetColor("_Color");
+            _lineRenderer.material.SetColor("_Color", new(color.r, color.g, color.b, matColor.a));
         }
 
         void OnIntensityChanged(float intensity)
         {
-            OnColorChanged(Data.Color);
+            Color color = _lineRenderer.material.GetColor("_Color");
+            _lineRenderer.material.SetColor("_Color", new(color.r, color.g, color.b, MathF.Pow(intensity, 1 / 2f)));
         }
 
         private void OnRayDestroyed()

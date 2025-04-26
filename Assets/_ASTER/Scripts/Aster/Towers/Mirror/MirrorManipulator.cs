@@ -15,14 +15,12 @@ namespace Aster.Towers
         }
 
         private readonly Mirror                _mirror;
-        private          IPool<LightRayObject> _rayPool;
         private          MirrorManipulation    _mirrorManipulation;
 
         public MirrorManipulator(Mirror mirror) : base(mirror)
         {
             _mirror = mirror;
 
-            _rayPool            = RayPool.Instance;
             _mirrorManipulation = new MirrorManipulation(mirror.transform);
         }
 

@@ -14,7 +14,8 @@ namespace Aster.Light
 
         private void Awake()
         {
-            rayPool = RayPool.Instance;
+            _activeRays = new HashSet<ILightRay>();
+            rayPool     = RayPool.Instance;
 
             GameEvents.OnRayActivated += OnRayCreated;
         }
@@ -29,6 +30,24 @@ namespace Aster.Light
             LightRayObject lightRayObject = rayPool.Get();
 
             lightRayObject.Data = ray;
+            _activeRays.Add(ray);
+        }
+
+        private void FixedUpdate()
+        {
+            HashSet<ILightRay> raysToDestroy = new HashSet<ILightRay>();
+            foreach (ILightRay ray in _activeRays)
+            {
+                if (ray.CheckExists()) continue;
+
+                raysToDestroy.Add(ray);
+            }
+
+            foreach (ILightRay ray in raysToDestroy)
+            {
+                ray.Destroy();
+                _activeRays.Remove(ray);
+            }
         }
     }
 }

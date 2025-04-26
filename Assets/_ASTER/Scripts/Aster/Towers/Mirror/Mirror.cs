@@ -14,8 +14,9 @@ namespace Aster.Towers
 
         private void Awake()
         {
-            _lightReceiver     = new MirrorLightReceiver(transform);
-            _mirrorManipulator = new MirrorManipulator(this);
+            _lightReceiver = new MirrorLightReceiver(transform);
+            // _mirrorManipulator = new MirrorManipulator(this);
+            RayManipulator manipulator = new(_lightReceiver, transform, new MirrorManipulation(transform));
         }
     }
 

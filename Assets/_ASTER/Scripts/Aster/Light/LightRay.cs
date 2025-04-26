@@ -31,8 +31,9 @@ namespace Aster.Light
 
         [SerializeField] private List<BaseLightHittable> ignoreHittables;
 
-        private List<Func<bool>>          existencePredicates;
-        public  IReadOnlyList<Func<bool>> ExistencePredicates => existencePredicates;
+        private List<Func<bool>>                 existencePredicates;
+        public  IReadOnlyList<Func<bool>>        ExistencePredicates => existencePredicates;
+        public  IReadOnlyList<BaseLightHittable> HittablesToIgnore   => ignoreHittables;
 
         public bool IsActive { get; private set; }
 

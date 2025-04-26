@@ -24,8 +24,9 @@ namespace Aster.Light
 
         public abstract void UpdateTransformation(LightHit hit);
 
-        public IReadOnlyList<Func<bool>> ExistencePredicates => _innerRay.ExistencePredicates;
-        public bool                      IsActive            => _innerRay.IsActive;
+        public IReadOnlyList<Func<bool>>        ExistencePredicates => _innerRay.ExistencePredicates;
+        public IReadOnlyList<BaseLightHittable> HittablesToIgnore=> _innerRay.HittablesToIgnore;
+        public bool                             IsActive            => _innerRay.IsActive;
 
         public Vector3 Origin
         {
