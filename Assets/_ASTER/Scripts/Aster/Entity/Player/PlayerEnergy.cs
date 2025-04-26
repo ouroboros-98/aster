@@ -4,26 +4,24 @@ using UnityEngine;
 
 namespace Aster.Entity.Player
 {
-    public class PlayerEnergy :MonoBehaviour
+    public class PlayerEnergy : AsterMono
     {
         private int _playerEnergy;
-        
-        
+
+
         private void OnEnable()
         {
             AsterEvents.Instance.OnLightPointAdded += IncrementEnergy;
-            AsterEvents.Instance.OnLightPointRemoved += ReducePlayerEnergy;
         }
 
         private void OnDisable()
         {
             AsterEvents.Instance.OnLightPointAdded -= IncrementEnergy;
-            AsterEvents.Instance.OnLightPointRemoved -= ReducePlayerEnergy;
         }
 
         private void IncrementEnergy(int energy)
         {
-            _playerEnergy++; 
+            _playerEnergy++;
         }
 
         public int GetPlayerEnergy()
@@ -31,11 +29,16 @@ namespace Aster.Entity.Player
             return _playerEnergy;
         }
 
-        public void ReducePlayerEnergy(int value)
+        public bool AttemptReduceEnergy(int value)
         {
             if (_playerEnergy < value)
-                return;
+                return false;
+
             _playerEnergy -= value;
+
+            GameEvents.OnLightPointRemoved?.Invoke(value);
+
+            return true;
         }
     }
 }

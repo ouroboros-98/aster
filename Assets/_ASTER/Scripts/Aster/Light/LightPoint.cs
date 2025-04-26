@@ -16,17 +16,19 @@ namespace Aster.Light
         private bool  _isMovingToLightSource = false;
         private Tween _movementTween;
 
-        private void OnCollisionEnter(Collision other)
-        {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                SoundManager.Instance.Play("EnergyTaken");
-                StartMovingToLightSource();
-            }
-        }
+        // private void OnCollisionEnter(Collision other)
+        // {
+        //     if (other.gameObject.CompareTag("Player"))
+        //     {
+        //         SoundManager.Instance.Play("EnergyTaken");
+        //         StartMovingToLightSource();
+        //     }
+        // }
 
-        private void StartMovingToLightSource()
+        public void Collect()
         {
+            if (_movementTween != null) return;
+
             // _isMovingToLightSource = true;
             rb.isKinematic = true; // So physics doesn't interfere
 
@@ -44,6 +46,7 @@ namespace Aster.Light
                                                 {
                                                     _isMovingToLightSource = false;
                                                     rb.isKinematic         = false;
+                                                    ArriveAtLightSource();
                                                 });
         }
 

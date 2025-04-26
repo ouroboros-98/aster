@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Aster.Core;
+using Aster.Entity.Player;
 using Aster.Light;
 using Aster.Utils.Pool;
 using UnityEngine;
@@ -8,13 +9,15 @@ using UnityEngine.Android;
 
 namespace Aster.Towers
 {
-    public class Emitter : AsterMono
+    public class Emitter : BaseRotatable
     {
-        // [SerializeField] private Vector3 mainLightPos;
-        //
-        // public override LightHitContext OnLightRayHit(LightHit lightHit)
-        // {
-        //     return new(lightHit);
-        // }
+        public override Action<PlayerController> Interact()
+        {
+            return (player) =>
+                   {
+                       var context = new AnchorRotationInteractionContext(player, this);
+                       GameEvents.OnRotationInteractionBegin?.Invoke(context);
+                   };
+        }
     }
 }

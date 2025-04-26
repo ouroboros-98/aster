@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Aster.Core
 {
-    public class TestRotatable : AsterMono, IRotatatble, IInteractable
+    public class BaseRotatable : AsterMono, IRotatatble, IInteractable
     {
         GameObject IInteractable.GameObject => gameObject;
 
@@ -17,6 +17,7 @@ namespace Aster.Core
         public RotationHandler RotationHandler
         {
             get => rotationHandler;
+            protected set => rotationHandler = value;
         }
 
         public Transform RotationTransform
@@ -31,26 +32,28 @@ namespace Aster.Core
             set => radius = value;
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Reset();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             RotationHandler.Update();
         }
 
-        public void Reset()
+        protected virtual void Reset()
         {
             ValidateComponent(ref rotationTransform);
 
             RotationHandler.Bind(rotationTransform);
         }
 
-        public Action<PlayerController> Interact()
+        public virtual Action<PlayerController> Interact()
         {
-            return (player) => GameEvents.OnRotationInteractionBegin?.Invoke(new(player, this));
+            return (player) =>
+                       GameEvents.OnRotationInteractionBegin
+                                ?.Invoke(new AnchorRotationInteractionContext(player, this));
         }
     }
 }

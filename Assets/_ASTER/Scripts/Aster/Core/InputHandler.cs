@@ -31,17 +31,17 @@ namespace Aster.Core
 
         private void SetupEventBindings()
         {
-            OnInteract = delegate { };
-            OnCancel   = delegate { };
-            OnR1           = delegate { };
-            OnL1           = delegate { };
-            OnSelectTower  = delegate { };
+            OnInteract    = delegate { };
+            OnCancel      = delegate { };
+            OnR1          = delegate { };
+            OnL1          = delegate { };
+            OnSelectTower = delegate { };
 
-            SetupButtonBinding(Actions.Player.Interact, () => OnInteract);
-            SetupButtonBinding(Actions.Player.Cancel,   () => OnCancel);
-            SetupButtonBinding(Actions.Player.R1,             () => OnR1);
-            SetupButtonBinding(Actions.Player.L1,             () => OnL1);
-            SetupButtonBinding(Actions.Player.SelectTower,    () => OnSelectTower);
+            SetupButtonBinding(Actions.Player.Interact,    () => OnInteract);
+            SetupButtonBinding(Actions.Player.Cancel,      () => OnCancel);
+            SetupButtonBinding(Actions.Player.R1,          () => OnR1);
+            SetupButtonBinding(Actions.Player.L1,          () => OnL1);
+            SetupButtonBinding(Actions.Player.SelectTower, () => OnSelectTower);
         }
 
         private static void SetupButtonBinding(InputAction inputAction, Func<Action> actionGetter)

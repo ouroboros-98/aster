@@ -79,6 +79,11 @@ namespace Aster.Towers
 
         private void Start()
         {
+            if (!transform.IsChildOf(TowerParent.Instance.transform))
+            {
+                transform.parent = TowerParent.Instance.transform;
+            }
+
             if (Duplicate == null && !Original.Duplicated)
             {
                 Original.Duplicated = true;
@@ -133,7 +138,7 @@ namespace Aster.Towers
                 t.gameObject.layer = LAYER_MASK_TARGETING;
             }
 
-            // DisableMeshRenderers();
+            DisableMeshRenderers();
             ConfigureColliders();
 
             duplicateGO.transform.GetComponentsInChildren<IDuplicatable>()

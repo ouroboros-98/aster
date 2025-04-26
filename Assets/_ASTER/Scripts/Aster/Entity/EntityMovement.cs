@@ -31,10 +31,12 @@ namespace Aster.Entity
             float targetZ = _movementProvider.TargetMovement.y;
 
             Vector3 targetDirection = new(targetX, 0, targetZ);
+
             if (targetDirection.magnitude < THRESHOLD)
             {
                 targetDirection     = Vector3.zero;
                 _rb.angularVelocity = Vector3.zero;
+                _rb.linearVelocity  = Vector3.zero;
             }
 
             Vector3 targetVelocity = targetDirection.normalized * (moveSpeed * Time.fixedDeltaTime);

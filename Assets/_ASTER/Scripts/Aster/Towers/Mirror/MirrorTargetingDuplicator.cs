@@ -10,11 +10,11 @@ namespace Aster.Towers
         {
             Debug.Log("Configuring rotatable", this);
             
-            TestRotatable originalRotatable = Original.GetComponent<TestRotatable>();
+            BaseRotatable originalRotatable = Original.GetComponent<BaseRotatable>();
 
-            Destroy(duplicate.GetComponent<TestRotatable>());
+            Destroy(duplicate.GetComponent<BaseRotatable>());
 
-            TestRotatable rotatable = duplicate.AddComponent<TestRotatable>();
+            BaseRotatable rotatable = duplicate.AddComponent<BaseRotatable>();
 
             rotatable.Radius = originalRotatable.Radius;
             rotatable.RotationHandler.RotationSpeed = 0;

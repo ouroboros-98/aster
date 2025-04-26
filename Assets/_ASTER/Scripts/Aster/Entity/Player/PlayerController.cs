@@ -5,12 +5,14 @@ using Aster.Entity;
 using Aster.Entity.Player.States;
 using DependencyInjection;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Aster.Entity.Player
 {
     public class PlayerController : BaseEntityController
     {
-        [SerializeField] private PlayerInteractor interactor;
+        [SerializeField]                                            private PlayerInteractor interactor;
+        [FormerlySerializedAs("anchorControlelr")] [SerializeField] private PlayerAnchor     anchorController;
 
         [Inject] private InputHandler input;
 
@@ -34,8 +36,12 @@ namespace Aster.Entity.Player
 
             var moveState        = new EntityMoveState(this);
             var interactionState = new PlayerInteractionState(this, interactor);
+            var anchorState      = new PlayerAnchorState(this, anchorController, rb);
 
             At(moveState, interactionState, When(() => interactor.IsInteracting));
+
+            At(interactionState, anchorState,      When(anchorController.IsAnchoring));
+            At(anchorState,      interactionState, When(() => !anchorController.IsAnchoring()));
 
             Any(moveState, When(() => ReturnToBaseState));
 
@@ -45,6 +51,7 @@ namespace Aster.Entity.Player
         private void Reset()
         {
             ValidateComponent(ref interactor, children: true);
+            ValidateComponent(ref anchorController);
         }
     }
 }

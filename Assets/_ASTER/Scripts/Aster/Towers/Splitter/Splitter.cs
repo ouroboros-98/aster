@@ -35,10 +35,5 @@ namespace Aster.Towers
 
             return base.OnLightRayHit(lightHit);
         }
-
-        private void Start()
-        {
-            lastParameterState = _splitterParameters;
-        }
     }
 }

@@ -114,7 +114,6 @@ namespace Aster.Entity.Player
 
                 this.interactable = interactable;
 
-                print("Interactable found");
             }
         }
 
@@ -123,7 +122,6 @@ namespace Aster.Entity.Player
             if (!other.ScanForComponents(out IInteractable[] interactables, parents: true, children: true)) return;
             if (!interactables.Contains(interactable)) return;
 
-            print("Interactable lost");
             this.interactable = null;
         }
 

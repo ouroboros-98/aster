@@ -9,8 +9,7 @@ namespace Aster.Towers
         private         MirrorLightReceiver _lightReceiver;
         public override LightReceiver       LightReceiver => _lightReceiver;
 
-        private MirrorManipulator _mirrorManipulator;
-        private Vector3           MirrorNormal => transform.forward;
+        private Vector3 MirrorNormal => transform.forward;
 
         private void Awake()
         {
