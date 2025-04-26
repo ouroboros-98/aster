@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Mirror
+  - Enemy
+  - Targeting
   layers:
   - Default
   - TransparentFX
@@ -11,12 +14,13 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Lights
+  - Player
+  - LightPoint
+  - Towers
+  - Targeting
+  - Enemy
+  - InvisibleWalls
   - 
   - 
   - 
@@ -50,11 +54,3 @@ TagManager:
   - Light Layer 5
   - Light Layer 6
   - Light Layer 7
-  - Decal Layer default
-  - Decal Layer 1
-  - Decal Layer 2
-  - Decal Layer 3
-  - Decal Layer 4
-  - Decal Layer 5
-  - Decal Layer 6
-  - Decal Layer 7
