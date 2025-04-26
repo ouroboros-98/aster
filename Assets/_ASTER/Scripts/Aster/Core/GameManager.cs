@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Aster.Core
 {
@@ -17,12 +18,13 @@ namespace Aster.Core
 
         private void FinishGame()
         {
-            Debug.Log("Game Over — Light Source Destroyed!");
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-                Application.Quit();
-#endif
+//             Debug.Log("Game Over — Light Source Destroyed!");
+// #if UNITY_EDITOR
+//             UnityEditor.EditorApplication.isPlaying = false;
+// #else
+//                 Application.Quit();
+// #endif
+            SceneManager.LoadScene("DeathScreen");
         }
     }
 }
