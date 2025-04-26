@@ -10,14 +10,19 @@ namespace Aster.Light
 {
     public class MainLightSource : AsterSingleton<MainLightSource>
     {
-        [SerializeField, BoxedProperty, Label("HP")] protected EntityHP       hp;
-        [SerializeField] private float radius;
-        private float firstRadius,secondRadius,thirdRadius;
+        [SerializeField, BoxedProperty, Label("HP")] protected EntityHP  hp;
+        [SerializeField]                             private   Transform collectionPoint;
+        [SerializeField]                             private   float     radius;
+
+        public Transform CollectionPoint => collectionPoint;
+
+        private float firstRadius, secondRadius, thirdRadius;
+
         private void Awake()
         {
-            firstRadius = radius / 3f;
+            firstRadius  = radius      / 3f;
             secondRadius = radius * 2f / 3f;
-            thirdRadius = radius;
+            thirdRadius  = radius;
         }
 
         public int GetRadiusArea(GameObject target)

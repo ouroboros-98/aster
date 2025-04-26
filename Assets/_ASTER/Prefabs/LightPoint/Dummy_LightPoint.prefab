@@ -122,7 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ab7280feec436b81c9d5cb7355d87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  debug: 0
+  speed: 4
   lightSource: {fileID: 0}
   rb: {fileID: 359096298352561260}
   arrivalThreshold: 0.1
