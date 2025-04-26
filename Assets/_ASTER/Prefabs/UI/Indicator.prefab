@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 3595648976923650845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.46, y: 1.46, z: 1.46}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -88,7 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f622c7f83a44c8fba8eca6a1a6adb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicatorRect: {fileID: 3490344736582643547}
-  indicatorImage: {fileID: 4370361426367153975}
+  debug: 0
   offset: -25
   margin: -30
