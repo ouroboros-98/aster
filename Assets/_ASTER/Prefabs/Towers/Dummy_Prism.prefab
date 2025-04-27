@@ -70,7 +70,7 @@ MonoBehaviour:
     splitConeAngle: 20
     spawnOffsetDistance: 0.1
     refract: 1
-    directionOffset: 30
+    directionOffset: -20
 --- !u!1001 &6055909858832190472
 PrefabInstance:
   m_ObjectHideFlags: 0

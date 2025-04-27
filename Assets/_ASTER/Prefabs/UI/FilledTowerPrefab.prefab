@@ -402,7 +402,6 @@ GameObject:
   - component: {fileID: 5148172437806522770}
   - component: {fileID: 6616324108150688798}
   - component: {fileID: 8163334244289717300}
-  - component: {fileID: 2383355413555844382}
   m_Layer: 0
   m_Name: Stand
   m_TagString: Untagged
@@ -456,7 +455,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e5f5920ea86c9e341b830e4bf3d9ddac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -501,20 +500,6 @@ CapsuleCollider:
   m_Height: 25.781557
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 11.8421545, z: -0.000000059604645}
---- !u!114 &2383355413555844382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5474676256921621417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce0a7de2b9f44c2a205fbca3aaef602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  includeChildren: 0
 --- !u!1 &5499446294219767010
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +565,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e5f5920ea86c9e341b830e4bf3d9ddac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

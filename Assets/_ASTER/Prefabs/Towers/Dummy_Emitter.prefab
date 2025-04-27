@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 2676153257433033826}
   - component: {fileID: 1773348988892598707}
   - component: {fileID: 4070700470560574483}
-  - component: {fileID: 6286596726486796663}
+  - component: {fileID: 5641028383093650083}
   - component: {fileID: 2529171918588828644}
   m_Layer: 0
   m_Name: Emitter
@@ -100,7 +100,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e5f5920ea86c9e341b830e4bf3d9ddac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,15 +156,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightRayObjectPrefab: {fileID: 2647352142750809461, guid: 49f7c27499544fe448313d9c3d68aa77, type: 3}
-  ray:
-    _origin: {x: 0, y: 0, z: 0}
-    _endPoint: {x: 0, y: 0, z: 1}
-    _intensity: 1
-    _width: 0.05
-    _color: {r: 1, g: 1, b: 1, a: 1}
-    ignoreHittables: []
   rayObject: {fileID: 0}
---- !u!114 &6286596726486796663
+--- !u!114 &5641028383093650083
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,7 +166,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8938032009392044253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c082bbc7a0d142d2b7e3203b56600bd2, type: 3}
+  m_Script: {fileID: 11500000, guid: a1c710109449422884924c865b14087c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
