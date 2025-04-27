@@ -29,6 +29,7 @@ namespace Aster.Core
         public Action                        OnLightSourceDestroyed;
 
         public Action<Vector3> OnEnemyDeath;
+        public Action<int> OnWaveStart;
         public Action<int> OnWaveEnd;
 
         private AsterEvents()
@@ -47,6 +48,7 @@ namespace Aster.Core
             OnLightSourceDestroyed =  delegate { };
             
             OnEnemyDeath = delegate { };
+            OnWaveStart =  delegate { };
             OnWaveEnd    =  delegate { };
         }
     }

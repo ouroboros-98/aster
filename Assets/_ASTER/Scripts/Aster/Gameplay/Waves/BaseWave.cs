@@ -10,16 +10,20 @@ namespace Aster.Gameplay.Waves
         protected EnemySpawner EnemySpawner;
         protected int NumOfEnemies;
 
-        public void Init(EnemySpawner enemySpawner, int numOfEnemies)
+        public void Init(EnemySpawner enemySpawner)
         { 
             EnemySpawner = enemySpawner;
-            NumOfEnemies = numOfEnemies;
         }
         public abstract void OnWaveStart();
 
         public virtual void OnWaveEnd()
         {
             AsterEvents.Instance.OnWaveEnd?.Invoke(1);
+        }
+
+        public void UpdateNumOfEnemies(int numOfEnemies)
+        {
+            NumOfEnemies = numOfEnemies;
         }
     }
 }
