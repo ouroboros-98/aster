@@ -21,6 +21,7 @@ namespace Aster.Core.UI
 
         private void Awake()
         {
+            UpdateTowerPositions();
             playerEnergy = PlayerEnergy.Instance;
         }
 
