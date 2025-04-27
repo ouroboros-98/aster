@@ -630,34 +630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1478d72ada6f43c19b5d5924b35970c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &499719374 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7381314161797337339, guid: 45fef3691904cd947905d7cbf0b33646, type: 3}
-  m_PrefabInstance: {fileID: 975901387249710464}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &499719377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499719374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
 --- !u!114 &516905287 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9191598623049569044, guid: 9c35d931170bdb848940c11602be8b1a, type: 3}
@@ -1622,10 +1594,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7381314161797337339, guid: 45fef3691904cd947905d7cbf0b33646, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 499719377}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45fef3691904cd947905d7cbf0b33646, type: 3}
 --- !u!1001 &1617450135260926631
 PrefabInstance:

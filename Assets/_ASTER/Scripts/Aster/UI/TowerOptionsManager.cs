@@ -21,7 +21,7 @@ namespace Aster.Core.UI
 
         private void Awake()
         {
-            UpdateTowerPositions();
+            // UpdateTowerPositions();
             playerEnergy = PlayerEnergy.Instance;
         }
 
@@ -60,41 +60,41 @@ namespace Aster.Core.UI
             return towerOptions;
         }
 
-        private void OnValidate()
-        {
-            UpdateTowerPositions();
-        }
+        // private void OnValidate()
+        // {
+        //     UpdateTowerPositions();
+        // }
 
-        [ContextMenu("Update Tower Positions")]
-        public void UpdateTowerPositions()
-        {
-            RectTransform parentRect = GetComponent<RectTransform>();
-            if (parentRect == null || towerOptions == null || towerOptions.Length == 0)
-                return;
-
-            float parentWidth = parentRect.rect.width;
-            if (parentWidth <= 0f)
-            {
-                Debug.LogWarning("Parent RectTransform has zero or negative width.");
-                return;
-            }
-
-            int count = towerOptions.Length;
-            // Calculate usable width after subtracting extra margins.
-            float usableWidth = parentWidth - 2 * extraMargin;
-
-            for (int i = 0; i < count; i++)
-            {
-                RectTransform childRect = towerOptions[i].GetComponent<RectTransform>();
-                if (childRect != null)
-                {
-                    // Calculate X position using extraMargin and usable width
-                    float   xPos        = -parentWidth * 0.5f + extraMargin + usableWidth * ((i + 0.5f) / count);
-                    Vector2 anchoredPos = childRect.anchoredPosition;
-                    anchoredPos.x              = xPos;
-                    childRect.anchoredPosition = anchoredPos;
-                }
-            }
-        }
+        // [ContextMenu("Update Tower Positions")]
+        // public void UpdateTowerPositions()
+        // {
+        //     RectTransform parentRect = GetComponent<RectTransform>();
+        //     if (parentRect == null || towerOptions == null || towerOptions.Length == 0)
+        //         return;
+        //
+        //     float parentWidth = parentRect.rect.width;
+        //     if (parentWidth <= 0f)
+        //     {
+        //         Debug.LogWarning("Parent RectTransform has zero or negative width.");
+        //         return;
+        //     }
+        //
+        //     int count = towerOptions.Length;
+        //     // Calculate usable width after subtracting extra margins.
+        //     float usableWidth = parentWidth - 2 * extraMargin;
+        //
+        //     for (int i = 0; i < count; i++)
+        //     {
+        //         RectTransform childRect = towerOptions[i].GetComponent<RectTransform>();
+        //         if (childRect != null)
+        //         {
+        //             // Calculate X position using extraMargin and usable width
+        //             float   xPos        = -parentWidth * 0.5f + extraMargin + usableWidth * ((i + 0.5f) / count);
+        //             Vector2 anchoredPos = childRect.anchoredPosition;
+        //             anchoredPos.x              = xPos;
+        //             childRect.anchoredPosition = anchoredPos;
+        //         }
+        //     }
+        // }
     }
 }
