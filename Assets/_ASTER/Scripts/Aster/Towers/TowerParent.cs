@@ -15,7 +15,8 @@ namespace Aster.Towers
 
         private void Start()
         {
-            SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
+            SetDestroyOnLoad();
         }
+
     }
 }

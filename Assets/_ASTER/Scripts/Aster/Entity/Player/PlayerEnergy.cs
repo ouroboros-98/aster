@@ -1,10 +1,12 @@
-﻿using Aster.Core;
+﻿using System;
+using Aster.Core;
 using Aster.Light;
+using Aster.Utils;
 using UnityEngine;
 
 namespace Aster.Entity.Player
 {
-    public class PlayerEnergy : AsterMono
+    public class PlayerEnergy : AsterSingleton<PlayerEnergy>
     {
         private int _playerEnergy;
 

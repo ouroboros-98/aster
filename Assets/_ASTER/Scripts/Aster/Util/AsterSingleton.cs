@@ -1,5 +1,6 @@
 using Aster.Core;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Aster.Utils
 {
@@ -34,5 +35,8 @@ namespace Aster.Utils
         protected AsterSingleton()
         {
         }
+
+        protected void SetDestroyOnLoad() =>
+            SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
     }
 }

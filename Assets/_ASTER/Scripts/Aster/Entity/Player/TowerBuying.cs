@@ -1,5 +1,6 @@
 ﻿// File: `Assets/_ASTER/Scripts/Aster/Entity/Player/TowerBuying.cs`
 
+using System;
 using Aster.Core;
 using Aster.Core.UI;
 using Aster.Towers;
@@ -19,6 +20,7 @@ namespace Aster.Entity.Player
 
         private void OnEnable()
         {
+            towerOptionsManager = TowerOptionsManager.Instance;
             // Subscribe to events from InputHandler
             if (inputHandler != null)
             {
