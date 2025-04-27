@@ -13,7 +13,7 @@ namespace Aster.Core.UI
             [SerializeField] private RectTransform energyPanel;
 
             // The TextMeshPro field to display the current energy value.
-            [SerializeField] private TMP_Text energyText;
+            // [SerializeField] private TMP_Text energyText;
 
             // Energy value for which the panel is considered full (100% height).
             [SerializeField] private int energyThreshold = 50;
@@ -75,10 +75,10 @@ namespace Aster.Core.UI
 
             private void UpdateEnergyText()
             {
-                if (energyText != null)
-                {
-                    energyText.text = energyThreshold.ToString();
-                }
+                // if (energyText != null)
+                // {
+                //     energyText.text = energyThreshold.ToString();
+                // }
             }
 
             public void SetEnergy(float energy)

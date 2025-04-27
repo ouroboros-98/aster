@@ -11,6 +11,8 @@ namespace Aster.Core.UI
     [ExecuteAlways]
     public class TowerOptionsManager : MonoBehaviour
     {
+        [Header("Tower Options")]
+        private bool isMovingUp, isMovingDown;
         [SerializeField] private TowerPickUI[] towerOptions;
         [SerializeField] private TMP_Text textMeshPro;
         [SerializeField] private float extraMargin = 20f; // Additional space on each side
