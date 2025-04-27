@@ -14,7 +14,7 @@ namespace Aster.Light
 
         public const float MAX_DISTANCE      = 100f;
         public const float DEFAULT_INTENSITY = 1f;
-        public const float DEFAULT_WIDTH     = .1f;
+        public const float DEFAULT_WIDTH     = .2f;
 
         [OnValueChanged("Editor__OnOriginChanged")] [SerializeField] private Vector3 _origin = Vector3.zero;
 

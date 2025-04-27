@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace Aster.Gameplay.Waves
 {
-    [CreateAssetMenu(fileName = "BaseWave", menuName = "Scriptable Objects/BaseWave")]
     public abstract class BaseWave : ScriptableObject
     {
-        protected EnemySpawner EnemySpawner;
-        protected int NumOfEnemies;
+        protected                  EnemySpawner EnemySpawner;
+        [SerializeField] protected int          NumOfEnemies;
 
         public void Init(EnemySpawner enemySpawner)
-        { 
+        {
             EnemySpawner = enemySpawner;
         }
+
         public abstract void OnWaveStart();
 
         public virtual void OnWaveEnd()

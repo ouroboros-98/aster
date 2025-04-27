@@ -1,8 +1,11 @@
 ﻿using Aster.Utils;
+using UnityEngine;
 
 namespace Aster.Gameplay.Waves
 {
-    public class TutorialObstacleWave: BaseWave {
+    [CreateAssetMenu(fileName = "TutorialObstacleWave", menuName = "Scriptable Objects/TutorialObstacleWave")]
+    public class TutorialObstacleWave : BaseWave
+    {
         public override void OnWaveStart()
         {
             Angle firstEnemyAngle = 0f;

@@ -177,7 +177,7 @@ MonoBehaviour:
   Duplicated: 0
   _splitterParameters:
     splitCount: 2
-    splitConeAngle: 180
+    splitConeAngle: 45
     spawnOffsetDistance: 0.1
     refract: 0
     directionOffset: 0

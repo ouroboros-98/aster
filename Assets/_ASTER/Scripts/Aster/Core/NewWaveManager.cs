@@ -9,25 +9,28 @@ namespace Aster.Core
 {
     public class NewWaveManager : MonoBehaviour
     {
-        [SerializeField] private BaseWave tutorialWave;
-        [SerializeField] private BaseWave obstacleTutorialWave;
-        [SerializeField] private BaseWave[] waveTypes;
+        [SerializeField] private BaseWave     tutorialWave;
+        [SerializeField] private BaseWave     obstacleTutorialWave;
+        [SerializeField] private BaseWave[]   waveTypes;
         [SerializeField] private EnemySpawner spawner;
 
-        [SerializeField] float _timeBetweenWaves;
-        private int _numOfEnemies = 1;
-        private int waveIndex = -1;
-        private int _currentEnemies;
-        [SerializeField] private int enemiesToAdd = 2;
+        [SerializeField]         float _timeBetweenWaves;
+        private                  int   _numOfEnemies = 1;
+        private                  int   waveIndex     = -1;
+        private                  int   _currentEnemies;
+        [SerializeField] private int   enemiesToAdd = 2;
 
         private void Start()
         {
             tutorialWave.Init(spawner);
+
             obstacleTutorialWave.Init(spawner);
+
             foreach (var waveType in waveTypes)
             {
                 waveType.Init(spawner);
             }
+
             StartNewWave(1);
             AsterEvents.Instance.OnWaveStart?.Invoke(1);
         }
@@ -35,15 +38,15 @@ namespace Aster.Core
         public void OnEnable()
         {
             AsterEvents.Instance.OnEnemyDeath += CheckEnemyCounter;
-            AsterEvents.Instance.OnWaveStart += UpdateCurrentEnemies;
-            AsterEvents.Instance.OnWaveEnd += StartNewWave;
+            AsterEvents.Instance.OnWaveStart  += UpdateCurrentEnemies;
+            AsterEvents.Instance.OnWaveEnd    += StartNewWave;
         }
 
         public void OnDisable()
         {
             AsterEvents.Instance.OnEnemyDeath -= CheckEnemyCounter;
-            AsterEvents.Instance.OnWaveStart -= UpdateCurrentEnemies;
-            AsterEvents.Instance.OnWaveEnd -= StartNewWave;
+            AsterEvents.Instance.OnWaveStart  -= UpdateCurrentEnemies;
+            AsterEvents.Instance.OnWaveEnd    -= StartNewWave;
         }
 
         private void CheckEnemyCounter(Vector3 obj)
@@ -63,7 +66,7 @@ namespace Aster.Core
                 _numOfEnemies += enemiesToAdd;
                 //get random waveType
                 BaseWave randomWaveType = waveTypes[Random.Range(0, waveTypes.Length)];
-                
+
                 StartCoroutine(StartWaveAfterSeconds(_timeBetweenWaves, randomWaveType));
             }
             else
@@ -77,7 +80,7 @@ namespace Aster.Core
                 if (waveIndex == 1)
                 {
                     StartCoroutine(StartWaveAfterSeconds
-                        (_timeBetweenWaves, obstacleTutorialWave));
+                                       (_timeBetweenWaves, obstacleTutorialWave));
                 }
             }
         }
@@ -94,7 +97,5 @@ namespace Aster.Core
             waveType.OnWaveStart();
             AsterEvents.Instance.OnWaveStart?.Invoke(1);
         }
-        
-        
     }
 }

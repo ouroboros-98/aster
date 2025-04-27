@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2347847192493157355}
-  - component: {fileID: 6306811646646343083}
+  - component: {fileID: 7684145284451938086}
   m_Layer: 0
   m_Name: WaveManager
   m_TagString: Untagged
@@ -29,10 +29,11 @@ Transform:
   m_LocalPosition: {x: -5.8820386, y: -1.2645125, z: 6.7023864}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 553102340804523370}
   m_Father: {fileID: 1868509924944874632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6306811646646343083
+--- !u!114 &7684145284451938086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,33 +42,62 @@ MonoBehaviour:
   m_GameObject: {fileID: 3301065168783910136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 877f9ad0f16d4650b829b94ebb261627, type: 3}
+  m_Script: {fileID: 11500000, guid: 55b22030c15848c78d6e4c6cd651e940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawners:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  initialSpawnInterval: 10
-  initialEnemies: 3
-  difficultyFactor: 0.95
-  additionalEnemiesPerWave: 1
+  tutorialWave: {fileID: 11400000, guid: 8a798ed9c8545d649857462a92a56f9f, type: 2}
+  obstacleTutorialWave: {fileID: 11400000, guid: f9c14478b144ec2469d1e8fc05e43ff2, type: 2}
+  waveTypes: []
+  spawner: {fileID: 3770590595730369864}
+  _timeBetweenWaves: 0
+  enemiesToAdd: 1
+--- !u!1 &3796646223905139257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2587834380701985072}
+  - component: {fileID: 3522379079209096539}
+  m_Layer: 0
+  m_Name: EnergyDropManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2587834380701985072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796646223905139257}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1868509924944874632}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3522379079209096539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796646223905139257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 844f5aa4d3464f2eb4c406a874752bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  chanceToDrop: 1
+  lightPointPrefab: {fileID: 2318211755590232033, guid: 731c54ea827895b49871391c3c9bf32c, type: 3}
 --- !u!1 &4641393587545905451
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,6 +131,7 @@ Transform:
   m_Children:
   - {fileID: 6803337981726844753}
   - {fileID: 2347847192493157355}
+  - {fileID: 2587834380701985072}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8328060706180153870
@@ -129,6 +160,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
+--- !u!1 &4710243315632817157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 553102340804523370}
+  - component: {fileID: 3770590595730369864}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &553102340804523370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4710243315632817157}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.8820386, y: 1.2645125, z: -6.7023864}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2347847192493157355}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3770590595730369864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4710243315632817157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6600dbd8da06483c8ffc8aaea69da60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  spawnDistance: 0
 --- !u!1 &5803367319648849969
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +261,13 @@ MonoBehaviour:
   - name: EnergyTaken
     clip: {fileID: 8300000, guid: 77bfe4be9b4558a40b461453844fd82a, type: 3}
     volume: 0.2
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    source: {fileID: 0}
+  - name: EnemyHit
+    clip: {fileID: 8300000, guid: 5c724df9547bdc140a16972fce79ce43, type: 3}
+    volume: 0.05
     pitch: 1
     loop: 0
     spatialBlend: 0

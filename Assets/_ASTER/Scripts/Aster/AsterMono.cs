@@ -17,6 +17,17 @@ namespace Aster.Core
             }
         }
 
+        private AsterConstants _constants;
+
+        protected AsterConstants Constants
+        {
+            get
+            {
+                if (_constants == null) _constants = AsterConstants.Instance;
+                return _constants;
+            }
+        }
+
         [SerializeField, HideInNormalInspector] private bool debug = false;
 
         protected void ValidateRawComponent<T>(ref T component,        bool self     = true, bool parents = false,
