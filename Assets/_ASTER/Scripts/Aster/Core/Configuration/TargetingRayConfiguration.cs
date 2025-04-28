@@ -1,4 +1,5 @@
 using Aster.Utils.Attributes;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,11 +13,13 @@ namespace Aster.Core
         [System.Serializable]
         public class TargetingConfiguration
         {
-            [SerializeField] private bool  enableRay = false;
-            [SerializeField] private Color rayColor  = new(0.8039216f, 0.1568628f, 0.1098039f);
+            [SerializeField] private bool rotateWithoutTargeting = false;
+            [SerializeField, HideIf("rotateWithoutTargeting")] private bool enableRay = false;
+            [SerializeField] private Color rayColor = new(0.8039216f, 0.1568628f, 0.1098039f);
 
-            public bool  EnableRay => enableRay;
-            public Color RayColor  => rayColor;
+            public bool  RotateWithoutTargeting => rotateWithoutTargeting;
+            public bool  EnableRay              => enableRay && !rotateWithoutTargeting;
+            public Color RayColor               => rayColor;
         }
     }
 }

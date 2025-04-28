@@ -19,6 +19,7 @@ MonoBehaviour:
     playerPivotY: 0.96
     playerRotateWithTowers: 0
   targeting:
+    rotateWithoutTargeting: 1
     enableRay: 1
     rayColor: {r: 0.8039216, g: 0.1568628, b: 0.1098039, a: 1}
   towers:

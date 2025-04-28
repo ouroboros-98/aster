@@ -59,11 +59,21 @@ namespace Aster.Core
             this.targetAngle                = RotationHandler.TargetAngle;
 
             OnInteractionBegin?.Invoke(currentRotationInteraction);
+
+            if (Configuration.Targeting.RotateWithoutTargeting)
+            {
+                OnTargetAngleChanged += rotationInteraction.Interactable.RotationHandler.Rotate;
+            }
         }
 
         private void Deactivate()
         {
             OnDeactivate?.Invoke();
+
+            if (Configuration.Targeting.RotateWithoutTargeting)
+            {
+                OnTargetAngleChanged -= currentRotationInteraction.Interactable.RotationHandler.Rotate;
+            }
 
             GameEvents.OnInteractionEnd?.Invoke(currentRotationInteraction);
 
@@ -106,7 +116,7 @@ namespace Aster.Core
             this.targetAngle = normalizedAngle;
 
             OnTargetAngleChanged?.Invoke(targetAngle);
-            
+
             RotationHandler.ActiveTargetingAngle = targetAngle;
         }
 
