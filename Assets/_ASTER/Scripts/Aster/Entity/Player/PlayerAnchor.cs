@@ -47,7 +47,7 @@ namespace Aster.Entity.Player
 
         private void Update()
         {
-            if (_anchor != null && !Configuration.Entities.PlayerRotateWithTowers)
+            if (_anchor != null && !Config.Entities.PlayerRotateWithTowers)
             {
                 _anchor                                  =  null;
                 _rotationController.OnTargetAngleChanged -= UpdateTargetAngle;
@@ -60,7 +60,7 @@ namespace Aster.Entity.Player
 
         private void HandleRotationInteractionBegin(RotationInteractionContext context)
         {
-            if (!Configuration.Entities.PlayerRotateWithTowers || !context.Anchor) return;
+            if (!Config.Entities.PlayerRotateWithTowers || !context.Anchor) return;
 
             _anchor      = context.Interactable;
             _targetAngle = _rotationController.TargetAngle;

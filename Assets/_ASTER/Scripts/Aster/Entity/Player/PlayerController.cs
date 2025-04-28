@@ -54,7 +54,7 @@ namespace Aster.Entity.Player
         {
             base.FixedUpdate();
 
-            pivot.position = pivot.position.With(y: Configuration.Entities.PlayerPivotY);
+            pivot.position = pivot.position.With(y: Config.Entities.PlayerPivotY);
         }
 
         private void Reset()

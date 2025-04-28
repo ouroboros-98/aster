@@ -60,7 +60,7 @@ namespace Aster.Core
 
             OnInteractionBegin?.Invoke(currentRotationInteraction);
 
-            if (Configuration.Targeting.RotateWithoutTargeting)
+            if (Config.Targeting.RotateWithoutTargeting)
             {
                 OnTargetAngleChanged += rotationInteraction.Interactable.RotationHandler.Rotate;
             }
@@ -70,7 +70,7 @@ namespace Aster.Core
         {
             OnDeactivate?.Invoke();
 
-            if (Configuration.Targeting.RotateWithoutTargeting)
+            if (Config.Targeting.RotateWithoutTargeting)
             {
                 OnTargetAngleChanged -= currentRotationInteraction.Interactable.RotationHandler.Rotate;
             }

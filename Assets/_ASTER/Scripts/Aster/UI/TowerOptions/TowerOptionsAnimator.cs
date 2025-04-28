@@ -10,7 +10,7 @@ using DG.Tweening.Plugins.Options;
 
 namespace Aster.UI
 {
-    public class TowerOptionsAnimator : AsterMono
+    public partial class TowerOptionsAnimator : AsterMono
     {
         enum State
         {
@@ -20,11 +20,9 @@ namespace Aster.UI
             MovingUp
         }
 
+        private Configuration _configuration;
+
         [SerializeField] private RectTransform         optionsPanel;
-        [SerializeField] private float                 baseSpeed              = 2000f; // Pixels per second
-        [SerializeField] private SerializableTimer     idleTime               = new(3f);
-        [SerializeField] private int                   onScreenBottomPadding  = 32;
-        [SerializeField] private int                   offScreenBottomPadding = -128;
         [SerializeField] private HorizontalLayoutGroup layoutGroup;
         [Inject]         private InputHandler          inputHandler;
 
@@ -33,16 +31,21 @@ namespace Aster.UI
         private State   _state;
         private Tween   _currentTween;
 
+        private bool SlideDownEnabled => _configuration.SlideDown;
+
         private void Awake()
         {
             ValidateComponent(ref layoutGroup);
 
-            idleTime.OnTimerStop += SlideDown;
-            _state               =  State.OnScreen;
+            _configuration = AsterConfiguration.Instance.TowerOptionsAnimator;
+
+            _state = State.OnScreen;
         }
 
         private void OnEnable()
         {
+            _configuration.IdleTime.OnTimerStop += SlideDown;
+
             // Subscribe to events from InputHandler
             if (inputHandler != null)
             {
@@ -54,6 +57,8 @@ namespace Aster.UI
 
         private void OnDisable()
         {
+            _configuration.IdleTime.OnTimerStop -= SlideDown;
+
             if (inputHandler != null)
             {
                 inputHandler.OnR1          -= OnGetTowerOptions;
@@ -67,31 +72,35 @@ namespace Aster.UI
         {
             if (optionsPanel != null) _originalPos = optionsPanel.anchoredPosition;
 
-            idleTime.Start();
+            _configuration.IdleTime.Start();
         }
 
         public void OnGetTowerOptions()
         {
+            if (!SlideDownEnabled) return;
+
             if (_state == State.OffScreen || _state == State.MovingDown) SlideUp();
             if (_state == State.OnScreen)
             {
-                idleTime.Start();
+                _configuration.IdleTime.Start();
             }
         }
 
         private void SlideDown()
         {
+            if (!SlideDownEnabled) return;
+
             KillTween();
 
             _state = State.MovingDown;
 
-            float distance = Mathf.Abs(onScreenBottomPadding - offScreenBottomPadding);
-            float duration = distance / baseSpeed;
+            float distance = Mathf.Abs(_configuration.OnScreenBottomPadding - _configuration.OffScreenBottomPadding);
+            float duration = distance / _configuration.BaseSpeed;
 
-            _currentTween = AnimateBottomPadding(offScreenBottomPadding, duration)
+            _currentTween = AnimateBottomPadding(_configuration.OffScreenBottomPadding, duration)
                .OnComplete(() =>
                            {
-                               layoutGroup.padding.bottom = offScreenBottomPadding;
+                               layoutGroup.padding.bottom = _configuration.OffScreenBottomPadding;
                                _state                     = State.OffScreen;
                            });
         }
@@ -108,14 +117,14 @@ namespace Aster.UI
 
             _state = State.MovingUp;
 
-            float distance = Mathf.Abs(onScreenBottomPadding - offScreenBottomPadding);
+            float distance = Mathf.Abs(_configuration.OnScreenBottomPadding - _configuration.OffScreenBottomPadding);
             float duration = .1f;
 
-            _currentTween = AnimateBottomPadding(onScreenBottomPadding, duration).OnComplete(() =>
+            _currentTween = AnimateBottomPadding(_configuration.OnScreenBottomPadding, duration).OnComplete(() =>
                          {
                              layoutGroup.padding.bottom =
-                                 onScreenBottomPadding;
-                             idleTime.Start();
+                                 _configuration.OnScreenBottomPadding;
+                             _configuration.IdleTime.Start();
                              _state = State.OnScreen;
                          });
         }
@@ -129,10 +138,30 @@ namespace Aster.UI
                 ;
         }
 
+        private void Update()
+        {
+            if (!SlideDownEnabled && _state != State.OnScreen)
+            {
+                SlideUp();
+            }
+
+            if (SlideDownEnabled
+             && _state == State.OnScreen
+             && !_configuration.IdleTime.IsRunning)
+            {
+                _configuration.IdleTime.Start();
+            }
+        }
+
         private void KillTween()
         {
             if (_currentTween != null && _currentTween.IsActive())
                 _currentTween.Complete();
+        }
+
+        private void Reset()
+        {
+            _configuration = Config.TowerOptionsAnimator;
         }
     }
 }

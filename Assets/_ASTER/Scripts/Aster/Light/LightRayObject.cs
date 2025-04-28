@@ -83,7 +83,7 @@ namespace Aster.Light
             }
             else
             {
-                OnColorChanged(Configuration.Targeting.RayColor);
+                OnColorChanged(Config.Targeting.RayColor);
             }
 
             lightRay.OnDestroy += OnRayDestroyed;

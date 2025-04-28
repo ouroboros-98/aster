@@ -41,7 +41,7 @@ namespace Aster.Towers
         {
             base.Reset();
 
-            if (IsNotNull(Configuration)) AssignParametersFromConfig(Configuration);
+            if (IsNotNull(Config)) AssignParametersFromConfig(Config);
         }
 
         protected virtual void AssignParametersFromConfig(AsterConfiguration config)

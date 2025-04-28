@@ -53,7 +53,7 @@ namespace Aster.Towers
 
         private void OnRotationInteractionBegin(RotationInteractionContext context)
         {
-            if (!Configuration.Targeting.EnableRay) return;
+            if (!Config.Targeting.EnableRay) return;
 
             _currentRotatable = context.Interactable;
 
@@ -67,7 +67,7 @@ namespace Aster.Towers
 
         private void Update()
         {
-            if (_targetingRay != null && !Configuration.Targeting.EnableRay)
+            if (_targetingRay != null && !Config.Targeting.EnableRay)
             {
                 DestroyTargetingRay();
             }

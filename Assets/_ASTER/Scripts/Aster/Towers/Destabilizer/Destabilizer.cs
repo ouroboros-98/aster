@@ -25,7 +25,7 @@ namespace Aster.Towers.Destabilizer
         {
             base.Reset();
 
-            DestabilizerParameters configParameters   = Configuration.Towers.Destabilizer;
+            DestabilizerParameters configParameters   = Config.Towers.Destabilizer;
             if (configParameters != null) _parameters = configParameters;
         }
     }

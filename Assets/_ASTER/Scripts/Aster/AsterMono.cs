@@ -19,7 +19,7 @@ namespace Aster.Core
 
         private AsterConfiguration _config;
 
-        protected AsterConfiguration Configuration
+        protected AsterConfiguration Config
         {
             get
             {
