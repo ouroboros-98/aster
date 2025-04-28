@@ -1,5 +1,5 @@
 ﻿using Aster.Entity.Player;
-using Aster.UI.Aster.Core.UI;
+using Aster.UI.Aster.UI;
 using Aster.Utils;
 using TMPro;
 using UnityEngine;

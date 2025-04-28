@@ -1,13 +1,14 @@
-﻿using Aster.Towers;
+﻿using Aster.Core;
+using Aster.Towers;
 
 namespace Aster.UI
 {
     using UnityEngine;
     using TMPro;
 
-    namespace Aster.Core.UI
+    namespace Aster.UI
     {
-        public class TowerPickUI : MonoBehaviour
+        public class TowerPickUI : AsterMono
         {
             // The RectTransform of the panel that will be used as the fill.
             [SerializeField] private RectTransform energyPanel;
