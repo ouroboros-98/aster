@@ -11,6 +11,18 @@ namespace Aster.Core
     [CreateAssetMenu(fileName = "Configuration", menuName = "Aster/Configuration")]
     public partial class AsterConfiguration : ScriptableObject
     {
+        private static AsterConfiguration _instance;
+
+        public static AsterConfiguration Instance
+        {
+            get
+            {
+                if (_instance == null) _instance = Resources.Load<AsterConfiguration>("Configuration");
+
+                return _instance;
+            }
+        }
+
         [SerializeField] private float lightRayYPosition = 0.3670001f;
         public                   float LightRayYPosition => lightRayYPosition;
     }

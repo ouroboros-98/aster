@@ -23,7 +23,7 @@ namespace Aster.Core
         {
             get
             {
-                if (_config == null) _config = GameManager.Instance.Configuration;
+                if (_config == null) _config = AsterConfiguration.Instance;
                 return _config;
             }
         }

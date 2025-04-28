@@ -16,7 +16,7 @@ MonoBehaviour:
   entities:
     playerPrefab: {fileID: 3222902280958609765, guid: ed33692e615798247893282b63fc8cc8, type: 3}
     enemyPrefab: {fileID: 5518948375846772075, guid: 3e6c31a7ecf7e2145a8762fe0f2c7487, type: 3}
-    playerPivotY: 0.96
+    playerPivotY: 1.1
     playerRotateWithTowers: 0
   targeting:
     rotateWithoutTargeting: 1

@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.InteropServices;
 using Aster.Utils;
 using UnityEngine;
@@ -7,10 +8,6 @@ namespace Aster.Core
 {
     public class GameManager : AsterSingleton<GameManager>
     {
-        [SerializeField] private AsterConfiguration _configuration;
-
-        public AsterConfiguration Configuration => _configuration;
-
         private void OnEnable()
         {
             AsterEvents.Instance.OnLightSourceDestroyed += FinishGame;
