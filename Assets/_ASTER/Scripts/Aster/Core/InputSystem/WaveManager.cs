@@ -1,11 +1,10 @@
 ﻿using _ASTER.Scripts.Aster.Entity.Enemy;
-using Aster.Core.UI.EnemyIndicator;
+using System.Collections;
+using Aster.Entity.Enemy;
+using UnityEngine;
 
 namespace Aster.Core.InputSystem
 {
-    using System.Collections;
-    using UnityEngine;
-
     public class WaveManager : MonoBehaviour
     {
         [SerializeField] private EnemySpawner[] spawners;

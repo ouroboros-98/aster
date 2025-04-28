@@ -1,13 +1,11 @@
 ﻿using System;
 using Aster.Core;
-using Aster.Core.UI.EnemyIndicator;
-using Aster.Entity.Enemy;
 using Aster.Light;
 using Aster.Utils;
 using Aster.Utils.Pool;
 using UnityEngine;
 
-namespace _ASTER.Scripts.Aster.Entity.Enemy
+namespace Aster.Entity.Enemy
 {
     public class EnemySpawner : AsterMono
     {

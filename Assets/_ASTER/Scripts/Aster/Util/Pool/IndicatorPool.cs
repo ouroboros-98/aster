@@ -1,6 +1,8 @@
-﻿using Aster.Core.UI.EnemyIndicator;
+﻿using Aster.Core.UI;
 
 namespace Aster.Utils.Pool
 {
-    public class IndicatorPool: AsterPool<EnemyIndicator>{ }
+    public class IndicatorPool : AsterPool<EnemyIndicator>
+    {
+    }
 }

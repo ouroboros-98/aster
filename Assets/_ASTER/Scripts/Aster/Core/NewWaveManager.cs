@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections;
-using _ASTER.Scripts.Aster.Entity.Enemy;
+﻿using System.Collections;
+using Aster.Entity.Enemy;
 using Aster.Gameplay.Waves;
 using UnityEngine;
 using Random = UnityEngine.Random;

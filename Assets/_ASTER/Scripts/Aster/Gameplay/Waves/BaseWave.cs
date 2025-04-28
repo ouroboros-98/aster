@@ -1,5 +1,5 @@
-using _ASTER.Scripts.Aster.Entity.Enemy;
 using Aster.Core;
+using Aster.Entity.Enemy;
 using UnityEngine;
 
 namespace Aster.Gameplay.Waves

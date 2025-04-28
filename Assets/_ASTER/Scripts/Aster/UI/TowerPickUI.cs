@@ -1,6 +1,6 @@
 ﻿using Aster.Towers;
 
-namespace Aster.Core.UI
+namespace Aster.UI
 {
     using UnityEngine;
     using TMPro;

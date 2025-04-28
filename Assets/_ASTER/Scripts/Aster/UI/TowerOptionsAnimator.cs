@@ -8,128 +8,131 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 
-public class TowerOptionsAnimator : AsterMono
+namespace Aster.UI
 {
-    enum State
+    public class TowerOptionsAnimator : AsterMono
     {
-        OnScreen,
-        MovingDown,
-        OffScreen,
-        MovingUp
-    }
-
-    [SerializeField] private RectTransform         optionsPanel;
-    [SerializeField] private float                 baseSpeed              = 2000f; // Pixels per second
-    [SerializeField] private SerializableTimer     idleTime               = new(3f);
-    [SerializeField] private int                   onScreenBottomPadding  = 32;
-    [SerializeField] private int                   offScreenBottomPadding = -128;
-    [SerializeField] private HorizontalLayoutGroup layoutGroup;
-    [Inject]         private InputHandler          inputHandler;
-
-    private Vector2 _originalPos;
-    private float   _timer;
-    private State   _state;
-    private Tween   _currentTween;
-
-    private void Awake()
-    {
-        ValidateComponent(ref layoutGroup);
-
-        idleTime.OnTimerStop += SlideDown;
-        _state               =  State.OnScreen;
-    }
-
-    private void OnEnable()
-    {
-        // Subscribe to events from InputHandler
-        if (inputHandler != null)
+        enum State
         {
-            inputHandler.OnR1          += OnGetTowerOptions;
-            inputHandler.OnL1          += OnGetTowerOptions;
-            inputHandler.OnSelectTower += OnGetTowerOptions;
+            OnScreen,
+            MovingDown,
+            OffScreen,
+            MovingUp
         }
-    }
 
-    private void OnDisable()
-    {
-        if (inputHandler != null)
+        [SerializeField] private RectTransform         optionsPanel;
+        [SerializeField] private float                 baseSpeed              = 2000f; // Pixels per second
+        [SerializeField] private SerializableTimer     idleTime               = new(3f);
+        [SerializeField] private int                   onScreenBottomPadding  = 32;
+        [SerializeField] private int                   offScreenBottomPadding = -128;
+        [SerializeField] private HorizontalLayoutGroup layoutGroup;
+        [Inject]         private InputHandler          inputHandler;
+
+        private Vector2 _originalPos;
+        private float   _timer;
+        private State   _state;
+        private Tween   _currentTween;
+
+        private void Awake()
         {
-            inputHandler.OnR1          -= OnGetTowerOptions;
-            inputHandler.OnL1          -= OnGetTowerOptions;
-            inputHandler.OnSelectTower -= OnGetTowerOptions;
+            ValidateComponent(ref layoutGroup);
+
+            idleTime.OnTimerStop += SlideDown;
+            _state               =  State.OnScreen;
         }
-    }
 
-
-    private void Start()
-    {
-        if (optionsPanel != null) _originalPos = optionsPanel.anchoredPosition;
-
-        idleTime.Start();
-    }
-
-    public void OnGetTowerOptions()
-    {
-        if (_state == State.OffScreen || _state == State.MovingDown) SlideUp();
-        if (_state == State.OnScreen)
+        private void OnEnable()
         {
+            // Subscribe to events from InputHandler
+            if (inputHandler != null)
+            {
+                inputHandler.OnR1          += OnGetTowerOptions;
+                inputHandler.OnL1          += OnGetTowerOptions;
+                inputHandler.OnSelectTower += OnGetTowerOptions;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (inputHandler != null)
+            {
+                inputHandler.OnR1          -= OnGetTowerOptions;
+                inputHandler.OnL1          -= OnGetTowerOptions;
+                inputHandler.OnSelectTower -= OnGetTowerOptions;
+            }
+        }
+
+
+        private void Start()
+        {
+            if (optionsPanel != null) _originalPos = optionsPanel.anchoredPosition;
+
             idleTime.Start();
         }
-    }
 
-    private void SlideDown()
-    {
-        KillTween();
+        public void OnGetTowerOptions()
+        {
+            if (_state == State.OffScreen || _state == State.MovingDown) SlideUp();
+            if (_state == State.OnScreen)
+            {
+                idleTime.Start();
+            }
+        }
 
-        _state = State.MovingDown;
+        private void SlideDown()
+        {
+            KillTween();
 
-        float distance = Mathf.Abs(onScreenBottomPadding - offScreenBottomPadding);
-        float duration = distance / baseSpeed;
+            _state = State.MovingDown;
 
-        _currentTween = AnimateBottomPadding(offScreenBottomPadding, duration)
-           .OnComplete(() =>
-                       {
-                           layoutGroup.padding.bottom = offScreenBottomPadding;
-                           _state                     = State.OffScreen;
-                       });
-    }
+            float distance = Mathf.Abs(onScreenBottomPadding - offScreenBottomPadding);
+            float duration = distance / baseSpeed;
 
-    private void SetBottomPadding(int x)
-    {
-        layoutGroup.padding.bottom = x;
-        LayoutRebuilder.ForceRebuildLayoutImmediate(optionsPanel);
-    }
+            _currentTween = AnimateBottomPadding(offScreenBottomPadding, duration)
+               .OnComplete(() =>
+                           {
+                               layoutGroup.padding.bottom = offScreenBottomPadding;
+                               _state                     = State.OffScreen;
+                           });
+        }
 
-    private void SlideUp()
-    {
-        KillTween();
+        private void SetBottomPadding(int x)
+        {
+            layoutGroup.padding.bottom = x;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(optionsPanel);
+        }
 
-        _state = State.MovingUp;
+        private void SlideUp()
+        {
+            KillTween();
 
-        float distance = Mathf.Abs(onScreenBottomPadding - offScreenBottomPadding);
-        float duration = .1f;
+            _state = State.MovingUp;
 
-        _currentTween = AnimateBottomPadding(onScreenBottomPadding, duration).OnComplete(() =>
-                     {
-                         layoutGroup.padding.bottom =
-                             onScreenBottomPadding;
-                         idleTime.Start();
-                         _state = State.OnScreen;
-                     });
-    }
+            float distance = Mathf.Abs(onScreenBottomPadding - offScreenBottomPadding);
+            float duration = .1f;
 
-    private TweenerCore<int, int, NoOptions> AnimateBottomPadding(int endPos, float duration)
-    {
-        return DOTween.To(() => layoutGroup.padding.bottom,
-                          SetBottomPadding,
-                          endPos,
-                          duration)
-            ;
-    }
+            _currentTween = AnimateBottomPadding(onScreenBottomPadding, duration).OnComplete(() =>
+                         {
+                             layoutGroup.padding.bottom =
+                                 onScreenBottomPadding;
+                             idleTime.Start();
+                             _state = State.OnScreen;
+                         });
+        }
 
-    private void KillTween()
-    {
-        if (_currentTween != null && _currentTween.IsActive())
-            _currentTween.Complete();
+        private TweenerCore<int, int, NoOptions> AnimateBottomPadding(int endPos, float duration)
+        {
+            return DOTween.To(() => layoutGroup.padding.bottom,
+                              SetBottomPadding,
+                              endPos,
+                              duration)
+                ;
+        }
+
+        private void KillTween()
+        {
+            if (_currentTween != null && _currentTween.IsActive())
+                _currentTween.Complete();
+        }
     }
 }
