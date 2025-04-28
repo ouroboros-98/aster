@@ -14,13 +14,13 @@ namespace Aster.Core
         [System.Serializable]
         public class EntitiesConfiguration
         {
-            [SerializeField, BoxGroup("Player"), Label("Prefab")] private PlayerController playerPrefab;
-            [SerializeField, BoxGroup("Enemy"), Label( "Prefab")] private EnemyController  enemyPrefab;
+            [SerializeField, Header("Player"), Label("Prefab"), AllowNesting] private PlayerController playerPrefab;
 
-            [SerializeField, BoxGroup("Player"), Label("Player Flight Y")] private float playerPivotY = 0.96f;
+            [SerializeField, Label("Y Offset"), AllowNesting] private float playerPivotY = 0.96f;
 
-            [SerializeField, BoxGroup("Player"), Label("Player Rotate with Towers")]
-            private bool playerRotateWithTowers = false;
+            [SerializeField, Label("Rotate with Towers"), AllowNesting] private bool playerRotateWithTowers = false;
+
+            [SerializeField, Header("Enemy"), Label("Prefab"), AllowNesting] private EnemyController enemyPrefab;
 
             public PlayerController PlayerPrefab           => playerPrefab;
             public float            PlayerPivotY           => playerPivotY;

@@ -24,7 +24,10 @@ namespace Aster.Light
                     continue;
                 if (hit.distance == 0 && hit.point == Vector3.zero) continue;
 
-                result.Add(new(ray, hit.point, hittable));
+                // Project the hit point to the ray
+                Vector3 actualHitPoint = ray.Origin + ray.Direction * (hit.distance + ray.Width / 2f);
+
+                result.Add(new(ray, actualHitPoint, hittable));
             }
 
             result.Sort((x, y) => x.Distance.CompareTo(y.Distance));
