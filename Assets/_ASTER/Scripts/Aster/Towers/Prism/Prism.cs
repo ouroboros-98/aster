@@ -1,27 +1,15 @@
+using Aster.Core;
 using Aster.Light;
 using UnityEngine;
 
 namespace Aster.Towers.Prism
 {
-    public class Prism : BaseTower, IDuplicatable
+    public class Prism : Splitter
     {
-        private LightReceiver lightReceiver;
-
-        public override LightReceiver LightReceiver => lightReceiver;
-
-        protected override LightHitContext OnLightRayHit(LightHit lightHit)
+        protected override void AssignParametersFromConfig(AsterConfiguration config)
         {
-            if (lightHit.Ray.Color != Color.white || lightHit.Ray is not TargetingRay)
-                return new LightHitContext(lightHit, blockLight: false);
-
-            return base.OnLightRayHit(lightHit);
-        }
-
-        protected override void Reset()
-        {
-            base.Reset();
-
-            lightReceiver = new();
+            SplitterParameters configParams                  = config.Towers.Prism;
+            if (IsNotNull(configParams)) _splitterParameters = configParams;
         }
     }
 }

@@ -3,13 +3,13 @@ using UnityEngine;
 namespace Aster.Towers
 {
     [System.Serializable]
-    public struct SplitterParameters
+    public class SplitterParameters : BaseTowerParameters<SplitterParameters>
     {
-        [SerializeField] private int   splitCount;
-        [SerializeField] private float splitConeAngle;
-        [SerializeField] private float spawnOffsetDistance;
-        [SerializeField] private bool  refract;
-        [SerializeField] private float directionOffset;
+        [SerializeField] private int   splitCount          = 2;
+        [SerializeField] private float splitConeAngle      = 45;
+        [SerializeField] private float spawnOffsetDistance = .1f;
+        [SerializeField] private bool  refract             = false;
+        [SerializeField] private float directionOffset     = 0f;
 
         public int   SplitCount          => splitCount;
         public float SplitConeAngle      => splitConeAngle;
@@ -17,14 +17,20 @@ namespace Aster.Towers
         public bool  Refract             => refract;
         public float DirectionOffset     => directionOffset;
 
-        public SplitterParameters(int   splitCount, float splitConeAngle, float spawnOffsetDistance, bool refract,
-                                  float directionOffset)
+        public SplitterParameters()
         {
-            this.splitCount          = splitCount;
-            this.splitConeAngle      = splitConeAngle;
-            this.spawnOffsetDistance = spawnOffsetDistance;
-            this.refract             = refract;
-            this.directionOffset     = directionOffset;
+        }
+
+        public override SplitterParameters Clone()
+        {
+            return new SplitterParameters()
+                   {
+                       splitCount          = splitCount,
+                       splitConeAngle      = splitConeAngle,
+                       spawnOffsetDistance = spawnOffsetDistance,
+                       refract             = refract,
+                       directionOffset     = directionOffset
+                   };
         }
     }
 }

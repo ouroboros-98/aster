@@ -17,14 +17,14 @@ namespace Aster.Core
             }
         }
 
-        private AsterConstants _constants;
+        private AsterConfiguration _config;
 
-        protected AsterConstants Constants
+        protected AsterConfiguration Configuration
         {
             get
             {
-                if (_constants == null) _constants = AsterConstants.Instance;
-                return _constants;
+                if (_config == null) _config = GameManager.Instance.Configuration;
+                return _config;
             }
         }
 

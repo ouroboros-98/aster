@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9018303743254800569}
   - component: {fileID: 7630159460370387193}
-  - component: {fileID: 1156472811670371773}
+  - component: {fileID: 8021593946002475046}
   m_Layer: 0
   m_Name: Dummy_Prism
   m_TagString: Untagged
@@ -51,7 +51,7 @@ MonoBehaviour:
     rotationSpeed: 40
   rotationTransform: {fileID: 9018303743254800569}
   radius: 0.8
---- !u!114 &1156472811670371773
+--- !u!114 &8021593946002475046
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,17 +60,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8819406623978756653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 399703ccc31c4c318426196918a6eefa, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d2385a9ec374a329809278b73c7c655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
   Duplicated: 0
-  _splitterParameters:
-    splitCount: 3
-    splitConeAngle: 20
-    spawnOffsetDistance: 0.1
-    refract: 1
-    directionOffset: -20
 --- !u!1001 &6055909858832190472
 PrefabInstance:
   m_ObjectHideFlags: 0

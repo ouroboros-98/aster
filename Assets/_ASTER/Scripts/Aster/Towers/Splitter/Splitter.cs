@@ -1,14 +1,16 @@
-﻿using Aster.Light;
+﻿using Aster.Core;
+using Aster.Light;
 using Aster.Utils.Attributes;
 using Aster.Utils.Pool;
 using JetBrains.Annotations;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Aster.Towers
 {
     public class Splitter : BaseTower
     {
-        [SerializeField, BoxedProperty] private SplitterParameters _splitterParameters = new(4, 45, .1f, false, 0);
+        [ShowNonSerializedField, BoxedProperty] protected SplitterParameters _splitterParameters;
 
         private         LightReceiver _lightReceiver;
         public override LightReceiver LightReceiver => _lightReceiver;
@@ -34,6 +36,12 @@ namespace Aster.Towers
             }
 
             return base.OnLightRayHit(lightHit);
+        }
+
+        protected override void AssignParametersFromConfig(AsterConfiguration config)
+        {
+            SplitterParameters configParameters                  = config.Towers.Splitter;
+            if (IsNotNull(configParameters)) _splitterParameters = configParameters;
         }
     }
 }

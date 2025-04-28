@@ -36,7 +36,7 @@ namespace _ASTER.Scripts.Aster.Entity.Enemy
             Vector3 spawnPosition  = mainLightSource.position + (spawnDistance * spawnDirection);
 
             var enemy = EnemyPool.Instance.Get();
-            enemy.transform.position = spawnPosition.With(y: Constants.LIGHT_RAY_Y);
+            enemy.transform.position = spawnPosition.With(y: Configuration.LightRayYPosition);
         }
     }
 }

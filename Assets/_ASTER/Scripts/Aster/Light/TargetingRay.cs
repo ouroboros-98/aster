@@ -7,8 +7,6 @@ namespace Aster.Light
     {
         public static BaseLightHittable IgnoreHittable { get; set; } = null;
 
-        public static readonly Color TARGETING_RAY_COLOR = new(0.8039216f, 0.1568628f, 0.1098039f);
-
         private bool visible = false;
 
         public TargetingRay(bool activate = true) : base(activate)

@@ -36,6 +36,17 @@ namespace Aster.Towers
         {
             LightReceiver.Deregister(rayObject.Data);
         }
+
+        protected override void Reset()
+        {
+            base.Reset();
+
+            if (IsNotNull(Configuration)) AssignParametersFromConfig(Configuration);
+        }
+
+        protected virtual void AssignParametersFromConfig(AsterConfiguration config)
+        {
+        }
     }
 
     public abstract class TargetingTowerDuplicator<TTower> : AsterMono where TTower : BaseTower

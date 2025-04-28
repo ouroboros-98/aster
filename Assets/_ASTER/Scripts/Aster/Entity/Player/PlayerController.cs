@@ -3,6 +3,7 @@ using Aster.Core;
 using Aster.Entity.StateMachine;
 using Aster.Entity;
 using Aster.Entity.Player.States;
+using Aster.Utils;
 using DependencyInjection;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,8 +12,9 @@ namespace Aster.Entity.Player
 {
     public class PlayerController : BaseEntityController
     {
-        [SerializeField]                                            private PlayerInteractor interactor;
-        [FormerlySerializedAs("anchorControlelr")] [SerializeField] private PlayerAnchor     anchorController;
+        [SerializeField] private Transform        pivot;
+        [SerializeField] private PlayerInteractor interactor;
+        [SerializeField] private PlayerAnchor     anchorController;
 
         [Inject] private InputHandler input;
 
@@ -46,6 +48,13 @@ namespace Aster.Entity.Player
             Any(moveState, When(() => ReturnToBaseState));
 
             StateMachine.SetState(moveState);
+        }
+
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+
+            pivot.position = pivot.position.With(y: Configuration.Entities.PlayerPivotY);
         }
 
         private void Reset()

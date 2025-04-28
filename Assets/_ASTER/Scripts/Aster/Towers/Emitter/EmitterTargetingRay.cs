@@ -41,13 +41,20 @@ namespace Aster.Towers
         {
             if (obj.Interactable != _currentRotatable) return;
 
-            _targetingRay.Destroy();
+            DestroyTargetingRay();
+        }
+
+        private void DestroyTargetingRay()
+        {
+            _targetingRay?.Destroy();
             _targetingRay                            =  null;
             _rotationController.OnTargetAngleChanged -= UpdateTargetAngle;
         }
 
         private void OnRotationInteractionBegin(RotationInteractionContext context)
         {
+            if (!Configuration.Targeting.EnableRay) return;
+
             _currentRotatable = context.Interactable;
 
             _rotationController.OnTargetAngleChanged += UpdateTargetAngle;
@@ -56,6 +63,14 @@ namespace Aster.Towers
             _targetAngle = _emitterRotatable.RotationHandler.CurrentAngle;
 
             UpdateTargetingRay();
+        }
+
+        private void Update()
+        {
+            if (_targetingRay != null && !Configuration.Targeting.EnableRay)
+            {
+                DestroyTargetingRay();
+            }
         }
 
         private void UpdateTargetAngle(Angle angle)
