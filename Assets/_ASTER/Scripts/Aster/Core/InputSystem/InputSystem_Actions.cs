@@ -324,7 +324,7 @@ namespace Aster.Core.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""bed3676d-d035-4e5e-b93b-1deed1e7a555"",
-                    ""path"": ""<Gamepad>/rightStick"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -335,7 +335,7 @@ namespace Aster.Core.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""f275f107-485a-42a4-828e-d53999af11c8"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -390,7 +390,7 @@ namespace Aster.Core.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""10b4215c-04d9-4a6e-899f-6b22361f8cf6"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
