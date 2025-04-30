@@ -32,7 +32,8 @@ namespace Aster.Core
 
         void Start()
         {
-            Play(("Background"));
+            Play("BackgroundAmbient");
+            Play("BackgroundMusic");
         }
 
         public void Play(string name, bool randomPitch = false, bool isSpacial = false)
