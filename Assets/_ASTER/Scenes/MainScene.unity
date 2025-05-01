@@ -2190,10 +2190,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dummy_Emitter
       objectReference: {fileID: 0}
-    - target: {fileID: 5641028383093650083, guid: e82de013820f70b4a9bbf82c93cb4f4a, type: 3}
-      propertyPath: rotationHandler.rotationSpeed
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 7322099045795750276, guid: e82de013820f70b4a9bbf82c93cb4f4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

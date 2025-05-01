@@ -41,9 +41,9 @@ namespace Aster.Entity.Enemy
             return new(lightHit, blockLight: true);
         }
 
-        public override void OnLightRayExit(LightRayObject rayObject)
+        public override void OnLightRayExit(ILightRay ray)
         {
-            lightReceiver.Deregister(rayObject.Data);
+            lightReceiver.Deregister(ray);
         }
     }
 

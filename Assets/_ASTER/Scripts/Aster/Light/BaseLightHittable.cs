@@ -39,7 +39,7 @@ namespace Aster.Light
         }
 
 
-        public virtual void OnLightRayExit(LightRayObject rayObject)
+        public virtual void OnLightRayExit(ILightRay ray)
         {
             // Optional: Implement if needed
         }

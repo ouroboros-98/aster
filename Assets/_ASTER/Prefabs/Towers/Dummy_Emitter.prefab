@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   rotationHandler:
-    rotationSpeed: 15
+    rotationSpeed: 25
   rotationTransform: {fileID: 7322099045795750276}
   radius: 1.2
 --- !u!114 &2529171918588828644

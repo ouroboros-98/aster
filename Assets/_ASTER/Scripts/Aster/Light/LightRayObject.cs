@@ -24,7 +24,7 @@ namespace Aster.Light
 
         private ILightCaster _lightCaster;
 
-        private Dictionary<BaseLightHittable, LightHitContext> rayHits = new();
+        private RayHitTracker _rayHitTracker;
 
         [SerializeField, BoxedProperty] LightRayLogger RayLogger = new();
 
@@ -37,20 +37,11 @@ namespace Aster.Light
                 lightRay           = value;
                 RayLogger.LightRay = lightRay;
                 SubscribeRayEvents();
-                if (lightRay != null) _lineRenderer.enabled = true;
-            }
-        }
-
-        private BaseLightHittable _hittable;
-
-        private BaseLightHittable Hittable
-        {
-            get => _hittable;
-            set
-            {
-                if (_hittable != null && _hittable == value) return;
-                _hittable?.OnLightRayExit(this);
-                _hittable = value;
+                if (lightRay != null)
+                {
+                    _lineRenderer.enabled = true;
+                    _rayHitTracker        = new RayHitTracker(lightRay);
+                }
             }
         }
 
@@ -65,7 +56,7 @@ namespace Aster.Light
         private void OnDisable()
         {
             UnsubscribeRayEvents();
-            RefreshHittables(new HashSet<BaseLightHittable>());
+            _rayHitTracker?.RefreshHittables(new HashSet<BaseLightHittable>());
         }
 
         private void SubscribeRayEvents()
@@ -112,16 +103,11 @@ namespace Aster.Light
 
         public void Reset()
         {
-            Hittable?.OnLightRayExit(this);
-
             Data = null;
 
             _lineRenderer.enabled = false;
-            Hittable              = null;
 
             transform.position = Vector3.zero;
-
-            rayHits.Clear();
         }
 
         private void FixedUpdate()
@@ -145,34 +131,14 @@ namespace Aster.Light
 
                 hittables.Add(hit.Hittable);
 
-                if (!HandleHit(hitContext)) break;
+                if (!_rayHitTracker.HandleHit(hitContext)) break;
             }
 
-            RefreshHittables(hittables);
+            _rayHitTracker.RefreshHittables(hittables);
 
             RayLogger.Update();
         }
 
-        private void RefreshHittables(HashSet<BaseLightHittable> hittables)
-        {
-            HashSet<BaseLightHittable> allHittables = new(rayHits.Keys);
-
-            HashSet<BaseLightHittable> toRemove = new(allHittables);
-            toRemove.ExceptWith(hittables);
-
-            foreach (var hittable in toRemove)
-            {
-                hittable.OnLightRayExit(this);
-                rayHits.Remove(hittable);
-            }
-        }
-
-        private bool HandleHit(LightHitContext hitContext)
-        {
-            rayHits[hitContext.Hit.Hittable] = hitContext;
-
-            return !hitContext.BlockLight;
-        }
 
         void OnOriginChanged(Vector3 value) => _lineRenderer?.SetPosition(0, value);
 
@@ -198,8 +164,7 @@ namespace Aster.Light
         private void OnRayDestroyed()
         {
             _lineRenderer.enabled = false;
-            rayHits.Clear();
-            RayLogger.LightRay = null;
+            RayLogger.LightRay    = null;
 
             RayPool.Instance.Return(this);
         }
