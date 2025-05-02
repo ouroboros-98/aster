@@ -37,8 +37,12 @@ namespace Aster.Core
 
         private void ChangeLevel(int obj)
         {
-            _checkEnemyDead = false;
             _currentLevelIndex++;
+            if (_currentLevelIndex < Levels.Length)
+            {
+                _checkEnemyDead = false;
+                InitiateWave();
+            }
         }
 
         private void InitiateWave()
