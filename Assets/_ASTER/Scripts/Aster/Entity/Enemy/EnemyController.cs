@@ -55,7 +55,7 @@ namespace Aster.Entity.Enemy
 
             var attackProvider = new PrimitiveEnemyAttackProvider();
 
-            attack.Init(attackProvider);
+            attack.Init(attackProvider, this);
             attack.damage              = 1; // for example, resetting damage
             attack.initialTimeToAttack = 3f;
 
