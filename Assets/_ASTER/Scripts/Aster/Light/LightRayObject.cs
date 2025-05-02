@@ -18,13 +18,10 @@ namespace Aster.Light
     [RequireComponent(typeof(LineRenderer))]
     public class LightRayObject : AsterMono, IPoolable
     {
-        private const float MAX_DISTANCE = 100f;
+        private static readonly int   LineColorIndex = Shader.PropertyToID("_Color");
+        private                 Color LineColor => _lineRenderer.material.GetColor(LineColorIndex);
 
-        [FormerlySerializedAs("_rayData")] [SerializeField, BoxedProperty] private ILightRay lightRay = null;
-
-        private ILightCaster _lightCaster;
-
-        private RayHitTracker _rayHitTracker;
+        private ILightRay lightRay = null;
 
         [SerializeField, BoxedProperty] LightRayLogger RayLogger = new();
 
@@ -37,27 +34,14 @@ namespace Aster.Light
                 lightRay           = value;
                 RayLogger.LightRay = lightRay;
                 SubscribeRayEvents();
-                if (lightRay != null)
-                {
-                    _lineRenderer.enabled = true;
-                    _rayHitTracker        = new RayHitTracker(lightRay);
-                }
+                if (lightRay != null) _lineRenderer.enabled = true;
             }
         }
 
         private LineRenderer _lineRenderer;
 
-        private Vector3 _creatorInitialPosition;
-        private Vector3 _creatorInitialDirection;
-
-
-        private void OnEnable() => SubscribeRayEvents();
-
-        private void OnDisable()
-        {
-            UnsubscribeRayEvents();
-            _rayHitTracker?.RefreshHittables(new HashSet<BaseLightHittable>());
-        }
+        private void OnEnable()  => SubscribeRayEvents();
+        private void OnDisable() => UnsubscribeRayEvents();
 
         private void SubscribeRayEvents()
         {
@@ -97,8 +81,6 @@ namespace Aster.Light
         private void Awake()
         {
             ValidateComponent(ref _lineRenderer);
-
-            _lightCaster = new LightSphereCaster();
         }
 
         public void Reset()
@@ -106,60 +88,27 @@ namespace Aster.Light
             Data = null;
 
             _lineRenderer.enabled = false;
-
-            transform.position = Vector3.zero;
+            transform.position    = Vector3.zero;
         }
 
         private void FixedUpdate()
         {
-            if (!Data.CheckExists()) return;
-
-            List<LightHit> hits = _lightCaster.GetHits(Data);
-
-            HashSet<BaseLightHittable> hittables = new();
-
-            if (hits.Count == 0)
-            {
-                Data.EndPoint = Data.Origin + Data.Direction * LightRay.MAX_DISTANCE;
-            }
-
-            foreach (var hit in hits)
-            {
-                if (Data.CheckIgnoreHittable(hit.Hittable)) continue;
-
-                var hitContext = hit.Hittable.LightHit(new(this.lightRay, hit.HitPoint, hit.Hittable));
-
-                hittables.Add(hit.Hittable);
-
-                if (!_rayHitTracker.HandleHit(hitContext)) break;
-            }
-
-            _rayHitTracker.RefreshHittables(hittables);
-
             RayLogger.Update();
         }
 
 
         void OnOriginChanged(Vector3 value) => _lineRenderer?.SetPosition(0, value);
 
-        void OnEndPointChanged(Vector3 value)
-        {
-            _lineRenderer?.SetPosition(1, value);
-        }
+        void OnEndPointChanged(Vector3 value) => _lineRenderer?.SetPosition(1, value);
 
         void OnWidthChanged(float width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width;
 
-        void OnColorChanged(Color color)
-        {
-            Color matColor = _lineRenderer.material.GetColor("_Color");
-            _lineRenderer.material.SetColor("_Color", new(color.r, color.g, color.b, matColor.a));
-        }
+        void OnColorChanged(Color color) =>
+            _lineRenderer.material.SetColor(LineColorIndex, new(color.r, color.g, color.b, LineColor.a));
 
-        void OnIntensityChanged(float intensity)
-        {
-            Color color = _lineRenderer.material.GetColor("_Color");
-            _lineRenderer.material.SetColor("_Color", new(color.r, color.g, color.b, MathF.Pow(intensity, 1 / 2f)));
-        }
+        void OnIntensityChanged(float intensity) =>
+            _lineRenderer.material.SetColor(LineColorIndex,
+                                            new(LineColor.r, LineColor.g, LineColor.b, MathF.Pow(intensity, 1 / 2f)));
 
         private void OnRayDestroyed()
         {
