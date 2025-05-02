@@ -1,4 +1,5 @@
-﻿using Aster.Entity.Player;
+﻿using Aster.Core;
+using Aster.Entity.Player;
 using Aster.UI.Aster.UI;
 using Aster.Utils;
 using TMPro;
@@ -7,7 +8,7 @@ using UnityEngine;
 namespace Aster.UI
 {
     [ExecuteAlways]
-    public class TowerOptionsManager : AsterSingleton<TowerOptionsManager>
+    public class TowerOptionsManager : AsterMono
     {
         [Header("Tower Options")] private bool          isMovingUp, isMovingDown;
         [SerializeField]          private TowerPickUI[] towerOptions;

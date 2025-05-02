@@ -54,6 +54,7 @@ namespace Aster.Towers
         private void OnRotationInteractionBegin(RotationInteractionContext context)
         {
             if (!Config.Targeting.EnableRay) return;
+            
 
             _currentRotatable = context.Interactable;
 

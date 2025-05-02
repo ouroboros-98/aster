@@ -23,7 +23,6 @@ namespace Aster.Entity.Player
 
         private void OnEnable()
         {
-            towerOptionsManager = TowerOptionsManager.Instance;
             // Subscribe to events from InputHandler
             if (inputHandler != null)
             {
