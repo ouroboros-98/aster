@@ -55,5 +55,13 @@ namespace Aster.UI
         {
             return towerOptions;
         }
+
+        public void SetCrossEnable(bool enable)
+        {
+            foreach (var towerOption in towerOptions)
+            {
+                towerOption.SetCrossEnable(!enable);
+            }
+        }
     }
 }

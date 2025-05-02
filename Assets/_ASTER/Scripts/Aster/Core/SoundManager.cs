@@ -32,7 +32,7 @@ namespace Aster.Core
 
         void Start()
         {
-            Play("BackgroundAmbient");
+            //Play("BackgroundAmbient");
             Play("BackgroundMusic");
         }
 
