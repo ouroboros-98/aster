@@ -30,6 +30,10 @@ namespace Aster.Core.UI
                 }
             );
         }
+        public void SetEnabled(bool enabled)
+        {
+            indicatorImage.gameObject.SetActive(enabled);
+        }
         
 
         private void Reset()
