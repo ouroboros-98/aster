@@ -1,5 +1,7 @@
 ﻿using Aster.Core;
 using Aster.Towers;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Aster.UI
 {
@@ -22,6 +24,7 @@ namespace Aster.UI
             [SerializeField] private BaseTower model;
 
             [SerializeField] private RectTransform redPanel;
+            [FormerlySerializedAs("CrossImage")] [SerializeField] private Image crossImage;
 
             // The original height of the panel when full.
             private float maxPanelHeight;
@@ -57,6 +60,10 @@ namespace Aster.UI
             {
                 return redPanel;
             }
+            public void SetCrossEnable(bool enable)
+            {
+                crossImage.enabled = enable;
+            }
 
             public int GetEnergyThreshold()
             {
@@ -84,6 +91,7 @@ namespace Aster.UI
 
             public void SetEnergy(float energy)
             {
+                Debug.Log("SetEnergy " + energy);
                 currentEnergy = Mathf.Max(energy, 0f);
                 // Calculate the new target fill ratio based on energy
                 _targetFillRatio = Mathf.Min(currentEnergy / energyThreshold, 1f);

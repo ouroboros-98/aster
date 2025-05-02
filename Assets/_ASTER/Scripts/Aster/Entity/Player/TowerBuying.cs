@@ -18,6 +18,8 @@ namespace Aster.Entity.Player
         [Inject]         private InputHandler        inputHandler;
         private                  Transform           spawnPoint;
         private                  int                 currentIndex;
+        private                 bool                 canBuy = true;
+        private int triggersCount = 0;
 
         private void OnEnable()
         {
@@ -66,7 +68,7 @@ namespace Aster.Entity.Player
 
             int cost = towerOption.GetEnergyThreshold();
 
-            if (!playerEnergy.AttemptReduceEnergy(cost)) return;
+            if (!canBuy||!playerEnergy.AttemptReduceEnergy(cost)) return;
 
             GameEvents.OnLightPointRemoved?.Invoke(cost);
 
@@ -77,6 +79,21 @@ namespace Aster.Entity.Player
                         spawnPoint.position,
                         quaternion.identity
                        );
+        }
+        public void SetCanBuy(bool value)
+        {
+            canBuy = value;
+            towerOptionsManager.SetCrossEnable(value);
+        }
+        public void OnTriggerEntered()
+        {
+            triggersCount++;
+            SetCanBuy(triggersCount == 0);
+        }
+        public void OnTriggerExited()
+        {
+            triggersCount = Mathf.Max(0, triggersCount - 1);
+            SetCanBuy(triggersCount == 0);
         }
 
         private void SetActiveTower(int index)

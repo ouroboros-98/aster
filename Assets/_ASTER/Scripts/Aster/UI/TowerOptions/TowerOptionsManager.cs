@@ -21,7 +21,8 @@ namespace Aster.UI
             playerEnergy = PlayerEnergy.Instance;
         }
 
-        private void OnEnable()
+        private void Start()
+        //should be on start so it does not come before the actual light increase*
         {
             GameEvents.OnLightPointAdded   += IncrementEnergy;
             GameEvents.OnLightPointRemoved += IncrementEnergyInt;
@@ -38,6 +39,7 @@ namespace Aster.UI
             textMeshPro.text = playerEnergy.GetPlayerEnergy().ToString();
             foreach (var towerOption in towerOptions)
             {
+                Debug.Log("Incrementing energy for tower option: " + towerOption.name);
                 towerOption.SetEnergy(playerEnergy.GetPlayerEnergy());
             }
         }
@@ -54,6 +56,14 @@ namespace Aster.UI
         public TowerPickUI[] GetTowerOptions()
         {
             return towerOptions;
+        }
+
+        public void SetCrossEnable(bool enable)
+        {
+            foreach (var towerOption in towerOptions)
+            {
+                towerOption.SetCrossEnable(!enable);
+            }
         }
     }
 }
