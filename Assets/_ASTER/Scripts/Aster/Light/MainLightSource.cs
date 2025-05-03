@@ -13,6 +13,7 @@ namespace Aster.Light
         [SerializeField, BoxedProperty, Label("HP")] protected EntityHP  hp;
         [SerializeField]                             private   Transform collectionPoint;
         [SerializeField]                             private   float     radius;
+        [SerializeField] private float damageReducedPerSecond;
 
         public Transform CollectionPoint => collectionPoint;
 
@@ -41,14 +42,38 @@ namespace Aster.Light
             return distance < thirdRadius ? 3 : 0;
         }
 
+        private void Update()
+        {
+            hp.ChangeBy(Time.deltaTime * -damageReducedPerSecond);
+            if (hp <= 0)
+            {
+                AsterEvents.Instance.OnLightSourceDestroyed?.Invoke();
+            }
+        }
+
         private void OnEnable()
         {
             AsterEvents.Instance.OnAttackLightSource += GotHit;
+            AsterEvents.Instance.OnLightPointAdded += AddHp;
         }
 
         private void OnDisable()
         {
             AsterEvents.Instance.OnAttackLightSource -= GotHit;
+            AsterEvents.Instance.OnLightPointAdded += AddHp;
+
+        }
+
+        private void AddHp(int hpAdded)
+        {
+            if (hp + hpAdded > hp.MaxHP)
+            {
+                hp.ChangeBy(hp.MaxHP-hp);
+            }
+            else
+            {
+                hp.ChangeBy(hpAdded);
+            }
         }
 
         private void GotHit(int damage)

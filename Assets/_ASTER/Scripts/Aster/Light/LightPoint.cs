@@ -12,6 +12,7 @@ namespace Aster.Light
         [SerializeField] private Transform lightSource;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float     arrivalThreshold = 0.1f;
+        [SerializeField] private int     hpGranted = 1;
 
         private bool  _isMovingToLightSource = false;
         private Tween _movementTween;
@@ -76,7 +77,7 @@ namespace Aster.Light
         {
             Debug.Log("ArriveAtLightSource");
             SoundManager.Instance.Play("EnergyTaken");
-            AsterEvents.Instance.OnLightPointAdded?.Invoke(1);
+            AsterEvents.Instance.OnLightPointAdded?.Invoke(hpGranted);
 
             EnergyPool.Instance.Return(this);
         }
