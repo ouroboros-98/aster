@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 657cfc4f0afa21640a869b130ad4f8ec, type: 3}
   m_Name: BasicWave
   m_EditorClassIdentifier: 
-  NumOfEnemies: 0
+  NumOfEnemies: 5
   MinAngle: 0
-  MaxAngle: 0
-  delay: 0
+  MaxAngle: 90
+  delay: 2
   spawnType: 0
+  EnemySpawner: {fileID: 0}
