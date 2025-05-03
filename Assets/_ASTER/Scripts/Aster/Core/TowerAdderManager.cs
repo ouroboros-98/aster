@@ -16,15 +16,15 @@ namespace Aster.Core
         private void OnEnable()
         {
             AsterEvents.Instance.OnWaveStart += IncrementCounter;
-            AsterEvents.Instance.OnTowerPlacedBetween += TowerPlaced;
-            AsterEvents.Instance.OnTowerRemovedBetween += TowerRemoved;
+            // AsterEvents.Instance.OnTowerPlacedBetween += TowerPlaced;
+            // AsterEvents.Instance.OnTowerRemovedBetween += TowerRemoved;
         }
 
         private void OnDisable()
         {
             AsterEvents.Instance.OnWaveStart -= IncrementCounter;
-            AsterEvents.Instance.OnTowerPlacedBetween -= TowerPlaced;
-            AsterEvents.Instance.OnTowerRemovedBetween -= TowerRemoved
+            // AsterEvents.Instance.OnTowerPlacedBetween -= TowerPlaced;
+            // AsterEvents.Instance.OnTowerRemovedBetween -= TowerRemoved;
         }
 
         private void IncrementCounter(int obj)
