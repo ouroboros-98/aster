@@ -76,7 +76,7 @@ namespace Aster.Light
 
             if (hits.Count == 0)
             {
-                ray.EndPoint = ray.Origin + ray.Direction * LightRay.MAX_DISTANCE;
+                ray.EndPoint = ray.Origin + ray.Direction * ray.MaxDistance;
             }
 
             foreach (var hit in hits)

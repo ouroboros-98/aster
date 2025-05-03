@@ -16,17 +16,21 @@ namespace Aster.Light
         float                                   Width               { get; set; }
         Color                                   Color               { get; set; }
         Vector3Normalized                       Direction           { get; set; }
-        event Action<Vector3>                   OriginChange;
-        event Action<Vector3>                   EndPointChange;
-        event Action<float>                     IntensityChange;
-        event Action<float>                     WidthChange;
-        event Action<Color>                     ColorChange;
-        event Action<Vector3Normalized>         DirectionChange;
-        event Action                            OnDestroy;
-        void                                    Activate();
-        void                                    Destroy();
-        void                                    ForceUpdate();
-        void                                    Set(ILightRay ray);
+        float                                   MaxDistance         { get; set; }
+
+        event Action<Vector3>           OriginChange;
+        event Action<Vector3>           EndPointChange;
+        event Action<float>             IntensityChange;
+        event Action<float>             WidthChange;
+        event Action<Color>             ColorChange;
+        event Action<Vector3Normalized> DirectionChange;
+        event Action<float>             MaxDistanceChange;
+
+        event Action OnDestroy;
+        void         Activate();
+        void         Destroy();
+        void         ForceUpdate();
+        void         Set(ILightRay ray);
 
         ILightRay Clone(bool activate = true);
         ILightRay Continue();

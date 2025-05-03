@@ -45,7 +45,8 @@ namespace Aster.Entity.Enemy
 
         public void SpawnEnemy(Angle direction)
         {
-            Vector3 spawnDirection = direction.ToVector3();
+            direction -= 90;
+            Vector3 spawnDirection = Quaternion.Euler(0, direction, 0) * Vector3.forward;
             Vector3 spawnPosition  = mainLightSource.position + (spawnDistance * spawnDirection);
 
             var enemy = EnemyPool.Instance.Get();

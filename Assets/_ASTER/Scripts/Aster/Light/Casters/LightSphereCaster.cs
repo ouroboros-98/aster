@@ -10,9 +10,9 @@ namespace Aster.Light
         {
             List<LightHit> result = new();
 
-            RaycastHit[] hits = Physics.SphereCastAll(ray.Origin, ray.Width / 2f, ray.Direction);
+            RaycastHit[] hits = Physics.SphereCastAll(ray.Origin, ray.Width / 2f, ray.Direction, ray.MaxDistance);
 
-            Debug.DrawRay(ray.Origin, ray.Direction * LightRay.MAX_DISTANCE, Color.red, 0.005f);
+            Debug.DrawRay(ray.Origin, ray.Direction * ray.MaxDistance, Color.red, 0.005f);
 
             foreach (RaycastHit hit in hits)
             {

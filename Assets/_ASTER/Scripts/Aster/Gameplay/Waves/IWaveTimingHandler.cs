@@ -9,18 +9,25 @@ namespace Aster.Gameplay.Waves
     {
         void OnPrestart(WaveExecutionContext context);
         bool CanStart();
+
+        void Reset();
     }
 
     [Serializable]
-    public class DelayedTimingHandler : IWaveTimingHandler
+    public abstract class DelayableTimingHandler : IWaveTimingHandler
     {
-        [SerializeField] private float delay = 0f;
+        [SerializeField, Range(0f, 5f)] private float delay = 0f;
 
-        [SerializeReference, SerializeReferenceDropdown] private IWaveTimingHandler innerHandler;
+        [SerializeField] private IWaveTimingHandler innerHandler;
 
         private bool _finishDelay = false;
 
         private CountdownTimer _timer;
+
+        protected DelayableTimingHandler(IWaveTimingHandler innerHandler)
+        {
+            this.innerHandler = innerHandler;
+        }
 
         public void OnPrestart(WaveExecutionContext context)
         {
@@ -44,9 +51,30 @@ namespace Aster.Gameplay.Waves
 
             return false;
         }
+
+        public void Reset()
+        {
+            _finishDelay = false;
+            _timer       = null;
+            innerHandler?.Reset();
+        }
     }
 
-    public class AfterPreviousTimingHandler : IWaveTimingHandler
+    public class AfterPrevious : DelayableTimingHandler
+    {
+        public AfterPrevious() : base(new AfterPreviousTimingHandlerBase())
+        {
+        }
+    }
+
+    public class WithPrevious : DelayableTimingHandler
+    {
+        public WithPrevious() : base(new WithPreviousTimingHandlerBase())
+        {
+        }
+    }
+
+    class AfterPreviousTimingHandlerBase : IWaveTimingHandler
     {
         private WaveExecutionContext context;
 
@@ -59,9 +87,14 @@ namespace Aster.Gameplay.Waves
         {
             return context == null || context.Previous == null || context.Previous.Status == WaveStatus.Done;
         }
+
+        public void Reset()
+        {
+            context = null;
+        }
     }
 
-    public class WithPreviousTimingHandler : IWaveTimingHandler
+    class WithPreviousTimingHandlerBase : IWaveTimingHandler
     {
         private IWaveElement _lastWaveElement;
 
@@ -73,6 +106,11 @@ namespace Aster.Gameplay.Waves
         public bool CanStart()
         {
             return _lastWaveElement == null || _lastWaveElement.Status == WaveStatus.InProgress;
+        }
+
+        public void Reset()
+        {
+            _lastWaveElement = null;
         }
     }
 }

@@ -14,5 +14,6 @@ namespace Aster.Gameplay.Waves
 
         void PreStart(WaveExecutionContext context);
         void Update();
+        void Reset();
     }
 }

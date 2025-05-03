@@ -1,3 +1,4 @@
+using Aster.Core;
 using Aster.Light;
 using Aster.Towers;
 using Aster.Utils;
@@ -54,10 +55,10 @@ namespace Aster.Entity.Enemy
 
         public override void Apply(LightHit hit, ILightRay rayIn, ILightRay rayOut)
         {
-            rayOut.Origin    = hit.HitPoint;
-            rayOut.Direction = rayIn.Direction;
-            rayOut.Intensity = rayIn.Intensity * intensityScale;
-            rayOut.EndPoint  = hit.HitPoint + rayIn.Direction * LightRay.MAX_DISTANCE;
+            rayOut.Origin      = hit.HitPoint;
+            rayOut.MaxDistance = rayIn.MaxDistance - rayIn.Distance();
+            rayOut.Direction   = rayIn.Direction;
+            rayOut.Intensity   = rayIn.Intensity * intensityScale;
 
             rayOut.IgnoreHittablesOf(rayIn);
         }

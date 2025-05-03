@@ -10,7 +10,7 @@ namespace Aster.Gameplay.Waves
     [System.Serializable]
     public class AnglePickerConstant : IAnglePicker
     {
-        [SerializeField] private float angle;
+        [SerializeField, Range(0, 180)] private float angle;
 
         public float GetAngle()
         {
@@ -21,8 +21,8 @@ namespace Aster.Gameplay.Waves
     [System.Serializable]
     public class AnglePickerRange : IAnglePicker
     {
-        [SerializeField] private float minAngle;
-        [SerializeField] private float maxAngle;
+        [SerializeField, Range(0, 180)] private float minAngle;
+        [SerializeField, Range(0, 180)] private float maxAngle;
 
         public float GetAngle()
         {

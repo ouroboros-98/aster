@@ -9,6 +9,37 @@ using UnityEngine;
 namespace Aster.Gameplay.Waves
 {
     [Serializable]
+    public class SpawnList : WaveElementBase
+    {
+        [SerializeField] private float[] angles;
+
+        private bool _spawned = false;
+
+        protected override void OnWaveStart()
+        {
+            _spawned = false;
+
+            for (var i = 0; i < angles.Length; i++)
+            {
+                Context.Spawner.SpawnEnemy(angles[i]);
+            }
+
+            _spawned = true;
+        }
+
+        protected override bool ShouldWaveEnd()
+        {
+            return base.ShouldWaveEnd() && _spawned;
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
+            _spawned = false;
+        }
+    }
+
+    [Serializable]
     public class SpawnMultipleEnemies : WaveElementBase
     {
         [SerializeReference, SerializeReferenceDropdown] private IEnemyCountProvider enemyCount;
@@ -18,6 +49,8 @@ namespace Aster.Gameplay.Waves
 
         protected override void OnWaveStart()
         {
+            _spawned = false;
+
             for (int i = 0; i < enemyCount.GetEnemyCount(); i++)
             {
                 Context.Spawner.SpawnEnemy(anglePicker.GetAngle());
@@ -30,6 +63,12 @@ namespace Aster.Gameplay.Waves
         {
             return base.ShouldWaveEnd() && _spawned;
         }
+
+        public override void Reset()
+        {
+            base.Reset();
+            _spawned = false;
+        }
     }
 
     [Serializable]
@@ -41,6 +80,8 @@ namespace Aster.Gameplay.Waves
 
         protected override void OnWaveStart()
         {
+            _spawned = false;
+
             Context.Spawner.SpawnEnemy(anglePicker.GetAngle());
             _spawned = true;
         }
@@ -49,6 +90,12 @@ namespace Aster.Gameplay.Waves
         {
             return base.ShouldWaveEnd() && _spawned;
         }
+
+        public override void Reset()
+        {
+            base.Reset();
+            _spawned = false;
+        }
     }
 
     [Serializable]
@@ -56,10 +103,17 @@ namespace Aster.Gameplay.Waves
     {
         [SerializeReference, SerializeReferenceDropdown] private IWaveTimingHandler timingHandler;
 
-        protected List<EnemyController> Enemies = new();
+        protected List<EnemyController> Enemies;
         protected WaveExecutionContext  Context { get; private set; }
 
         public WaveStatus Status { get; private set; } = WaveStatus.NotStarted;
+
+        public virtual void Reset()
+        {
+            Enemies = new();
+            Status  = WaveStatus.NotStarted;
+            timingHandler?.Reset();
+        }
 
         protected virtual void OnWavePrestart()
         {
@@ -87,7 +141,7 @@ namespace Aster.Gameplay.Waves
         private void Start()
         {
             Enemies.Clear();
-            
+
             AsterEvents.Instance.OnEnemySpawn += OnEnemySpawn;
             AsterEvents.Instance.OnEnemyDeath += OnEnemyDeath;
 

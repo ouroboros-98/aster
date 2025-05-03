@@ -15,6 +15,14 @@ namespace Aster.Gameplay.Waves
         [SerializeReference, SerializeReferenceDropdown] private IWaveElement[] waves;
 
         public IReadOnlyList<IWaveElement> Waves => waves.ToList();
+
+        public void Reset()
+        {
+            foreach (IWaveElement wave in waves)
+            {
+                wave.Reset();
+            }
+        }
     }
 
     public class LevelExecution
@@ -26,6 +34,7 @@ namespace Aster.Gameplay.Waves
         public LevelExecution(WavesLevel level)
         {
             _level = level;
+            _level.Reset();
             IsDone = false;
         }
 
@@ -33,7 +42,9 @@ namespace Aster.Gameplay.Waves
         {
             int          currentIndex = 0;
             IWaveElement previous     = null;
-            
+
+            _level.Reset();
+
             foreach (IWaveElement wave in _level.Waves)
             {
                 WaveExecutionContext context = new WaveExecutionContext(spawner, currentIndex, previous);

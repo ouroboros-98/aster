@@ -25,7 +25,7 @@ namespace Aster.Light
         public abstract void UpdateTransformation(LightHit hit);
 
         public IReadOnlyList<Func<bool>>        ExistencePredicates => _innerRay.ExistencePredicates;
-        public IReadOnlyList<BaseLightHittable> HittablesToIgnore=> _innerRay.HittablesToIgnore;
+        public IReadOnlyList<BaseLightHittable> HittablesToIgnore   => _innerRay.HittablesToIgnore;
         public bool                             IsActive            => _innerRay.IsActive;
 
         public Vector3 Origin
@@ -64,6 +64,12 @@ namespace Aster.Light
             set => _innerRay.Direction = value;
         }
 
+        public float MaxDistance
+        {
+            get => _innerRay.MaxDistance;
+            set => _innerRay.MaxDistance = value;
+        }
+
         public event Action<Vector3> OriginChange
         {
             add => _innerRay.OriginChange += value;
@@ -98,6 +104,12 @@ namespace Aster.Light
         {
             add => _innerRay.DirectionChange += value;
             remove => _innerRay.DirectionChange -= value;
+        }
+
+        public event Action<float> MaxDistanceChange
+        {
+            add => _innerRay.MaxDistanceChange += value;
+            remove => _innerRay.MaxDistanceChange -= value;
         }
 
         public event Action OnDestroy

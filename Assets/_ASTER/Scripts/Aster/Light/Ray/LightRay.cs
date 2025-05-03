@@ -12,7 +12,7 @@ namespace Aster.Light
     {
         public static readonly Color DEFAULT_COLOR = Color.white;
 
-        public const float MAX_DISTANCE      = 100f;
+        public const float MAX_DISTANCE      = 5f;
         public const float DEFAULT_INTENSITY = 1f;
         public const float DEFAULT_WIDTH     = .2f;
 
@@ -29,6 +29,8 @@ namespace Aster.Light
         [OnValueChanged("Editor_OnDirectionChanged")] [SerializeField]
         private Vector3Normalized _direction = Vector3.forward;
 
+        [OnValueChanged("Editor__OnMaxDistanceChanged")] [SerializeField] private float _maxDistance = MAX_DISTANCE;
+
         [SerializeField] private List<BaseLightHittable> ignoreHittables;
 
         private List<Func<bool>>                 existencePredicates;
@@ -39,12 +41,13 @@ namespace Aster.Light
 
 
 #if UNITY_EDITOR
-        private void Editor__OnOriginChanged()    => OriginChange?.Invoke(_origin);
-        private void Editor__OnEndPointChanged()  => EndPointChange?.Invoke(_endPoint);
-        private void Editor__OnIntensityChanged() => IntensityChange?.Invoke(_intensity);
-        private void Editor__OnWidthChanged()     => WidthChange?.Invoke(_width);
-        private void Editor__OnColorChanged()     => ColorChange?.Invoke(_color);
-        private void Editor__OnDirectionChanged() => DirectionChange?.Invoke(_direction);
+        private void Editor__OnOriginChanged()      => OriginChange?.Invoke(_origin);
+        private void Editor__OnEndPointChanged()    => EndPointChange?.Invoke(_endPoint);
+        private void Editor__OnIntensityChanged()   => IntensityChange?.Invoke(_intensity);
+        private void Editor__OnWidthChanged()       => WidthChange?.Invoke(_width);
+        private void Editor__OnColorChanged()       => ColorChange?.Invoke(_color);
+        private void Editor__OnDirectionChanged()   => DirectionChange?.Invoke(_direction);
+        private void Editor__OnMaxDistanceChanged() => DirectionChange?.Invoke(_direction);
 #endif
 
         public virtual Vector3 Origin
@@ -102,6 +105,23 @@ namespace Aster.Light
             }
         }
 
+        public virtual float MaxDistance
+        {
+            get => _maxDistance;
+            set
+            {
+                if (value < 0) value = 0;
+                if (Mathf.Approximately(_maxDistance, value)) return;
+                _maxDistance = value;
+                MaxDistanceChange?.Invoke(_maxDistance);
+                if (Vector3.Distance(Origin, EndPoint) > _maxDistance)
+                {
+                    Direction = (EndPoint - Origin).normalized;
+                    EndPoint  = Origin + Direction * _maxDistance;
+                }
+            }
+        }
+
         public Vector3Normalized Direction
         {
             get => _direction;
@@ -114,16 +134,17 @@ namespace Aster.Light
             }
         }
 
-        public event Action<Vector3>           OriginChange    = delegate { };
-        public event Action<Vector3>           EndPointChange  = delegate { };
-        public event Action<float>             IntensityChange = delegate { };
-        public event Action<float>             WidthChange     = delegate { };
-        public event Action<Color>             ColorChange     = delegate { };
-        public event Action<Vector3Normalized> DirectionChange = delegate { };
+        public event Action<Vector3>           OriginChange      = delegate { };
+        public event Action<Vector3>           EndPointChange    = delegate { };
+        public event Action<float>             IntensityChange   = delegate { };
+        public event Action<float>             WidthChange       = delegate { };
+        public event Action<Color>             ColorChange       = delegate { };
+        public event Action<float>             MaxDistanceChange = delegate { };
+        public event Action<Vector3Normalized> DirectionChange   = delegate { };
 
         public event Action OnDestroy = delegate { };
 
-        private void OnDirectionChange(Vector3Normalized direction) => EndPoint = _origin + direction * MAX_DISTANCE;
+        private void OnDirectionChange(Vector3Normalized direction) => EndPoint = _origin + direction * MaxDistance;
 
         public LightRay(bool activate = true)
         {
@@ -169,12 +190,13 @@ namespace Aster.Light
 
         public void Set(ILightRay ray)
         {
-            this.Origin    = ray.Origin;
-            this.Direction = ray.Direction;
-            this.Intensity = ray.Intensity;
-            this.Width     = ray.Width;
-            this.Color     = ray.Color;
-            this.EndPoint  = ray.EndPoint;
+            this.Origin      = ray.Origin;
+            this.MaxDistance = ray.MaxDistance;
+            this.Direction   = ray.Direction;
+            this.Intensity   = ray.Intensity;
+            this.Width       = ray.Width;
+            this.Color       = ray.Color;
+            this.EndPoint    = ray.EndPoint;
         }
 
         public void IgnoreHittable(BaseLightHittable hittable)
