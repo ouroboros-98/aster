@@ -164,6 +164,15 @@ namespace Aster.Core.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grab"",
+                    ""type"": ""Button"",
+                    ""id"": ""8ee08b43-42e0-419d-b098-3ad7e4237797"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -516,6 +525,17 @@ namespace Aster.Core.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PlaceTower"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b97331c-df6a-4dd3-89fb-fe79e5a09f24"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1111,6 +1131,7 @@ namespace Aster.Core.InputSystem
             m_Player_TowerPicker_Right = m_Player.FindAction("TowerPicker_Right", throwIfNotFound: true);
             m_Player_TowerPicker_Left = m_Player.FindAction("TowerPicker_Left", throwIfNotFound: true);
             m_Player_PlaceTower = m_Player.FindAction("PlaceTower", throwIfNotFound: true);
+            m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1212,6 +1233,7 @@ namespace Aster.Core.InputSystem
         private readonly InputAction m_Player_TowerPicker_Right;
         private readonly InputAction m_Player_TowerPicker_Left;
         private readonly InputAction m_Player_PlaceTower;
+        private readonly InputAction m_Player_Grab;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1255,6 +1277,10 @@ namespace Aster.Core.InputSystem
             /// Provides access to the underlying input action "Player/PlaceTower".
             /// </summary>
             public InputAction @PlaceTower => m_Wrapper.m_Player_PlaceTower;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Grab".
+            /// </summary>
+            public InputAction @Grab => m_Wrapper.m_Player_Grab;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1305,6 +1331,9 @@ namespace Aster.Core.InputSystem
                 @PlaceTower.started += instance.OnPlaceTower;
                 @PlaceTower.performed += instance.OnPlaceTower;
                 @PlaceTower.canceled += instance.OnPlaceTower;
+                @Grab.started += instance.OnGrab;
+                @Grab.performed += instance.OnGrab;
+                @Grab.canceled += instance.OnGrab;
             }
 
             /// <summary>
@@ -1340,6 +1369,9 @@ namespace Aster.Core.InputSystem
                 @PlaceTower.started -= instance.OnPlaceTower;
                 @PlaceTower.performed -= instance.OnPlaceTower;
                 @PlaceTower.canceled -= instance.OnPlaceTower;
+                @Grab.started -= instance.OnGrab;
+                @Grab.performed -= instance.OnGrab;
+                @Grab.canceled -= instance.OnGrab;
             }
 
             /// <summary>
@@ -1696,6 +1728,13 @@ namespace Aster.Core.InputSystem
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnPlaceTower(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Grab" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnGrab(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

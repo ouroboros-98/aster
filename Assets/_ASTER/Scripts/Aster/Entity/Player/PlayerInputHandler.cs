@@ -15,6 +15,7 @@ namespace Aster.Entity.Player
 
         public Vector2      Rotation            => _playerInput.actions["Rotate"].ReadValue<Vector2>();
         public InputAction  RotationInteraction => _playerInput.actions["RotationInteraction"];
+        public InputAction  Grab                => _playerInput.actions["Grab"];
         public InputAction  Cancel              => _playerInput.actions["Cancel"];
         public event Action OnInteract;
         public event Action OnCancel;

@@ -19,6 +19,8 @@ namespace Aster.Entity.Player
         [SerializeField] private PlayerAnchor             anchorController;
         [SerializeField] private PlayerRotationController rotationController;
 
+        private PlayerGrabber playerGrabber;
+
         private PlayerInputHandler _playerInputHandler;
         public  PlayerInputHandler PlayerInputHandler => _playerInputHandler;
 
@@ -77,10 +79,15 @@ namespace Aster.Entity.Player
             var interactionState = new PlayerInteractionState(this, interactor);
             var anchorState      = new PlayerAnchorState(this, anchorController, rb);
 
+            playerGrabber = new(this, interactor);
+            var grabState = new PlayerGrabState(this, playerGrabber, movement);
+
             At(moveState, interactionState, When(() => interactor.IsInteracting));
 
             At(interactionState, anchorState,      When(anchorController.IsAnchoring));
             At(anchorState,      interactionState, When(() => !anchorController.IsAnchoring()));
+
+            At(interactionState, grabState, When(() => playerGrabber.IsGrabbing));
 
             Any(moveState, When(() => ReturnToBaseState));
 

@@ -18,11 +18,13 @@ namespace Aster.Entity.Player
         [SerializeField]           private PlayerEnergy        playerEnergy;
         [SerializeField, ReadOnly] private PlayerController    playerController;
 
+
         private PlayerInputHandler playerInput => playerController.PlayerInputHandler;
         private Transform          spawnPoint;
-        private int                currentIndex;
-        private bool               canBuy        = true;
-        private int                triggersCount = 0;
+
+        private int  currentIndex;
+        private bool canBuy        = true;
+        private int  triggersCount = 0;
 
         private void Awake()
         {

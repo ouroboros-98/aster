@@ -108,6 +108,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.05}
   m_Center: {x: 0, y: 0, z: 0.475}
+--- !u!1 &401418901279859069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1030827624094349192}
+  m_Layer: 0
+  m_Name: GrabPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1030827624094349192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401418901279859069}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.12446736, z: -0, w: 0.9922237}
+  m_LocalPosition: {x: 0, y: 1.36, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4587454303624860161}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1369109534111968355
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,6 +448,7 @@ GameObject:
   - component: {fileID: 5884152618101014760}
   - component: {fileID: 4945338760825920010}
   - component: {fileID: 3969299282112547735}
+  - component: {fileID: 8365928646059468169}
   m_Layer: 0
   m_Name: Dummy_Mirror
   m_TagString: Player
@@ -443,6 +475,7 @@ Transform:
   - {fileID: 9072531061919693493}
   - {fileID: 3959870435179202868}
   - {fileID: 9191633550147408671}
+  - {fileID: 1030827624094349192}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -14.3, z: 0}
 --- !u!114 &5884152618101014760
@@ -490,6 +523,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   Original: {fileID: 5884152618101014760}
+--- !u!114 &8365928646059468169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7693222295562886677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ab380c9b514819856c0b6ebf7c023f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  grabPoint: {fileID: 1030827624094349192}
 --- !u!1 &7968738614441051119
 GameObject:
   m_ObjectHideFlags: 0
