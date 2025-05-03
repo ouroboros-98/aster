@@ -1,5 +1,10 @@
-﻿using Aster.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Aster.Core;
 using Aster.Entity.Enemy;
+using NUnit.Framework;
+using TNRD;
 using UnityEngine;
 
 namespace Aster.Gameplay.Waves
@@ -7,29 +12,50 @@ namespace Aster.Gameplay.Waves
     [CreateAssetMenu(fileName = "NewLevel", menuName = "Waves/New Level")]
     public class WavesLevel : ScriptableObject
     {
-        public BaseWave[] waves;
-        private int _currentWaveIndex;
-        
+        [SerializeReference, SerializeReferenceDropdown] private IWaveElement[] waves;
 
-        public SpawnType StartNextWave(EnemySpawner spawner)
+        public IReadOnlyList<IWaveElement> Waves => waves.ToList();
+    }
+
+    public class LevelExecution
+    {
+        private readonly WavesLevel _level;
+
+        public bool IsDone { get; private set; }
+
+        public LevelExecution(WavesLevel level)
         {
-            if (_currentWaveIndex == waves.Length-1) // if last wave in level
-            {
-                waves[_currentWaveIndex++].OnWaveStart(spawner);
-                return SpawnType.AfterEnemiesDead;
-            }
-            if (_currentWaveIndex == waves.Length)
-            {
-                AsterEvents.Instance.OnLevelEnd.Invoke(_currentWaveIndex);
-                return SpawnType.AfterEnemiesDead;
-            }
-            waves[_currentWaveIndex].OnWaveStart(spawner);
-            return waves[_currentWaveIndex++].GetSpawnType();
+            _level = level;
+            IsDone = false;
         }
 
-        public float GetWaveDelay()
+        public void Initialize(EnemySpawner spawner)
         {
-            return waves[_currentWaveIndex].getDelay();
+            int          currentIndex = 0;
+            IWaveElement previous     = null;
+            
+            foreach (IWaveElement wave in _level.Waves)
+            {
+                WaveExecutionContext context = new WaveExecutionContext(spawner, currentIndex, previous);
+                wave.PreStart(context);
+                previous = wave;
+                currentIndex++;
+            }
+        }
+
+        public void Update()
+        {
+            bool allDone = true;
+
+            foreach (IWaveElement wave in _level.Waves)
+            {
+                if (wave.Status == WaveStatus.Done) continue;
+
+                allDone = false;
+                wave.Update();
+            }
+
+            if (allDone) IsDone = true;
         }
     }
 }

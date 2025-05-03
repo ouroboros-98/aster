@@ -1,4 +1,5 @@
 ﻿using System;
+using Aster.Entity.Enemy;
 using Aster.Utils.Pool;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
@@ -25,11 +26,11 @@ namespace Aster.Core
             AsterEvents.Instance.OnEnemyDeath -= TrySpawnEnergyOnEnemyDeath;
         }
 
-        private void TrySpawnEnergyOnEnemyDeath(Vector3 enemyPos)
+        private void TrySpawnEnergyOnEnemyDeath(EnemyController enemy)
         {
             if (Random.value < chanceToDrop)
             {
-                EnergyPool.Instance.Get(enemyPos, Quaternion.identity);
+                EnergyPool.Instance.Get(enemy.transform.position, Quaternion.identity);
             }
         }
     }

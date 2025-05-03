@@ -2,7 +2,7 @@
 {
     public enum SpawnType
     {
-        DuringPreviousRespawn, 
+        DuringPrevious, 
         AfterEnemiesDead
     }
 }

@@ -9,9 +9,9 @@ namespace Aster.Entity.Enemy
 {
     public class EnemySpawner : AsterMono
     {
-        [SerializeField] private float spawnDistance;
-        private int _enemiesAlive = 0;
-        private Transform mainLightSource;
+        [SerializeField] private float     spawnDistance;
+        private                  int       _enemiesAlive = 0;
+        private                  Transform mainLightSource;
 
         private void Awake()
         {
@@ -23,7 +23,7 @@ namespace Aster.Entity.Enemy
             AsterEvents.Instance.OnEnemyDeath += UpdateEnemyCount;
         }
 
-        private void UpdateEnemyCount(Vector3 obj)
+        private void UpdateEnemyCount(EnemyController enemy)
         {
             _enemiesAlive--;
             if (_enemiesAlive == 0)
@@ -50,6 +50,8 @@ namespace Aster.Entity.Enemy
 
             var enemy = EnemyPool.Instance.Get();
             enemy.transform.position = spawnPosition.With(y: Config.LightRayYPosition);
+
+            GameEvents.OnEnemySpawn?.Invoke(enemy);
         }
     }
 }

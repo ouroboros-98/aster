@@ -62,7 +62,7 @@ namespace Aster.UI
             textMeshPro.text = playerEnergy.GetPlayerEnergy().ToString();
             foreach (var towerOption in towerOptions)
             {
-                Debug.Log("Incrementing energy for tower option: " + towerOption.name);
+                debugPrint("Incrementing energy for tower option: " + towerOption.name);
                 towerOption.SetEnergy(playerEnergy.GetPlayerEnergy());
             }
         }

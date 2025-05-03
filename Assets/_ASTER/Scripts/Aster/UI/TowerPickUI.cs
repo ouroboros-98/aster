@@ -91,7 +91,7 @@ namespace Aster.UI
 
             public void SetEnergy(float energy)
             {
-                Debug.Log("SetEnergy " + energy);
+                debugPrint("SetEnergy " + energy);
                 currentEnergy = Mathf.Max(energy, 0f);
                 // Calculate the new target fill ratio based on energy
                 _targetFillRatio = Mathf.Min(currentEnergy / energyThreshold, 1f);

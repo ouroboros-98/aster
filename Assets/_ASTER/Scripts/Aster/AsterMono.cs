@@ -60,7 +60,7 @@ namespace Aster.Core
 
                 if (component == null && !optional)
                 {
-                   Debug.LogError($"Missing component of type {typeof(T)} on {gameObject.name}");
+                    Debug.LogError($"Missing component of type {typeof(T)} on {gameObject.name}");
                 }
             }
         }
@@ -69,7 +69,14 @@ namespace Aster.Core
         {
             if (!debug) return;
 
-            print($"[{gameObject.name}::{this.GetType().Name}] " + message);
+            Debug.Log($"[{gameObject.name}::{this.GetType().Name}] " + message, this);
+        }
+
+        protected void errorPrint(object message)
+        {
+            if (!debug) return;
+
+            Debug.LogError($"[{gameObject.name}::{this.GetType().Name}] " + message, this);
         }
 
         #region HELPER FUNCTIONS

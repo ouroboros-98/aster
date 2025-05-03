@@ -1,77 +1,70 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Aster.Entity.Enemy;
 using Aster.Gameplay.Waves;
 using UnityEngine;
 
 namespace Aster.Core
 {
-    public class NewWaveManager : MonoBehaviour
+    public class NewWaveManager : AsterMono
     {
-        public WavesLevel[] Levels;
-        private int _currentLevelIndex;
-        private bool _checkEnemyDead = false;
+        public  WavesLevel[] Levels;
+        private int          _currentLevelIndex;
+        private bool         _checkEnemyDead = false;
+
+        private LevelExecution _currentLevelExecution;
+
+        public bool IsRunning { get; private set; }
 
         [SerializeField] private EnemySpawner spawner;
 
-        
+        private void Awake()
+        {
+            _currentLevelIndex = -1;
+        }
+
         private void Start()
         {
-            if (Levels.Length > 0 && Levels != null)
+            BeginLevels();
+        }
+
+        public void BeginLevels()
+        {
+            if (Levels == null || Levels.Length == 0)
             {
-                InitiateWave();
+                errorPrint("No levels assigned to the WaveManager.");
+                return;
             }
+
+            IsRunning = true;
+            NextLevel();
         }
 
-        private void OnEnable()
+        private void Update()
         {
-            AsterEvents.Instance.OnLevelEnd += ChangeLevel;
-            AsterEvents.Instance.AllEnemiesDead += InitiateWaveAfterDeath;
-        }
-        
-        private void OnDisable()
-        {
-            AsterEvents.Instance.OnLevelEnd -= ChangeLevel;
-            AsterEvents.Instance.AllEnemiesDead -= InitiateWaveAfterDeath;
+            if (!IsRunning) return;
+            if (_currentLevelExecution == null) return;
 
+            if (!_currentLevelExecution.IsDone)
+            {
+                _currentLevelExecution.Update();
+            }
+            else NextLevel();
         }
 
-        private void ChangeLevel(int obj)
+        private bool NextLevel()
         {
+            if (_currentLevelIndex >= Levels.Length - 1)
+            {
+                IsRunning = false;
+                return false;
+            }
+
             _currentLevelIndex++;
-            if (_currentLevelIndex < Levels.Length)
-            {
-                _checkEnemyDead = false;
-                InitiateWave();
-            }
-        }
+            _currentLevelExecution = new(Levels[_currentLevelIndex]);
+            _currentLevelExecution.Initialize(spawner);
 
-        private void InitiateWave()
-        {
-            if (Levels[_currentLevelIndex].StartNextWave(spawner) == SpawnType.DuringPreviousRespawn)
-            {
-                StartCoroutine(InitiateWaveInDelay
-                    (Levels[_currentLevelIndex].GetWaveDelay()));
-            }
-            else
-            {
-                _checkEnemyDead = true;
-            }
-        }
-
-        private IEnumerator InitiateWaveInDelay(float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            _currentLevelIndex++;
-            InitiateWave();
-        }
-        
-        private void InitiateWaveAfterDeath()
-        {
-            if (_checkEnemyDead)
-            {
-                _checkEnemyDead = false;
-                InitiateWave();
-            }
+            return true;
         }
     }
 }

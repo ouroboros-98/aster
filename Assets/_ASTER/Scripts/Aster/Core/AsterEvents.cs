@@ -1,4 +1,5 @@
 using System;
+using Aster.Entity.Enemy;
 using Aster.Light;
 using UnityEngine;
 
@@ -23,24 +24,30 @@ namespace Aster.Core
         public Action<InteractionContext>         OnInteractionBegin;
         public Action<RotationInteractionContext> OnRotationInteractionBegin;
         public Action<InteractionContext>         OnInteractionEnd;
-        public Action<int>                        OnLightPointAdded;
-        public Action<int>                        OnLightPointRemoved;
-        public Action<int>                        OnAttackLightSource;
-        public Action                             OnLightSourceDestroyed;
 
-        public Action<Vector3> OnEnemyDeath;
+        public Action<int> OnLightPointAdded;
+        public Action<int> OnLightPointRemoved;
+
+        public Action<int> OnAttackLightSource;
+        public Action      OnLightSourceDestroyed;
+
+        public Action<EnemyController> OnEnemySpawn;
+        public Action<EnemyController> OnEnemyDeath;
 
         public Action<int> OnWaveStart;
         public Action<int> OnWaveEnd;
         public Action<int> OnLevelEnd;
+
+
         public Action AllEnemiesDead;
 
         private AsterEvents()
         {
             OnRayActivated = delegate { };
 
-            OnInteractionBegin         =  delegate { };
-            OnInteractionEnd           =  delegate { };
+            OnInteractionBegin = delegate { };
+            OnInteractionEnd   = delegate { };
+
             OnRotationInteractionBegin =  delegate { };
             OnRotationInteractionBegin += context => OnInteractionBegin?.Invoke(context);
 
@@ -50,10 +57,13 @@ namespace Aster.Core
             OnAttackLightSource    = delegate { };
             OnLightSourceDestroyed = delegate { };
 
+            OnEnemySpawn = delegate { };
             OnEnemyDeath = delegate { };
-            OnWaveStart  = delegate { };
-            OnWaveEnd    = delegate { };
-            OnLevelEnd   = delegate { };
+
+            OnWaveStart = delegate { };
+            OnWaveEnd   = delegate { };
+
+            OnLevelEnd     = delegate { };
             AllEnemiesDead = delegate { };
         }
     }

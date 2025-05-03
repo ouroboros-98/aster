@@ -10,19 +10,19 @@ namespace Aster.Entity
     [System.Serializable]
     public class EntityAttack
     {
-        [SerializeField] public int damage = 1;
-        [SerializeField] public float initialTimeToAttack = 3f;
-        [SerializeField] private float damageTakenPerSecond = 0.2f;
-        private float _currentTimeToAttack;
-        private EnemyController _controller;
-        
+        [SerializeField] public  int             damage               = 1;
+        [SerializeField] public  float           initialTimeToAttack  = 3f;
+        [SerializeField] private float           damageTakenPerSecond = 0.2f;
+        private                  float           _currentTimeToAttack;
+        private                  EnemyController _controller;
+
         private ITargetAttackProvider _attackProvider;
-        private bool IsInitialized => (_attackProvider != null);
-        
+        private bool                  IsInitialized => (_attackProvider != null);
+
         public void Init(ITargetAttackProvider attackProvider, EnemyController controller)
         {
             _attackProvider = attackProvider;
-            _controller = controller;
+            _controller     = controller;
         }
 
 
@@ -33,9 +33,9 @@ namespace Aster.Entity
                 Debug.LogError("EntityAttack is not initialized. Please call Init() before using HandleAttack.");
                 return;
             }
+
             if (_currentTimeToAttack <= 0)
             {
-                
                 Debug.Log("attacking");
                 SoundManager.Instance.Play("EnemyHit", true);
                 _attackProvider.DoAttack(damage);
@@ -45,10 +45,11 @@ namespace Aster.Entity
             {
                 _currentTimeToAttack -= time;
             }
+
             hp.ChangeBy(-damageTakenPerSecond * time);
             if (hp <= 0)
             {
-                AsterEvents.Instance.OnEnemyDeath?.Invoke(_controller.transform.position);
+                AsterEvents.Instance.OnEnemyDeath?.Invoke(_controller);
                 EnemyPool.Instance.Return(_controller);
             }
         }

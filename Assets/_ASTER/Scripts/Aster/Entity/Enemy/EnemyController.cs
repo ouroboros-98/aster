@@ -68,7 +68,7 @@ namespace Aster.Entity.Enemy
 
             if (hp > 0) return;
 
-            AsterEvents.Instance.OnEnemyDeath?.Invoke(this.transform.position);
+            AsterEvents.Instance.OnEnemyDeath?.Invoke(this);
 
             EnemyPool.Instance.Return(this);
         }
