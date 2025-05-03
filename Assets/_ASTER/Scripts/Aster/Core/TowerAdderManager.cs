@@ -12,19 +12,17 @@ namespace Aster.Core
         [SerializeField] private int[] wavesToDrop;
         private int _waveCounter;
         private bool _needToAdd;
-        private bool _placeToAddEmpty;
+        private bool _canAdd = true;
         private void OnEnable()
         {
             AsterEvents.Instance.OnWaveStart += IncrementCounter;
-            // AsterEvents.Instance.OnTowerPlacedBetween += TowerPlaced;
-            // AsterEvents.Instance.OnTowerRemovedBetween += TowerRemoved;
+            AsterEvents.Instance.OnTryToPlaceTower += AddTower;
         }
 
         private void OnDisable()
         {
             AsterEvents.Instance.OnWaveStart -= IncrementCounter;
-            // AsterEvents.Instance.OnTowerPlacedBetween -= TowerPlaced;
-            // AsterEvents.Instance.OnTowerRemovedBetween -= TowerRemoved;
+            AsterEvents.Instance.OnTryToPlaceTower -= AddTower;
         }
 
         private void IncrementCounter(int obj)
@@ -38,21 +36,36 @@ namespace Aster.Core
         }
 
         private void AddTower()
+        { 
+            Instantiate(towerToAdd, placeToAdd.position, quaternion.identity);
+            _needToAdd = false;
+            _canAdd = true;
+        }
+
+        private void Update()
         {
-            if (_placeToAddEmpty && _needToAdd)
+            if (_needToAdd)
             {
-                Instantiate(towerToAdd, placeToAdd.position, quaternion.identity);
+                if (_canAdd)
+                {
+                    AddTower();
+                }
+                else
+                {
+                    Vector3 center = placeToAdd.position;
+                    float radius = 3f;
+                    Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+                    _canAdd = true;
+                    foreach (Collider col in hitColliders)
+                    {
+                        if (col.CompareTag("Mirror"))
+                        {
+                            _canAdd = false;
+                        }
+                    }
+                }
+                
             }
-        }
-
-        private void TowerPlaced()
-        {
-            _placeToAddEmpty = false;
-        }
-
-        private void TowerRemoved()
-        {
-            _placeToAddEmpty = true;
         }
     }
 }
