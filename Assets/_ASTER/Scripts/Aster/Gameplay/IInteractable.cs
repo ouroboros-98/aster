@@ -8,7 +8,7 @@ namespace Aster.Core
     public interface IInteractable
     {
         GameObject GameObject { get; }
-        bool       CheckInput(InputHandler input);
+        bool       CheckInput(PlayerInputHandler input);
 
         Action<PlayerController> Interact() =>
             player => AsterEvents.Instance.OnInteractionBegin?.Invoke(new(player, this));

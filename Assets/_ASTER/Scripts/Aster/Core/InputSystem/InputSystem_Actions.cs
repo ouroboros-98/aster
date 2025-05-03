@@ -139,7 +139,7 @@ namespace Aster.Core.InputSystem
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""R1"",
+                    ""name"": ""TowerPicker_Right"",
                     ""type"": ""Button"",
                     ""id"": ""d077fa1a-defd-4362-bb39-23baf15fa8c3"",
                     ""expectedControlType"": """",
@@ -148,7 +148,7 @@ namespace Aster.Core.InputSystem
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""L1"",
+                    ""name"": ""TowerPicker_Left"",
                     ""type"": ""Button"",
                     ""id"": ""e487fab9-c413-48bc-a112-6372ff9a28cc"",
                     ""expectedControlType"": """",
@@ -157,7 +157,7 @@ namespace Aster.Core.InputSystem
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SelectTower"",
+                    ""name"": ""PlaceTower"",
                     ""type"": ""Button"",
                     ""id"": ""e340fd22-ac9d-423d-b544-a330d81de971"",
                     ""expectedControlType"": """",
@@ -333,9 +333,119 @@ namespace Aster.Core.InputSystem
                     ""isPartOfComposite"": false
                 },
                 {
+                    ""name"": ""WASD"",
+                    ""id"": ""ee2a2ee7-5029-4325-b215-4393358e6a17"",
+                    ""path"": ""Dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""8f1a1c16-09f8-4fef-8c07-95f228623600"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""74e90356-3d47-43ff-9072-26fc4378b839"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""e74e5878-5730-4229-8929-255e68c1281a"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""8309ad1f-4627-4354-b861-0ed8a8742c40"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""c2beb65e-0d05-4082-b6f5-5419b79ccf91"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""9899674c-26f5-4f9a-878d-f61d5346fd4b"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""0f403bc2-6f71-48ae-9d0c-ba84f92cc805"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""9e6115d9-d767-4ee4-b150-1f40f6c5fa92"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""f275f107-485a-42a4-828e-d53999af11c8"",
                     ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotationInteraction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0192b09f-3db7-4704-9b4f-a5d7ea015f9c"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -350,7 +460,7 @@ namespace Aster.Core.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""R1"",
+                    ""action"": ""TowerPicker_Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -361,7 +471,7 @@ namespace Aster.Core.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""R1"",
+                    ""action"": ""TowerPicker_Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -372,7 +482,7 @@ namespace Aster.Core.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""L1"",
+                    ""action"": ""TowerPicker_Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -383,7 +493,7 @@ namespace Aster.Core.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""L1"",
+                    ""action"": ""TowerPicker_Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -394,7 +504,7 @@ namespace Aster.Core.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SelectTower"",
+                    ""action"": ""PlaceTower"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -405,7 +515,7 @@ namespace Aster.Core.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SelectTower"",
+                    ""action"": ""PlaceTower"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -998,9 +1108,9 @@ namespace Aster.Core.InputSystem
             m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
             m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
             m_Player_RotationInteraction = m_Player.FindAction("RotationInteraction", throwIfNotFound: true);
-            m_Player_R1 = m_Player.FindAction("R1", throwIfNotFound: true);
-            m_Player_L1 = m_Player.FindAction("L1", throwIfNotFound: true);
-            m_Player_SelectTower = m_Player.FindAction("SelectTower", throwIfNotFound: true);
+            m_Player_TowerPicker_Right = m_Player.FindAction("TowerPicker_Right", throwIfNotFound: true);
+            m_Player_TowerPicker_Left = m_Player.FindAction("TowerPicker_Left", throwIfNotFound: true);
+            m_Player_PlaceTower = m_Player.FindAction("PlaceTower", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1099,9 +1209,9 @@ namespace Aster.Core.InputSystem
         private readonly InputAction m_Player_Cancel;
         private readonly InputAction m_Player_Rotate;
         private readonly InputAction m_Player_RotationInteraction;
-        private readonly InputAction m_Player_R1;
-        private readonly InputAction m_Player_L1;
-        private readonly InputAction m_Player_SelectTower;
+        private readonly InputAction m_Player_TowerPicker_Right;
+        private readonly InputAction m_Player_TowerPicker_Left;
+        private readonly InputAction m_Player_PlaceTower;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1134,17 +1244,17 @@ namespace Aster.Core.InputSystem
             /// </summary>
             public InputAction @RotationInteraction => m_Wrapper.m_Player_RotationInteraction;
             /// <summary>
-            /// Provides access to the underlying input action "Player/R1".
+            /// Provides access to the underlying input action "Player/TowerPicker_Right".
             /// </summary>
-            public InputAction @R1 => m_Wrapper.m_Player_R1;
+            public InputAction @TowerPicker_Right => m_Wrapper.m_Player_TowerPicker_Right;
             /// <summary>
-            /// Provides access to the underlying input action "Player/L1".
+            /// Provides access to the underlying input action "Player/TowerPicker_Left".
             /// </summary>
-            public InputAction @L1 => m_Wrapper.m_Player_L1;
+            public InputAction @TowerPicker_Left => m_Wrapper.m_Player_TowerPicker_Left;
             /// <summary>
-            /// Provides access to the underlying input action "Player/SelectTower".
+            /// Provides access to the underlying input action "Player/PlaceTower".
             /// </summary>
-            public InputAction @SelectTower => m_Wrapper.m_Player_SelectTower;
+            public InputAction @PlaceTower => m_Wrapper.m_Player_PlaceTower;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1186,15 +1296,15 @@ namespace Aster.Core.InputSystem
                 @RotationInteraction.started += instance.OnRotationInteraction;
                 @RotationInteraction.performed += instance.OnRotationInteraction;
                 @RotationInteraction.canceled += instance.OnRotationInteraction;
-                @R1.started += instance.OnR1;
-                @R1.performed += instance.OnR1;
-                @R1.canceled += instance.OnR1;
-                @L1.started += instance.OnL1;
-                @L1.performed += instance.OnL1;
-                @L1.canceled += instance.OnL1;
-                @SelectTower.started += instance.OnSelectTower;
-                @SelectTower.performed += instance.OnSelectTower;
-                @SelectTower.canceled += instance.OnSelectTower;
+                @TowerPicker_Right.started += instance.OnTowerPicker_Right;
+                @TowerPicker_Right.performed += instance.OnTowerPicker_Right;
+                @TowerPicker_Right.canceled += instance.OnTowerPicker_Right;
+                @TowerPicker_Left.started += instance.OnTowerPicker_Left;
+                @TowerPicker_Left.performed += instance.OnTowerPicker_Left;
+                @TowerPicker_Left.canceled += instance.OnTowerPicker_Left;
+                @PlaceTower.started += instance.OnPlaceTower;
+                @PlaceTower.performed += instance.OnPlaceTower;
+                @PlaceTower.canceled += instance.OnPlaceTower;
             }
 
             /// <summary>
@@ -1221,15 +1331,15 @@ namespace Aster.Core.InputSystem
                 @RotationInteraction.started -= instance.OnRotationInteraction;
                 @RotationInteraction.performed -= instance.OnRotationInteraction;
                 @RotationInteraction.canceled -= instance.OnRotationInteraction;
-                @R1.started -= instance.OnR1;
-                @R1.performed -= instance.OnR1;
-                @R1.canceled -= instance.OnR1;
-                @L1.started -= instance.OnL1;
-                @L1.performed -= instance.OnL1;
-                @L1.canceled -= instance.OnL1;
-                @SelectTower.started -= instance.OnSelectTower;
-                @SelectTower.performed -= instance.OnSelectTower;
-                @SelectTower.canceled -= instance.OnSelectTower;
+                @TowerPicker_Right.started -= instance.OnTowerPicker_Right;
+                @TowerPicker_Right.performed -= instance.OnTowerPicker_Right;
+                @TowerPicker_Right.canceled -= instance.OnTowerPicker_Right;
+                @TowerPicker_Left.started -= instance.OnTowerPicker_Left;
+                @TowerPicker_Left.performed -= instance.OnTowerPicker_Left;
+                @TowerPicker_Left.canceled -= instance.OnTowerPicker_Left;
+                @PlaceTower.started -= instance.OnPlaceTower;
+                @PlaceTower.performed -= instance.OnPlaceTower;
+                @PlaceTower.canceled -= instance.OnPlaceTower;
             }
 
             /// <summary>
@@ -1566,26 +1676,26 @@ namespace Aster.Core.InputSystem
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnRotationInteraction(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "R1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "TowerPicker_Right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnR1(InputAction.CallbackContext context);
+            void OnTowerPicker_Right(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "L1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "TowerPicker_Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnL1(InputAction.CallbackContext context);
+            void OnTowerPicker_Left(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "SelectTower" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "PlaceTower" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnSelectTower(InputAction.CallbackContext context);
+            void OnPlaceTower(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

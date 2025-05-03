@@ -12,5 +12,15 @@ namespace Aster.Entity.Player.States
             _player     = player;
             _interactor = interactor;
         }
+
+        public override void OnEnter()
+        {
+            _player.Freeze();
+        }
+
+        public override void OnExit()
+        {
+            _player.Unfreeze();
+        }
     }
 }

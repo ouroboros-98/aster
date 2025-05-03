@@ -1,5 +1,6 @@
 ﻿using System;
 using Aster.Core;
+using Aster.Entity.Player;
 using Aster.Utils;
 using DependencyInjection;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using NaughtyAttributes;
 
 namespace Aster.UI
 {
@@ -22,9 +24,9 @@ namespace Aster.UI
 
         private Configuration _configuration;
 
-        [SerializeField] private RectTransform         optionsPanel;
-        [SerializeField] private HorizontalLayoutGroup layoutGroup;
-        [Inject]         private InputHandler          inputHandler;
+        [SerializeField]           private RectTransform         optionsPanel;
+        [SerializeField]           private HorizontalLayoutGroup layoutGroup;
+        [SerializeField, ReadOnly] private PlayerInputHandler    playerInput;
 
         private Vector2 _originalPos;
         private float   _timer;
@@ -42,16 +44,24 @@ namespace Aster.UI
             _state = State.OnScreen;
         }
 
+        public void Initialize(PlayerController playerController)
+        {
+            playerInput = playerController.PlayerInputHandler;
+
+            OnDisable();
+            OnEnable();
+        }
+
         private void OnEnable()
         {
             _configuration.IdleTime.OnTimerStop += SlideDown;
 
             // Subscribe to events from InputHandler
-            if (inputHandler != null)
+            if (playerInput != null)
             {
-                inputHandler.OnR1          += OnGetTowerOptions;
-                inputHandler.OnL1          += OnGetTowerOptions;
-                inputHandler.OnSelectTower += OnGetTowerOptions;
+                playerInput.OnTowerPicker_Right += OnGetTowerOptions;
+                playerInput.OnTowerPicker_Left  += OnGetTowerOptions;
+                playerInput.OnPlaceTower        += OnGetTowerOptions;
             }
         }
 
@@ -59,11 +69,11 @@ namespace Aster.UI
         {
             _configuration.IdleTime.OnTimerStop -= SlideDown;
 
-            if (inputHandler != null)
+            if (playerInput != null)
             {
-                inputHandler.OnR1          -= OnGetTowerOptions;
-                inputHandler.OnL1          -= OnGetTowerOptions;
-                inputHandler.OnSelectTower -= OnGetTowerOptions;
+                playerInput.OnTowerPicker_Right -= OnGetTowerOptions;
+                playerInput.OnTowerPicker_Left  -= OnGetTowerOptions;
+                playerInput.OnPlaceTower        -= OnGetTowerOptions;
             }
         }
 

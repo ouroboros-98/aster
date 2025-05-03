@@ -7,10 +7,15 @@ namespace Aster.Core
 {
     public class RotationControllerMarker : AsterMono
     {
-        [Inject] private RotationController rotationController;
+        [SerializeField] private PlayerRotationController rotationController;
 
         [SerializeField] private Transform markerSpriteTransform;
         [SerializeField] private Transform targetTransform;
+
+        private void Awake()
+        {
+            ValidateComponent(ref rotationController, parents: true);
+        }
 
         private void OnEnable()
         {
@@ -52,6 +57,7 @@ namespace Aster.Core
         private void OnInteractionBegin(RotationInteractionContext context)
         {
             Show();
+
             targetTransform = context.Interactable.RotationTransform;
 
             transform.localScale = Vector3.one * context.Interactable.Radius;

@@ -19,8 +19,9 @@ namespace Aster.Entity.Player
 
         #region FIELDS
 
-        private          InteractionContext _currentInteraction;
-        [Inject] private InputHandler       _inputHandler;
+        private InteractionContext          _currentInteraction;
+        private PlayerInputHandler          _inputHandler => player.PlayerInputHandler;
+        private InteractionOwnershipManager _interactionOwnershipManager;
 
         [ShowNonSerializedField] private bool _interactButtonPressed;
         [ShowNonSerializedField] private bool _isInteracting;
@@ -37,6 +38,7 @@ namespace Aster.Entity.Player
         public bool CanInteract =>
             IsNotNull(interactable)
          && IsNull(_currentInteraction)
+         && _interactionOwnershipManager.CanBeInteractedWith(interactable)
          && !cooldown.IsRunning;
 
         public bool IsInteracting => _isInteracting;
@@ -48,10 +50,21 @@ namespace Aster.Entity.Player
             Reset();
         }
 
-        private void AssignCurrentInteraction(InteractionContext context) => _currentInteraction = context;
+        private void Start()
+        {
+            _interactionOwnershipManager = GameManager.Instance.InteractionOwnershipManager;
+        }
+
+        private void AssignCurrentInteraction(InteractionContext context)
+        {
+            if (context.Player != player) return;
+            _currentInteraction = context;
+        }
 
         private void OnEnable()
         {
+            if (_inputHandler == null) return;
+
             _inputHandler.OnInteract      += OnInteract;
             GameEvents.OnInteractionBegin += AssignCurrentInteraction;
             GameEvents.OnInteractionEnd   += OnInteractionEnd;
@@ -59,6 +72,8 @@ namespace Aster.Entity.Player
 
         private void OnDisable()
         {
+            if (_inputHandler == null) return;
+
             _inputHandler.OnInteract      -= OnInteract;
             GameEvents.OnInteractionBegin -= AssignCurrentInteraction;
             GameEvents.OnInteractionEnd   -= OnInteractionEnd;
@@ -113,7 +128,6 @@ namespace Aster.Entity.Player
                 if (interactable.GameObject.CompareTag("Targeting")) continue;
 
                 this.interactable = interactable;
-
             }
         }
 

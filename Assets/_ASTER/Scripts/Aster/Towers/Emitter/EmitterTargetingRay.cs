@@ -1,5 +1,6 @@
 using System;
 using Aster.Core;
+using Aster.Entity.Player;
 using Aster.Light;
 using Aster.Utils;
 using DependencyInjection;
@@ -9,8 +10,8 @@ namespace Aster.Towers
 {
     public class EmitterTargetingRay : AsterMono
     {
-        [Inject] private RotationController _rotationController;
-        [Inject] private InputHandler       _inputHandler;
+        private PlayerRotationController _rotationController;
+        private PlayerInputHandler             _inputHandler;
 
         private IRotatatble  _emitterRotatable;
         private IRotatatble  _currentRotatable;
@@ -54,6 +55,9 @@ namespace Aster.Towers
         private void OnRotationInteractionBegin(RotationInteractionContext context)
         {
             if (!Config.Targeting.EnableRay) return;
+            
+            _rotationController = context.Player.RotationController;
+            _inputHandler       = context.Player.PlayerInputHandler;
 
             _currentRotatable = context.Interactable;
 

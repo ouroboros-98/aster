@@ -6,6 +6,7 @@ using Aster.Core.UI;
 using Aster.Towers;
 using Aster.UI;
 using DependencyInjection;
+using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -13,40 +14,56 @@ namespace Aster.Entity.Player
 {
     public class TowerBuying : AsterMono
     {
-        [SerializeField] private TowerOptionsManager towerOptionsManager;
-        [SerializeField] private PlayerEnergy        playerEnergy;
-        [Inject]         private InputHandler        inputHandler;
-        private                  Transform           spawnPoint;
-        private                  int                 currentIndex;
-        private                 bool                 canBuy = true;
-        private int triggersCount = 0;
+        [SerializeField]           private TowerOptionsManager towerOptionsManager;
+        [SerializeField]           private PlayerEnergy        playerEnergy;
+        [SerializeField, ReadOnly] private PlayerController    playerController;
+
+        private PlayerInputHandler playerInput => playerController.PlayerInputHandler;
+        private Transform          spawnPoint;
+        private int                currentIndex;
+        private bool               canBuy        = true;
+        private int                triggersCount = 0;
+
+        private void Awake()
+        {
+            ValidateComponent(ref playerController, parents: true);
+        }
+
+        public void Initialize(PlayerController player, TowerOptionsManager towerOptionsManager)
+        {
+            this.playerController    = player;
+            this.towerOptionsManager = towerOptionsManager;
+
+            OnDisable();
+            OnEnable();
+
+            currentIndex = 0;
+            SetActiveTower(currentIndex);
+        }
 
         private void OnEnable()
         {
-            towerOptionsManager = TowerOptionsManager.Instance;
             // Subscribe to events from InputHandler
-            if (inputHandler != null)
+            if (playerInput != null)
             {
-                inputHandler.OnR1          += OnR1Performed;
-                inputHandler.OnL1          += OnL1Performed;
-                inputHandler.OnSelectTower += OnSelectTowerPerformed;
+                playerInput.OnTowerPicker_Right += OnR1Performed;
+                playerInput.OnTowerPicker_Left  += OnL1Performed;
+                playerInput.OnPlaceTower        += OnSelectTowerPerformed;
             }
         }
 
         private void OnDisable()
         {
-            if (inputHandler != null)
+            if (playerInput != null)
             {
-                inputHandler.OnR1          -= OnR1Performed;
-                inputHandler.OnL1          -= OnL1Performed;
-                inputHandler.OnSelectTower -= OnSelectTowerPerformed;
+                playerInput.OnTowerPicker_Right -= OnR1Performed;
+                playerInput.OnTowerPicker_Left  -= OnL1Performed;
+                playerInput.OnPlaceTower        -= OnSelectTowerPerformed;
             }
         }
 
         private void Start()
         {
-            currentIndex = 0;
-            SetActiveTower(currentIndex);
         }
 
         private void OnR1Performed()
@@ -68,7 +85,7 @@ namespace Aster.Entity.Player
 
             int cost = towerOption.GetEnergyThreshold();
 
-            if (!canBuy||!playerEnergy.AttemptReduceEnergy(cost)) return;
+            if (!canBuy || !playerEnergy.AttemptReduceEnergy(cost)) return;
 
             GameEvents.OnLightPointRemoved?.Invoke(cost);
 
@@ -80,16 +97,19 @@ namespace Aster.Entity.Player
                         quaternion.identity
                        );
         }
+
         public void SetCanBuy(bool value)
         {
             canBuy = value;
             towerOptionsManager.SetCrossEnable(value);
         }
+
         public void OnTriggerEntered()
         {
             triggersCount++;
             SetCanBuy(triggersCount == 0);
         }
+
         public void OnTriggerExited()
         {
             triggersCount = Mathf.Max(0, triggersCount - 1);

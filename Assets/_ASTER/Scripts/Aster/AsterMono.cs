@@ -60,7 +60,7 @@ namespace Aster.Core
 
                 if (component == null && !optional)
                 {
-                    Debug.LogError($"Missing component of type {typeof(T)} on {gameObject.name}");
+                   Debug.LogError($"Missing component of type {typeof(T)} on {gameObject.name}");
                 }
             }
         }

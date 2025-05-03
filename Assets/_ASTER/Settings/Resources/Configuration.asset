@@ -22,9 +22,11 @@ MonoBehaviour:
     offScreenBottomPadding: -128
   entities:
     playerPrefab: {fileID: 3222902280958609765, guid: ed33692e615798247893282b63fc8cc8, type: 3}
-    enemyPrefab: {fileID: 5518948375846772075, guid: 3e6c31a7ecf7e2145a8762fe0f2c7487, type: 3}
     playerPivotY: 1.1
+    playerRotationControllerPrefab: {fileID: 2820816232398895190, guid: 052d37ccc2946bc40ad0eff0e2c44a8a, type: 3}
+    towerPickerPrefab: {fileID: 213721793052866619, guid: 45fef3691904cd947905d7cbf0b33646, type: 3}
     playerRotateWithTowers: 0
+    enemyPrefab: {fileID: 5518948375846772075, guid: 3e6c31a7ecf7e2145a8762fe0f2c7487, type: 3}
   targeting:
     rotateWithoutTargeting: 1
     enableRay: 1

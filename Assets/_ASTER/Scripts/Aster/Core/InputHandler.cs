@@ -17,8 +17,6 @@ namespace Aster.Core
 
         public event Action OnInteract;
         public event Action OnCancel;
-        public event Action OnR1;
-        public event Action OnL1;
         public event Action OnSelectTower;
 
         public InputHandler()
@@ -33,15 +31,11 @@ namespace Aster.Core
         {
             OnInteract    = delegate { };
             OnCancel      = delegate { };
-            OnR1          = delegate { };
-            OnL1          = delegate { };
             OnSelectTower = delegate { };
 
-            SetupButtonBinding(Actions.Player.Interact,    () => OnInteract);
-            SetupButtonBinding(Actions.Player.Cancel,      () => OnCancel);
-            SetupButtonBinding(Actions.Player.R1,          () => OnR1);
-            SetupButtonBinding(Actions.Player.L1,          () => OnL1);
-            SetupButtonBinding(Actions.Player.SelectTower, () => OnSelectTower);
+            SetupButtonBinding(Actions.Player.Interact,   () => OnInteract);
+            SetupButtonBinding(Actions.Player.Cancel,     () => OnCancel);
+            SetupButtonBinding(Actions.Player.PlaceTower, () => OnSelectTower);
         }
 
         private static void SetupButtonBinding(InputAction inputAction, Func<Action> actionGetter)

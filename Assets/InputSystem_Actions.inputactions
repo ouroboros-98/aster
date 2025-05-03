@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "R1",
+                    "name": "TowerPicker_Right",
                     "type": "Button",
                     "id": "d077fa1a-defd-4362-bb39-23baf15fa8c3",
                     "expectedControlType": "",
@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "L1",
+                    "name": "TowerPicker_Left",
                     "type": "Button",
                     "id": "e487fab9-c413-48bc-a112-6372ff9a28cc",
                     "expectedControlType": "",
@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SelectTower",
+                    "name": "PlaceTower",
                     "type": "Button",
                     "id": "e340fd22-ac9d-423d-b544-a330d81de971",
                     "expectedControlType": "",
@@ -245,9 +245,119 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "WASD",
+                    "id": "ee2a2ee7-5029-4325-b215-4393358e6a17",
+                    "path": "Dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "8f1a1c16-09f8-4fef-8c07-95f228623600",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "74e90356-3d47-43ff-9072-26fc4378b839",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "e74e5878-5730-4229-8929-255e68c1281a",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "8309ad1f-4627-4354-b861-0ed8a8742c40",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "c2beb65e-0d05-4082-b6f5-5419b79ccf91",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "9899674c-26f5-4f9a-878d-f61d5346fd4b",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "0f403bc2-6f71-48ae-9d0c-ba84f92cc805",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "9e6115d9-d767-4ee4-b150-1f40f6c5fa92",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "f275f107-485a-42a4-828e-d53999af11c8",
                     "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotationInteraction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0192b09f-3db7-4704-9b4f-a5d7ea015f9c",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -262,7 +372,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "R1",
+                    "action": "TowerPicker_Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -273,7 +383,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "R1",
+                    "action": "TowerPicker_Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -284,7 +394,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "L1",
+                    "action": "TowerPicker_Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -295,7 +405,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "L1",
+                    "action": "TowerPicker_Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -306,7 +416,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SelectTower",
+                    "action": "PlaceTower",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -317,7 +427,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SelectTower",
+                    "action": "PlaceTower",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

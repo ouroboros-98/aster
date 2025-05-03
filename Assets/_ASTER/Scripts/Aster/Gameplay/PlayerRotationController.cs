@@ -1,5 +1,6 @@
 using System;
 using Aster.Core;
+using Aster.Entity.Player;
 using Aster.Utils;
 using DependencyInjection;
 using Unity.XR.OpenVR;
@@ -8,7 +9,7 @@ using UnityEngine.InputSystem;
 
 namespace Aster.Core
 {
-    public class RotationController : AsterMono, IDependencyProvider
+    public class PlayerRotationController : AsterMono
     {
         [SerializeField, Range(0, 1f)] private float inputSensitivity = .9f;
 
@@ -18,7 +19,8 @@ namespace Aster.Core
 
         private Angle targetAngle;
 
-        [Inject] private InputHandler inputHandler;
+        private PlayerController   player;
+        private PlayerInputHandler InputHandler => player.PlayerInputHandler;
 
         #endregion
 
@@ -39,7 +41,10 @@ namespace Aster.Core
 
         #endregion
 
-        [Provide] public RotationController Instance() => this;
+        public void Initialize(PlayerController player)
+        {
+            this.player = player;
+        }
 
         public void OnEnable()
         {
@@ -53,6 +58,8 @@ namespace Aster.Core
 
         private void Activate(RotationInteractionContext rotationInteraction)
         {
+            if (rotationInteraction.Player != player) return;
+
             print("Activated");
 
             this.currentRotationInteraction = rotationInteraction;
@@ -84,7 +91,7 @@ namespace Aster.Core
         {
             if (!IsActive) return;
 
-            if (inputHandler.Cancel.WasPressedThisFrame())
+            if (InputHandler.Cancel.WasPressedThisFrame())
             {
                 Cancel();
                 return;
@@ -101,7 +108,7 @@ namespace Aster.Core
 
         private bool IsButtonReleased()
         {
-            return inputHandler.RotationInteraction.WasReleasedThisFrame();
+            return InputHandler.RotationInteraction.WasReleasedThisFrame();
         }
 
         private void UpdateAngle()
@@ -120,7 +127,7 @@ namespace Aster.Core
             RotationHandler.ActiveTargetingAngle = targetAngle;
         }
 
-        private Vector2 GetTargetDirection() => inputHandler.Rotation;
+        private Vector2 GetTargetDirection() => InputHandler.Rotation;
 
         private void Set()
         {

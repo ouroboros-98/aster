@@ -9,12 +9,24 @@ namespace Aster.Entity.Player
 {
     public class PlayerAnchor : AsterMono
     {
-        [ShowNonSerializedField, ReadOnly] private IRotatatble        _anchor;
-        [Inject]                           private RotationController _rotationController;
+        [ShowNonSerializedField, ReadOnly] private IRotatatble _anchor;
+
+        [SerializeField] private PlayerController         player;
+        [SerializeField] private PlayerRotationController rotationController;
 
         private float _targetAngle;
 
         public IRotatatble Anchor => _anchor;
+
+        private void Awake()
+        {
+            ValidateComponent(ref player, parents: true);
+        }
+
+        private void Start()
+        {
+            rotationController = player.RotationController;
+        }
 
         public void HandleAnchoring()
         {
@@ -35,22 +47,23 @@ namespace Aster.Entity.Player
 
         private void HandleInteractionEnd(InteractionContext obj)
         {
-            if (obj.Interactable != _anchor) return;
-            _anchor                                  =  null;
-            _rotationController.OnTargetAngleChanged -= UpdateTargetAngle;
+            if (obj.Player != player || obj.Interactable != _anchor) return;
+            _anchor                                 =  null;
+            rotationController.OnTargetAngleChanged -= UpdateTargetAngle;
         }
 
         private void OnDisable()
         {
             GameEvents.OnRotationInteractionBegin -= HandleRotationInteractionBegin;
+            GameEvents.OnInteractionEnd           -= HandleInteractionEnd;
         }
 
         private void Update()
         {
             if (_anchor != null && !Config.Entities.PlayerRotateWithTowers)
             {
-                _anchor                                  =  null;
-                _rotationController.OnTargetAngleChanged -= UpdateTargetAngle;
+                _anchor                                 =  null;
+                rotationController.OnTargetAngleChanged -= UpdateTargetAngle;
             }
         }
 
@@ -60,12 +73,13 @@ namespace Aster.Entity.Player
 
         private void HandleRotationInteractionBegin(RotationInteractionContext context)
         {
+            if (context.Player != player) return;
             if (!Config.Entities.PlayerRotateWithTowers || !context.Anchor) return;
 
             _anchor      = context.Interactable;
-            _targetAngle = _rotationController.TargetAngle;
+            _targetAngle = rotationController.TargetAngle;
 
-            _rotationController.OnTargetAngleChanged += UpdateTargetAngle;
+            rotationController.OnTargetAngleChanged += UpdateTargetAngle;
 
             Debug.Log($"Anchor Start", _anchor.RotationTransform.gameObject);
         }
