@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using Aster.Entity.Player;
 using Aster.Utils;
 using UnityEngine;
@@ -25,6 +26,8 @@ namespace Aster.Core
         private void OnInteractionBegin(InteractionContext context)
         {
             _interactableOwners[context.Interactable.GameObject] = context.Player;
+
+            LogOwnerships();
         }
 
         private void OnInteractionEnd(InteractionContext obj)
@@ -32,12 +35,33 @@ namespace Aster.Core
             if (!_interactableOwners.ContainsKey(obj.Interactable.GameObject)) return;
 
             _interactableOwners[obj.Interactable.GameObject] = null;
+
+            LogOwnerships();
         }
 
         public bool CanBeInteractedWith(IInteractable interactable)
         {
-            PlayerController interactingPlayer = _interactableOwners.GetValueOrDefault(interactable.GameObject, null);
+            return CanBeInteractedWith(interactable.GameObject);
+        }
+
+        public bool CanBeInteractedWith(GameObject go)
+        {
+            PlayerController interactingPlayer = _interactableOwners.GetValueOrDefault(go, null);
             return interactingPlayer == null;
+        }
+
+        void LogOwnerships()
+        {
+            StringBuilder s = new();
+            s.AppendLine("Ownerships:");
+            foreach (var (go, player) in _interactableOwners)
+            {
+                if (player == null) continue;
+
+                s.AppendLine($"{player.name} owns {go.name}");
+            }
+
+            Debug.Log(s.ToString());
         }
     }
 

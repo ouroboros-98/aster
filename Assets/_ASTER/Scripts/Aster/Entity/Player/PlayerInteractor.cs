@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Aster.Core;
 using Aster.Utils;
@@ -22,6 +23,7 @@ namespace Aster.Entity.Player
         private InteractionContext          _currentInteraction;
         private PlayerInputHandler          _inputHandler => player.PlayerInputHandler;
         private InteractionOwnershipManager _interactionOwnershipManager;
+        private IInteractable[]             allInteractablesOfObject;
 
         [ShowNonSerializedField] private bool _interactButtonPressed;
         [ShowNonSerializedField] private bool _isInteracting;
@@ -96,12 +98,16 @@ namespace Aster.Entity.Player
         {
             if (!CanInteract) return;
 
-            if (!interactable.CheckInput(_inputHandler)) return;
+            foreach (IInteractable i in allInteractablesOfObject)
+            {
+                if (!i.CheckInput(_inputHandler)) continue;
 
-            Action<PlayerController> interactAction = interactable.Interact();
+                Action<PlayerController> interactAction = i.Interact();
 
-            interactAction?.Invoke(player);
-            _isInteracting = true;
+                interactAction?.Invoke(player);
+                _isInteracting = true;
+                return;
+            }
         }
 
         private void OnInteractionEnd(InteractionContext context)
@@ -123,12 +129,22 @@ namespace Aster.Entity.Player
         {
             if (!other.ScanForComponents(out IInteractable[] interactables, parents: true, children: true)) return;
 
+            if (interactables == null || interactables.Length == 0) return;
+
+            List<IInteractable> allInteractables = new();
+
             foreach (IInteractable interactable in interactables)
             {
                 if (interactable.GameObject.CompareTag("Targeting")) continue;
 
-                this.interactable = interactable;
+                if (allInteractables.Count == 0 || interactable.GameObject == allInteractables[0].GameObject)
+                {
+                    allInteractables.Add(interactable);
+                    this.interactable = interactable;
+                }
             }
+
+            allInteractablesOfObject = allInteractables.ToArray();
         }
 
         private void OnTriggerExit(Collider other)
@@ -136,7 +152,8 @@ namespace Aster.Entity.Player
             if (!other.ScanForComponents(out IInteractable[] interactables, parents: true, children: true)) return;
             if (!interactables.Contains(interactable)) return;
 
-            this.interactable = null;
+            this.interactable        = null;
+            allInteractablesOfObject = interactables;
         }
 
         private void Reset()

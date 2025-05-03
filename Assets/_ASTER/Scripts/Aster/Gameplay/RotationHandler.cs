@@ -16,7 +16,7 @@ namespace Aster.Core
 
         #region FIELDS
 
-        [SerializeField, Range(0, 50f), Tooltip("0 for instant rotation")] private float rotationSpeed = 2;
+        [SerializeField, Range(0, 200f), Tooltip("0 for instant rotation")] private float rotationSpeed = 2;
 
         public float RotationSpeed
         {

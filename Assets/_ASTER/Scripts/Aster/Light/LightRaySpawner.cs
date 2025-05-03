@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Aster.Core;
 using Aster.Utils.Pool;
 using UnityEngine.Serialization;
 
@@ -6,7 +7,7 @@ namespace Aster.Light
 {
     using UnityEngine;
 
-    public class LightRaySpawner : MonoBehaviour
+    public class LightRaySpawner : AsterMono
     {
         [FormerlySerializedAs("lightRayPrefab")] [SerializeField] private LightRayObject lightRayObjectPrefab;
 
@@ -28,8 +29,9 @@ namespace Aster.Light
 
         private void FixedUpdate()
         {
-            ray.Origin    = transform.position;
-            ray.Direction = transform.forward;
+            ray.MaxDistance = Config.Lightrays.MaxDistance;
+            ray.Origin      = transform.position;
+            ray.Direction   = transform.forward;
         }
     }
 }
