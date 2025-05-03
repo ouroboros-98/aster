@@ -2,99 +2,76 @@
 using Aster.Entity.Enemy;
 using Aster.Gameplay.Waves;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Aster.Core
 {
     public class NewWaveManager : MonoBehaviour
     {
-        [SerializeField] private BaseWave     tutorialWave;
-        [SerializeField] private BaseWave     obstacleTutorialWave;
-        [SerializeField] private BaseWave[]   waveTypes;
+        public WavesLevel[] Levels;
+        private int _currentLevelIndex;
+        private bool _checkEnemyDead = false;
+
         [SerializeField] private EnemySpawner spawner;
 
-        [SerializeField]         float _timeBetweenWaves;
-        private                  int   _numOfEnemies = 1;
-        private                  int   waveIndex     = -1;
-        private                  int   _currentEnemies;
-        [SerializeField] private int   enemiesToAdd = 2;
-
+        
         private void Start()
         {
-            tutorialWave.Init(spawner);
-
-            obstacleTutorialWave.Init(spawner);
-
-            foreach (var waveType in waveTypes)
+            if (Levels.Length > 0 && Levels != null)
             {
-                waveType.Init(spawner);
-            }
-
-            StartNewWave(1);
-            AsterEvents.Instance.OnWaveStart?.Invoke(1);
-        }
-
-        public void OnEnable()
-        {
-            AsterEvents.Instance.OnEnemyDeath += CheckEnemyCounter;
-            AsterEvents.Instance.OnWaveStart  += UpdateCurrentEnemies;
-            AsterEvents.Instance.OnWaveEnd    += StartNewWave;
-        }
-
-        public void OnDisable()
-        {
-            AsterEvents.Instance.OnEnemyDeath -= CheckEnemyCounter;
-            AsterEvents.Instance.OnWaveStart  -= UpdateCurrentEnemies;
-            AsterEvents.Instance.OnWaveEnd    -= StartNewWave;
-        }
-
-        private void CheckEnemyCounter(Vector3 obj)
-        {
-            _currentEnemies--;
-            if (_currentEnemies <= 0)
-            {
-                AsterEvents.Instance.OnWaveEnd?.Invoke(1);
+                InitiateWave();
             }
         }
 
-        private void StartNewWave(int obj)
+        private void OnEnable()
         {
-            waveIndex++;
-            if (waveIndex > 1)
-            {
-                _numOfEnemies += enemiesToAdd;
-                //get random waveType
-                BaseWave randomWaveType = waveTypes[Random.Range(0, waveTypes.Length)];
+            AsterEvents.Instance.OnLevelEnd += ChangeLevel;
+            AsterEvents.Instance.AllEnemiesDead += InitiateWaveAfterDeath;
+        }
+        
+        private void OnDisable()
+        {
+            AsterEvents.Instance.OnLevelEnd -= ChangeLevel;
+            AsterEvents.Instance.AllEnemiesDead -= InitiateWaveAfterDeath;
 
-                StartCoroutine(StartWaveAfterSeconds(_timeBetweenWaves, randomWaveType));
+        }
+
+        private void ChangeLevel(int obj)
+        {
+            _currentLevelIndex++;
+            if (_currentLevelIndex < Levels.Length)
+            {
+                _checkEnemyDead = false;
+                InitiateWave();
+            }
+        }
+
+        private void InitiateWave()
+        {
+            if (Levels[_currentLevelIndex].StartNextWave(spawner) == SpawnType.DuringPreviousRespawn)
+            {
+                StartCoroutine(InitiateWaveInDelay
+                    (Levels[_currentLevelIndex].GetWaveDelay()));
             }
             else
             {
-                if (waveIndex == 0)
-                {
-                    tutorialWave.OnWaveStart();
-                    UpdateCurrentEnemies(1);
-                }
-
-                if (waveIndex == 1)
-                {
-                    StartCoroutine(StartWaveAfterSeconds
-                                       (_timeBetweenWaves, obstacleTutorialWave));
-                }
+                _checkEnemyDead = true;
             }
         }
 
-        private void UpdateCurrentEnemies(int obj)
+        private IEnumerator InitiateWaveInDelay(float delay)
         {
-            _currentEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+            yield return new WaitForSeconds(delay);
+            _currentLevelIndex++;
+            InitiateWave();
         }
-
-        private IEnumerator StartWaveAfterSeconds(float second, BaseWave waveType)
+        
+        private void InitiateWaveAfterDeath()
         {
-            yield return new WaitForSeconds(second);
-            waveType.UpdateNumOfEnemies(_numOfEnemies);
-            waveType.OnWaveStart();
-            AsterEvents.Instance.OnWaveStart?.Invoke(1);
+            if (_checkEnemyDead)
+            {
+                _checkEnemyDead = false;
+                InitiateWave();
+            }
         }
     }
 }

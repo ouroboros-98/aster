@@ -32,6 +32,8 @@ namespace Aster.Core
 
         public Action<int> OnWaveStart;
         public Action<int> OnWaveEnd;
+        public Action<int> OnLevelEnd;
+        public Action AllEnemiesDead;
 
         private AsterEvents()
         {
@@ -51,6 +53,8 @@ namespace Aster.Core
             OnEnemyDeath = delegate { };
             OnWaveStart  = delegate { };
             OnWaveEnd    = delegate { };
+            OnLevelEnd   = delegate { };
+            AllEnemiesDead = delegate { };
         }
     }
 }

@@ -4,17 +4,25 @@ using UnityEngine;
 
 namespace Aster.Gameplay.Waves
 {
-    public abstract class BaseWave : ScriptableObject
+    [CreateAssetMenu(fileName = "BasicWave", menuName = "Waves/Basic Wave")]
+    public class BaseWave : ScriptableObject
     {
-        protected                  EnemySpawner EnemySpawner;
         [SerializeField] protected int          NumOfEnemies;
+        [SerializeField] protected float MinAngle; 
+        [SerializeField] protected float MaxAngle;
+        [SerializeField] protected float delay;
+        [SerializeField] protected SpawnType spawnType;
 
-        public void Init(EnemySpawner enemySpawner)
+        protected EnemySpawner EnemySpawner;
+
+        public void OnWaveStart(EnemySpawner spawner)
         {
-            EnemySpawner = enemySpawner;
+            EnemySpawner = spawner;
+            for (int i = 0; i < NumOfEnemies; i++)
+            {
+                EnemySpawner.SpawnEnemy(Random.Range(MinAngle, MaxAngle));
+            }
         }
-
-        public abstract void OnWaveStart();
 
         public virtual void OnWaveEnd()
         {
@@ -25,5 +33,12 @@ namespace Aster.Gameplay.Waves
         {
             NumOfEnemies = numOfEnemies;
         }
+
+        public SpawnType GetSpawnType()
+        {
+            return spawnType;
+        }
+        
+        public float getDelay() { return delay; }
     }
 }
