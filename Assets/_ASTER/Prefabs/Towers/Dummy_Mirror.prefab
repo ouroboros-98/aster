@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6928040041407855506}
   - component: {fileID: 5130561722724685118}
   - component: {fileID: 9181411136350865436}
+  - component: {fileID: 3591072199303924565}
   m_Layer: 9
   m_Name: Dummy_Reflector_Back
   m_TagString: Mirror
@@ -108,6 +109,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.05}
   m_Center: {x: 0, y: 0, z: 0.475}
+--- !u!114 &3591072199303924565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254642707179397184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac447719b9d24cbe8bd00a75d1c9b670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  Duplicated: 0
 --- !u!1 &401418901279859069
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +355,7 @@ GameObject:
   - component: {fileID: 5976330434753657840}
   - component: {fileID: 403232962458422933}
   - component: {fileID: 7112774473874065007}
+  - component: {fileID: 900946581492775828}
   m_Layer: 9
   m_Name: Dummy_Reflector_Front
   m_TagString: Mirror
@@ -436,6 +452,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.05}
   m_Center: {x: 0, y: 0, z: 0.475}
+--- !u!114 &900946581492775828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690552791615228935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac447719b9d24cbe8bd00a75d1c9b670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  Duplicated: 0
 --- !u!1 &7693222295562886677
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,9 +475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4587454303624860161}
-  - component: {fileID: 5884152618101014760}
   - component: {fileID: 4945338760825920010}
-  - component: {fileID: 3969299282112547735}
   - component: {fileID: 8365928646059468169}
   m_Layer: 9
   m_Name: Dummy_Mirror
@@ -477,20 +505,6 @@ Transform:
   - {fileID: 1030827624094349192}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -14.3, z: 0}
---- !u!114 &5884152618101014760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7693222295562886677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac447719b9d24cbe8bd00a75d1c9b670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  Duplicated: 0
 --- !u!114 &4945338760825920010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,20 +522,6 @@ MonoBehaviour:
     rotationSpeed: 40
   rotationTransform: {fileID: 4587454303624860161}
   radius: 0.6
---- !u!114 &3969299282112547735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7693222295562886677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b05fc6a9559b484e969c9c9a6243013c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  Original: {fileID: 5884152618101014760}
 --- !u!114 &8365928646059468169
 MonoBehaviour:
   m_ObjectHideFlags: 0
