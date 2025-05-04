@@ -51,6 +51,13 @@ namespace Aster.Light
                                                 });
         }
 
+        public void ResetMovement()
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
+        
         private void Update()
         {
             // if (_isMovingToLightSource)
