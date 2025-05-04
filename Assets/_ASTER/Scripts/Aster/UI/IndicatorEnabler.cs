@@ -1,25 +1,19 @@
 ﻿using Aster.Core;
 using Aster.Core.UI;
+using Aster.Entity.Player;
 using UnityEngine;
 
 public class IndicatorEnabler : AsterMono
 {
-    [SerializeField] private PopUpIndicator indicator;
-
-    private void Awake()
-    {
-        indicator.SetEnabled(false);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            indicator.SetEnabled(true);
+            other.gameObject.GetComponent<PlayerIndicator>().SetIndicator(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-            indicator.SetEnabled(false);
+            other.gameObject.GetComponent<PlayerIndicator>().SetIndicator(false);
     }
 }

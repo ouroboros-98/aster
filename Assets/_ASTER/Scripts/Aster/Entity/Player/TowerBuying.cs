@@ -103,7 +103,7 @@ namespace Aster.Entity.Player
         public void SetCanBuy(bool value)
         {
             canBuy = value;
-            towerOptionsManager.SetCrossEnable(value);
+            // towerOptionsManager.SetCrossEnable(value);
         }
 
         public void OnTriggerEntered()
