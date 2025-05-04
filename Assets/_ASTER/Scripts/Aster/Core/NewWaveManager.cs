@@ -16,7 +16,8 @@ namespace Aster.Core
 
         public bool IsRunning { get; private set; }
 
-        [SerializeField] private EnemySpawner spawner;
+        [SerializeField] private EnemySpawner      spawner;
+        [SerializeField] private TowerAdderManager towerAdder;
 
         private void Awake()
         {
@@ -62,7 +63,7 @@ namespace Aster.Core
 
             _currentLevelIndex++;
             _currentLevelExecution = new(Levels[_currentLevelIndex]);
-            _currentLevelExecution.Initialize(spawner);
+            _currentLevelExecution.Initialize(spawner, towerAdder);
 
             return true;
         }

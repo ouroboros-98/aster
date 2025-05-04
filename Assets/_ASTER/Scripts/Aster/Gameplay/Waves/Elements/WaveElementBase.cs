@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Aster.Core;
 using Aster.Entity.Enemy;
 using Aster.Utils.Attributes;
+using NaughtyAttributes;
 using TNRD;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace Aster.Gameplay.Waves
 
             for (var i = 0; i < angles.Length; i++)
             {
-                Context.Spawner.SpawnEnemy(angles[i]);
+                Context.SpawnEnemy(angles[i], Enemies);
             }
 
             _spawned = true;
@@ -53,7 +54,7 @@ namespace Aster.Gameplay.Waves
 
             for (int i = 0; i < enemyCount.GetEnemyCount(); i++)
             {
-                Context.Spawner.SpawnEnemy(anglePicker.GetAngle());
+                Context.SpawnEnemy(anglePicker.GetAngle(), Enemies);
             }
 
             _spawned = true;
@@ -82,7 +83,7 @@ namespace Aster.Gameplay.Waves
         {
             _spawned = false;
 
-            Context.Spawner.SpawnEnemy(anglePicker.GetAngle());
+            Context.SpawnEnemy(anglePicker.GetAngle(), Enemies);
             _spawned = true;
         }
 
@@ -101,12 +102,17 @@ namespace Aster.Gameplay.Waves
     [Serializable]
     public abstract class WaveElementBase : IWaveElement
     {
+        [SerializeField, AllowNesting, ReadOnly]         private WaveStatus         _status = WaveStatus.NotStarted;
         [SerializeReference, SerializeReferenceDropdown] private IWaveTimingHandler timingHandler;
 
         protected List<EnemyController> Enemies;
         protected WaveExecutionContext  Context { get; private set; }
 
-        public WaveStatus Status { get; private set; } = WaveStatus.NotStarted;
+        public WaveStatus Status
+        {
+            get => _status;
+            private set { _status = value; }
+        }
 
         public virtual void Reset()
         {
@@ -168,8 +174,8 @@ namespace Aster.Gameplay.Waves
 
         protected virtual void OnEnemySpawn(EnemyController enemy)
         {
-            Debug.Log($"Wave: {Context.WaveIndex}, Enemy Spawned: {enemy.name}");
-            Enemies.Add(enemy);
+            // Debug.Log($"Wave: {Context.WaveIndex}, Enemy Spawned: {enemy.name}");
+            // Enemies.Add(enemy);
         }
 
         protected virtual void OnEnemyDeath(EnemyController enemy)

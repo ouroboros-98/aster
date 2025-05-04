@@ -43,7 +43,7 @@ namespace Aster.Entity.Enemy
             _enemiesAlive++;
         }
 
-        public void SpawnEnemy(Angle direction)
+        public EnemyController SpawnEnemy(Angle direction)
         {
             direction -= 90;
             Vector3 spawnDirection = Quaternion.Euler(0, direction, 0) * Vector3.forward;
@@ -53,6 +53,8 @@ namespace Aster.Entity.Enemy
             enemy.transform.position = spawnPosition.With(y: Config.LightRayYPosition);
 
             GameEvents.OnEnemySpawn?.Invoke(enemy);
+            
+            return enemy;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Aster.Gameplay.Waves
             IsDone = false;
         }
 
-        public void Initialize(EnemySpawner spawner)
+        public void Initialize(EnemySpawner spawner, TowerAdderManager towerAdder)
         {
             int          currentIndex = 0;
             IWaveElement previous     = null;
@@ -47,7 +47,7 @@ namespace Aster.Gameplay.Waves
 
             foreach (IWaveElement wave in _level.Waves)
             {
-                WaveExecutionContext context = new WaveExecutionContext(spawner, currentIndex, previous);
+                WaveExecutionContext context = new WaveExecutionContext(spawner, currentIndex, previous, towerAdder);
                 wave.PreStart(context);
                 previous = wave;
                 currentIndex++;

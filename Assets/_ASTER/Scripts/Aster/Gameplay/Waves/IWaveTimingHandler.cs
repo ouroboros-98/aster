@@ -1,4 +1,5 @@
 using System;
+using Aster.Core;
 using ImprovedTimers;
 using TNRD;
 using UnityEngine;
@@ -96,21 +97,35 @@ namespace Aster.Gameplay.Waves
 
     class WithPreviousTimingHandlerBase : IWaveTimingHandler
     {
-        private IWaveElement _lastWaveElement;
+        private WaveExecutionContext context;
+
+        private bool canStart = false;
 
         public void OnPrestart(WaveExecutionContext context)
         {
-            _lastWaveElement = context.Previous;
+            this.context                     =  context;
+            AsterEvents.Instance.OnWaveStart += OnWaveStart;
+        }
+
+        public void OnWaveStart(int obj)
+        {
+            if (obj == context.WaveIndex - 1)
+            {
+                canStart = true;
+
+                AsterEvents.Instance.OnWaveStart -= OnWaveStart;
+            }
         }
 
         public bool CanStart()
         {
-            return _lastWaveElement == null || _lastWaveElement.Status == WaveStatus.InProgress;
+            return canStart;
         }
 
         public void Reset()
         {
-            _lastWaveElement = null;
+            context  = null;
+            canStart = false;
         }
     }
 }

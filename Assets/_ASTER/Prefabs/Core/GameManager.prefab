@@ -45,12 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b22030c15848c78d6e4c6cd651e940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialWave: {fileID: 11400000, guid: 8a798ed9c8545d649857462a92a56f9f, type: 2}
-  obstacleTutorialWave: {fileID: 11400000, guid: f9c14478b144ec2469d1e8fc05e43ff2, type: 2}
-  waveTypes: []
+  debug: 0
+  Levels:
+  - {fileID: 11400000, guid: 99f95e31b3001ce46bcf728d1b5075ce, type: 2}
   spawner: {fileID: 3770590595730369864}
-  _timeBetweenWaves: 0
-  enemiesToAdd: 1
 --- !u!1 &3796646223905139257
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +130,7 @@ Transform:
   - {fileID: 6803337981726844753}
   - {fileID: 2347847192493157355}
   - {fileID: 2587834380701985072}
+  - {fileID: 6272312335824904088}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8328060706180153870
@@ -205,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
-  spawnDistance: 0
+  spawnDistance: 10
 --- !u!1 &5803367319648849969
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,16 +250,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Background
+  - name: BackgroundAmbient
     clip: {fileID: 8300000, guid: a7fb8215e90ec4b4f845f665c83b19f7, type: 3}
     volume: 0.253
     pitch: 1
     loop: 1
     spatialBlend: 0
     source: {fileID: 0}
+  - name: BackgroundMusic
+    clip: {fileID: 8300000, guid: 032f5e21cb538a04b969d21a09f8748e, type: 3}
+    volume: 0.205
+    pitch: 1
+    loop: 1
+    spatialBlend: 0
+    source: {fileID: 0}
   - name: EnergyTaken
     clip: {fileID: 8300000, guid: 77bfe4be9b4558a40b461453844fd82a, type: 3}
-    volume: 0.2
+    volume: 0.433
     pitch: 1
     loop: 0
     spatialBlend: 0
@@ -272,3 +278,55 @@ MonoBehaviour:
     loop: 0
     spatialBlend: 0
     source: {fileID: 0}
+--- !u!1 &7978356077434767737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6272312335824904088}
+  - component: {fileID: 8156186429395830982}
+  m_Layer: 0
+  m_Name: TowerAdderManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6272312335824904088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7978356077434767737}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1868509924944874632}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8156186429395830982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7978356077434767737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3acba55a0554dde86140cd2dea0990a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 1
+  entries:
+  - wave: 1
+    tower: {fileID: 6734456104824977006, guid: 09daa9afdb0fafd4fb14e86feccc5aef, type: 3}
+  - wave: 2
+    tower: {fileID: 7693222295562886677, guid: 206564f9f589c2949a6dfe9c6ec7f10d, type: 3}
+  placeToAdd: {fileID: 0}
+  wavesToDrop: 0200000005000000

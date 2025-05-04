@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Aster.Core;
 using Aster.Light;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Aster.Towers
     {
         private readonly Splitter           _splitterTower;
         private readonly SplitterParameters _splitterParameters;
+        private readonly AsterConfiguration Config;
 
         private SplitterManipulation[] _splitterTransformations;
 
@@ -17,6 +19,7 @@ namespace Aster.Towers
         {
             _splitterTower      = splitter;
             _splitterParameters = splitter.Parameters;
+            Config              = AsterConfiguration.Instance;
 
             SetupTransformations();
         }
@@ -40,7 +43,13 @@ namespace Aster.Towers
 
         protected override List<SplittedRay> UpdateManipulation(LightHit hit, List<SplittedRay> splittedRays)
         {
-            splittedRays.ForEach(ray => ray.UpdateTransformation(hit));
+            splittedRays.ForEach(ray =>
+                                 {
+                                     ray.UpdateTransformation(hit);
+                                     ray.MaxDistance = Config.Lightrays.MaxDistance;
+                                     ray.ForceUpdate();
+                                 });
+
 
             return splittedRays;
         }
