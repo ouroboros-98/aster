@@ -2693,16 +2693,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8156186429395830982, guid: 483b3db6c3ed2ed40a1ae68ce39cbe75, type: 3}
       propertyPath: entries.Array.data[1].wave
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8156186429395830982, guid: 483b3db6c3ed2ed40a1ae68ce39cbe75, type: 3}
       propertyPath: entries.Array.data[2].wave
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8156186429395830982, guid: 483b3db6c3ed2ed40a1ae68ce39cbe75, type: 3}
       propertyPath: entries.Array.data[0].tower
       value: 
-      objectReference: {fileID: 6734456104824977006, guid: 09daa9afdb0fafd4fb14e86feccc5aef, type: 3}
+      objectReference: {fileID: 7693222295562886677, guid: 206564f9f589c2949a6dfe9c6ec7f10d, type: 3}
     - target: {fileID: 8156186429395830982, guid: 483b3db6c3ed2ed40a1ae68ce39cbe75, type: 3}
       propertyPath: entries.Array.data[1].tower
       value: 
