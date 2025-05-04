@@ -1,11 +1,14 @@
+using Aster.Core;
 using Aster.Light;
 using Aster.Utils;
 using UnityEngine;
 
 namespace Aster.Towers
 {
-    public class SplitterManipulation : CompositeRayManipulation
+    public class SplitterManipulation : RayManipulation
     {
+        private SplitterParameters Parameters => _splitterTower.Parameters;
+
         private readonly int      _index;
         private readonly Splitter _splitterTower;
 
@@ -13,8 +16,7 @@ namespace Aster.Towers
         private int   _splitCount;
         private float _splitConeAngle;
 
-
-        private SplitterParameters Parameters => _splitterTower.Parameters;
+        private readonly AsterConfiguration Config;
 
         public SplitterManipulation(Splitter splitterTower, int index) :
             base()
@@ -24,15 +26,25 @@ namespace Aster.Towers
             _splitConeAngle = Parameters.SplitConeAngle;
             _splitCount     = Parameters.SplitCount;
             _angleOffset    = CalculateAngleOffset();
-
-            Append(Manipulate.Intensity(ApplyIntensity));
-            Append(Manipulate.Direction(ApplyDirection));
-            Append(Manipulate.Origin(ApplyOrigin));
-            Append(Manipulate.Color(ApplyColor));
+            Config          = AsterConfiguration.Instance;
         }
 
-        private float ApplyIntensity(ILightRay rayIn) =>
-            rayIn.Intensity / Parameters.SplitCount;
+        public override void Apply(LightHit hit, ILightRay rayIn, ILightRay rayOut)
+        {
+            rayOut.Intensity   = rayIn.Intensity / Parameters.SplitCount;
+            rayOut.MaxDistance = Config.Lightrays.MaxDistance;
+            rayOut.Direction   = ApplyDirection(rayIn);
+            rayOut.Origin      = ApplyOrigin(rayIn);
+            rayOut.Color       = ApplyColor(rayIn);
+        }
+
+        private Color ApplyColor(ILightRay ray)
+        {
+            if (!Parameters.Refract) return ray.Color;
+
+            Color color = Color.HSVToRGB(_index / (float)Parameters.SplitCount, 1, 1);
+            return color;
+        }
 
         private Vector3 ApplyDirection(ILightRay ray)
         {
@@ -44,7 +56,8 @@ namespace Aster.Towers
                 _splitConeAngle = Parameters.SplitConeAngle;
             }
 
-            return Quaternion.AngleAxis(_angleOffset + Parameters.DirectionOffset, Vector3.up) * ray.Direction;
+            return Quaternion.AngleAxis(_angleOffset + Parameters.DirectionOffset, Vector3.up) *
+                   _splitterTower.transform.forward;
         }
 
         private Vector3 ApplyOrigin(ILightRay ray)
@@ -55,15 +68,6 @@ namespace Aster.Towers
 
             return adjustedTowerOrigin + ray.Direction * Parameters.SpawnOffsetDistance;
         }
-
-        private Color ApplyColor(ILightRay ray)
-        {
-            if (!Parameters.Refract) return ray.Color;
-
-            Color color = Color.HSVToRGB(_index / (float)Parameters.SplitCount, 1, 1);
-            return color;
-        }
-
 
         private float CalculateAngleOffset()
         {
