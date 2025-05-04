@@ -73,7 +73,7 @@ namespace Aster.Light
 
         private void ArriveAtLightSource()
         {
-            Debug.Log("ArriveAtLightSource");
+            debugPrint("ArriveAtLightSource");
             SoundManager.Instance.Play("EnergyTaken");
             AsterEvents.Instance.OnLightPointAdded?.Invoke(hpGranted);
 

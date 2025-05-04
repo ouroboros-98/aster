@@ -1290,9 +1290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3acba55a0554dde86140cd2dea0990a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 1
   towerToAdd: {fileID: 7693222295562886677, guid: 206564f9f589c2949a6dfe9c6ec7f10d, type: 3}
   placeToAdd: {fileID: 361537841}
-  wavesToDrop: 020000000400000005000000
+  wavesToDrop: 0200000005000000
 --- !u!4 &808874677 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3897954385976959801, guid: ed33692e615798247893282b63fc8cc8, type: 3}
@@ -2280,6 +2281,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1525773656120800536, guid: c4e61061783b18e49b4f8203857b43c8, type: 3}
+      propertyPath: hp._max
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525773656120800536, guid: c4e61061783b18e49b4f8203857b43c8, type: 3}
+      propertyPath: hp._current
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1525773656120800536, guid: c4e61061783b18e49b4f8203857b43c8, type: 3}
       propertyPath: damageReducedPerSecond
       value: 0.5

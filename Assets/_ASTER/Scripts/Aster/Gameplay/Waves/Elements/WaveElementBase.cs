@@ -145,6 +145,7 @@ namespace Aster.Gameplay.Waves
             AsterEvents.Instance.OnEnemySpawn += OnEnemySpawn;
             AsterEvents.Instance.OnEnemyDeath += OnEnemyDeath;
 
+            AsterEvents.Instance.OnWaveStart?.Invoke(Context.WaveIndex);
             OnWaveStart();
 
             Status = WaveStatus.InProgress;
