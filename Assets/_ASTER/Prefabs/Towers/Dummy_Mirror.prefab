@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6928040041407855506}
   - component: {fileID: 5130561722724685118}
   - component: {fileID: 9181411136350865436}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dummy_Reflector_Back
   m_TagString: Mirror
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1030827624094349192}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GrabPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 6296450601315584573}
   - component: {fileID: 2940084228676145252}
   - component: {fileID: 551151785974252362}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dummy_Reflector_Blocker
   m_TagString: Mirror
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 5216355153030111973}
   - component: {fileID: 5947009935202630334}
   - component: {fileID: 4581020938817834656}
-  m_Layer: 13
+  m_Layer: 9
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 5976330434753657840}
   - component: {fileID: 403232962458422933}
   - component: {fileID: 7112774473874065007}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dummy_Reflector_Front
   m_TagString: Mirror
   m_Icon: {fileID: 0}
@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 4945338760825920010}
   - component: {fileID: 3969299282112547735}
   - component: {fileID: 8365928646059468169}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dummy_Mirror
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -536,6 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   grabLiftHeight: 0.3
+  pedestalTransform: {fileID: 0}
 --- !u!1 &7968738614441051119
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +551,7 @@ GameObject:
   - component: {fileID: 817362035213144204}
   - component: {fileID: 6001363577028090483}
   - component: {fileID: 8680847370987817029}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

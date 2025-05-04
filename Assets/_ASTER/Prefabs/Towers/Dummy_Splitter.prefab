@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4601562002926107632}
   - component: {fileID: 7050020101417990013}
   - component: {fileID: 3620091899704517600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Splitter_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 8897263374848041411}
   - component: {fileID: 5011855961134221379}
   - component: {fileID: 4472278907270521591}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,8 @@ GameObject:
   - component: {fileID: 2680962382693652947}
   - component: {fileID: 530324876703498820}
   - component: {fileID: 3706019319188817351}
-  m_Layer: 0
+  - component: {fileID: -7836054174556672409}
+  m_Layer: 9
   m_Name: Dummy_Splitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,3 +258,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   Duplicated: 0
+--- !u!114 &-7836054174556672409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6734456104824977006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ab380c9b514819856c0b6ebf7c023f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  grabLiftHeight: 0.3
+  pedestalTransform: {fileID: 0}
