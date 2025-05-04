@@ -443,7 +443,7 @@ namespace Aster.Core.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""f275f107-485a-42a4-828e-d53999af11c8"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -531,7 +531,7 @@ namespace Aster.Core.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""9b97331c-df6a-4dd3-89fb-fe79e5a09f24"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Aster.Towers;
 using Aster.Utils;
 using UnityEngine;
 
@@ -12,24 +13,42 @@ namespace Aster.Core
 
         private void OnCollisionEnter(Collision other)
         {
-            if (other.transform.transform.ScanForComponent(out BaseGrabbable grabbable, parents: true))
+            if (!other.transform.transform.ScanForComponent(out BaseGrabbable grabbable, parents: true)) return;
+            if (_grabbables.Contains(grabbable)) return;
+
+            _grabbables.Add(grabbable);
+
+            TryDisableTower(grabbable);
+        }
+
+        private void TryDisableTower(BaseGrabbable grabbable)
+        {
+            if (!grabbable.ScanForComponents(out BaseTower[] towers, parents: true)) return;
+
+            foreach (BaseTower tower in towers)
             {
-                if (!_grabbables.Contains(grabbable))
-                {
-                    _grabbables.Add(grabbable);
-                }
+                tower.enabled = false;
+            }
+        }
+
+        private void TryEnableTower(BaseGrabbable grabbable)
+        {
+            if (!grabbable.ScanForComponents(out BaseTower[] towers, parents: true)) return;
+
+            foreach (BaseTower tower in towers)
+            {
+                tower.enabled = true;
             }
         }
 
         private void OnCollisionExit(Collision other)
         {
-            if (other.transform.transform.ScanForComponent(out BaseGrabbable grabbable, parents: true))
-            {
-                if (_grabbables.Contains(grabbable))
-                {
-                    _grabbables.Remove(grabbable);
-                }
-            }
+            if (!other.transform.transform.ScanForComponent(out BaseGrabbable grabbable, parents: true)) return;
+            if (!_grabbables.Contains(grabbable)) return;
+
+            _grabbables.Remove(grabbable);
+
+            TryEnableTower(grabbable);
         }
     }
 }

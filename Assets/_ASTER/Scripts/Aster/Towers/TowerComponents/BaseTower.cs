@@ -20,6 +20,16 @@ namespace Aster.Towers
 
         public bool Duplicated = false;
 
+        protected void OnEnable()
+        {
+            if (LightReceiver != null) LightReceiver.Enabled = true;
+        }
+
+        protected void OnDisable()
+        {
+            if (LightReceiver != null) LightReceiver.Enabled = false;
+        }
+
         protected override LightHitContext OnLightRayHit(LightHit lightHit)
         {
             LightReceiver.Register(lightHit);
