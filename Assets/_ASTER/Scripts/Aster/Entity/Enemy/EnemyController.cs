@@ -7,8 +7,6 @@ using Aster.Entity.StateMachine;
 using Aster.Light;
 using Aster.Utils;
 using Aster.Utils.Pool;
-using Mono.Cecil;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace Aster.Entity.Enemy

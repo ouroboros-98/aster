@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441fa0356ba442448bb7d89569192df7, type: 3}
   m_Name: Configuration
   m_EditorClassIdentifier: 
-  _uiConfig:
-    _highlightMaterial: {fileID: -876546973899608171, guid: 9eec6cdde90bc4f41a0ea901918c2b4b, type: 3}
   lightRayYPosition: 0.3670001
   towerOptionsAnimator:
     slideDown: 0
@@ -30,7 +28,7 @@ MonoBehaviour:
     playerRotateWithTowers: 0
     enemyPrefab: {fileID: 5518948375846772075, guid: 3e6c31a7ecf7e2145a8762fe0f2c7487, type: 3}
   lightrays:
-    maxDistance: 3.25
+    maxDistance: 4
   targeting:
     rotateWithoutTargeting: 1
     enableRay: 1
@@ -54,3 +52,5 @@ MonoBehaviour:
       _emissionDistance: 0.3
       _widthScale: 0.5
       _sineSpeed: 1
+  _uiConfig:
+    _highlightMaterial: {fileID: -876546973899608171, guid: 9eec6cdde90bc4f41a0ea901918c2b4b, type: 3}
