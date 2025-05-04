@@ -8,6 +8,7 @@ namespace Aster.Core
     {
         public Transform GrabbableTransform { get; }
 
+        bool TryGrab();
         void OnGrab();
         void DuringGrab();
         void OnRelease();
