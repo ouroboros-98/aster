@@ -1,8 +1,6 @@
 ﻿using System;
 using Aster.Entity.Enemy;
 using Aster.Utils.Pool;
-using Unity.VisualScripting;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using DG.Tweening;
