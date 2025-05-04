@@ -1379,6 +1379,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6835934791794599002, guid: ed33692e615798247893282b63fc8cc8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835934791794599002, guid: ed33692e615798247893282b63fc8cc8, type: 3}
       propertyPath: towerOptionsManager
       value: 
       objectReference: {fileID: 0}
@@ -1625,6 +1629,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6835934791794599002, guid: ed33692e615798247893282b63fc8cc8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835934791794599002, guid: ed33692e615798247893282b63fc8cc8, type: 3}
       propertyPath: towerOptionsManager
       value: 
       objectReference: {fileID: 0}
@@ -1767,6 +1775,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4581020938817834656, guid: 206564f9f589c2949a6dfe9c6ec7f10d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4587454303624860161, guid: 206564f9f589c2949a6dfe9c6ec7f10d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.69

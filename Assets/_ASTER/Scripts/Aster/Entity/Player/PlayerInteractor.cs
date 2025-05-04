@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using _ASTER.Scripts.Aster.UI;
 using Aster.Core;
 using Aster.Utils;
 using DependencyInjection;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -131,6 +133,11 @@ namespace Aster.Entity.Player
 
             if (interactables == null || interactables.Length == 0) return;
 
+            ProcessInteractableEnter(interactables);
+        }
+
+        private void ProcessInteractableEnter(IInteractable[] interactables)
+        {
             List<IInteractable> allInteractables = new();
 
             foreach (IInteractable interactable in interactables)
@@ -144,7 +151,11 @@ namespace Aster.Entity.Player
                 }
             }
 
+            if (this.interactable == null) return;
+
             allInteractablesOfObject = allInteractables.ToArray();
+
+            this.interactable.GameObject.GetOrAddComponent<InteractableHighlighter>().Highlight();
         }
 
         private void OnTriggerExit(Collider other)
@@ -152,6 +163,7 @@ namespace Aster.Entity.Player
             if (!other.ScanForComponents(out IInteractable[] interactables, parents: true, children: true)) return;
             if (!interactables.Contains(interactable)) return;
 
+            this.interactable.GameObject.GetComponent<InteractableHighlighter>()?.Unhighlight();
             this.interactable        = null;
             allInteractablesOfObject = interactables;
         }

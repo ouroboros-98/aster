@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441fa0356ba442448bb7d89569192df7, type: 3}
   m_Name: Configuration
   m_EditorClassIdentifier: 
+  _uiConfig:
+    _highlightMaterial: {fileID: -876546973899608171, guid: 9eec6cdde90bc4f41a0ea901918c2b4b, type: 3}
   lightRayYPosition: 0.3670001
   towerOptionsAnimator:
     slideDown: 0
