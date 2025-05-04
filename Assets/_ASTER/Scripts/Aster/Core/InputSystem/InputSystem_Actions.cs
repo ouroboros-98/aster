@@ -531,7 +531,7 @@ namespace Aster.Core.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""9b97331c-df6a-4dd3-89fb-fe79e5a09f24"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
