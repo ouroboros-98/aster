@@ -12,19 +12,10 @@ namespace Aster.Light
         [SerializeField] private Transform lightSource;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float     arrivalThreshold = 0.1f;
-        [SerializeField] private int     hpGranted = 1;
+        [SerializeField] private int       hpGranted        = 1;
 
         private bool  _isMovingToLightSource = false;
         private Tween _movementTween;
-
-        // private void OnCollisionEnter(Collision other)
-        // {
-        //     if (other.gameObject.CompareTag("Player"))
-        //     {
-        //         SoundManager.Instance.Play("EnergyTaken");
-        //         StartMovingToLightSource();
-        //     }
-        // }
 
         public void Collect()
         {
@@ -53,11 +44,11 @@ namespace Aster.Light
 
         public void ResetMovement()
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.linearVelocity  = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            rb.isKinematic = true;
+            // rb.isKinematic = true;
         }
-        
+
         private void Update()
         {
             // if (_isMovingToLightSource)
