@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Shader_Fresnel
+  m_Name: Mat_Fresnel
   m_Shader: {fileID: -6465566751694194690, guid: 9eec6cdde90bc4f41a0ea901918c2b4b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
