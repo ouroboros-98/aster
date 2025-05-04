@@ -42,7 +42,8 @@ namespace Aster.Core
                 Vector3 targetPos = startPos + new Vector3(offset.x, 0f, offset.y);
 
                 var energy = EnergyPool.Instance.Get(startPos, Quaternion.identity);
-                energy.transform.DOMove(targetPos, 0.5f).SetEase(Ease.OutCubic);
+                energy.transform.DOMove(targetPos, 0.5f).SetEase(Ease.OutCubic)
+                    .OnComplete(energy.ResetMovement);
             }
         }
 
