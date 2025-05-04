@@ -9,7 +9,7 @@ namespace Aster.Core
 {
     public class BaseGrabbable : AsterMono, IGrabbable, IInteractable
     {
-        [SerializeField, Range(0, 2)] private float grabLiftHeight = 0.3f;
+        [SerializeField, Range(0, 2)] private float grabLiftHeight = 0.2f;
 
         public GameObject GameObject         => gameObject;
         public Transform  GrabbableTransform => transform;

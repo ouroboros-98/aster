@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
-  grabLiftHeight: 0.3
+  grabLiftHeight: 0.2
   pedestalTransform: {fileID: 0}
 --- !u!1 &8938032009392044253
 GameObject:
