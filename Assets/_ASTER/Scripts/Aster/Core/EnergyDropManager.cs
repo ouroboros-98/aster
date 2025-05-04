@@ -5,6 +5,8 @@ using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using DG.Tweening;
+
 
 namespace Aster.Core
 {
@@ -18,20 +20,31 @@ namespace Aster.Core
 
         private void OnEnable()
         {
-            AsterEvents.Instance.OnEnemyDeath += TrySpawnEnergyOnEnemyDeath;
+            AsterEvents.Instance.OnEnemyDeath += SpawnEnergyOnEnemyDeath;
         }
 
         private void OnDisable()
         {
-            AsterEvents.Instance.OnEnemyDeath -= TrySpawnEnergyOnEnemyDeath;
+            AsterEvents.Instance.OnEnemyDeath -= SpawnEnergyOnEnemyDeath;
         }
 
-        private void TrySpawnEnergyOnEnemyDeath(EnemyController enemy)
+
+        private void SpawnEnergyOnEnemyDeath(EnemyController enemy)
         {
-            if (Random.value < chanceToDrop)
+            if (Random.value > chanceToDrop)
+                return;
+
+            int pointNum = Random.Range(1, 5);
+            for (int i = 0; i < pointNum; i++)
             {
-                EnergyPool.Instance.Get(enemy.transform.position, Quaternion.identity);
+                Vector3 startPos = enemy.transform.position;
+                Vector2 offset = Random.insideUnitCircle * 1.5f;
+                Vector3 targetPos = startPos + new Vector3(offset.x, 0f, offset.y);
+
+                var energy = EnergyPool.Instance.Get(startPos, Quaternion.identity);
+                energy.transform.DOMove(targetPos, 0.5f).SetEase(Ease.OutCubic);
             }
         }
+
     }
 }
