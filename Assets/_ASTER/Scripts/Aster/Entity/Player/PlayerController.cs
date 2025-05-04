@@ -44,7 +44,7 @@ namespace Aster.Entity.Player
             playerUIElements.transform.position = Vector3.zero;
 
             CreateRotationController(playerUIElements);
-            CreateTowerPickerUI(playerUIElements);
+            // CreateTowerPickerUI(playerUIElements);
 
             interactor.enabled = true;
 
