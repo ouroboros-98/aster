@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7322099045795750276}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dummy_Emitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 4070700470560574483}
   - component: {fileID: 5641028383093650083}
   - component: {fileID: 2529171918588828644}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Emitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9056cdbe9d4753b51c468560f59316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   lightRayObjectPrefab: {fileID: 2647352142750809461, guid: 49f7c27499544fe448313d9c3d68aa77, type: 3}
   rayObject: {fileID: 0}
 --- !u!114 &5641028383093650083
@@ -279,6 +280,14 @@ PrefabInstance:
     - target: {fileID: 4756046909394636427, guid: b828f612393bf4a419108c6a48b8e352, type: 3}
       propertyPath: m_Name
       value: IndicatorX
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756046909394636427, guid: b828f612393bf4a419108c6a48b8e352, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265130987970563117, guid: b828f612393bf4a419108c6a48b8e352, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

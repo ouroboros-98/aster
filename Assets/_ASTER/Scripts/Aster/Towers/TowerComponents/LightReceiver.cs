@@ -22,6 +22,8 @@ namespace Aster.Towers
             }
         }
 
+        public int Count => _lightHits.Count;
+
         private Dictionary<ILightRay, LightHit> _lightHits;
 
         public event Action<LightHit>  Entry        = delegate { };

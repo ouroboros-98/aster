@@ -1,4 +1,6 @@
+using System;
 using Aster.Core;
+using Aster.Core.FX;
 using Aster.Light;
 using Aster.Towers;
 using Aster.Utils;
@@ -9,7 +11,8 @@ namespace Aster.Entity.Enemy
 {
     public class EnemyHittable : BaseLightHittable
     {
-        [SerializeField] private EnemyController enemyController;
+        [SerializeField] private EnemyController      enemyController;
+        [SerializeField] private EnemyHitFXController hitFX;
 
         private LightReceiver        lightReceiver;
         private EnemyRayManipulation enemyRayManipulation = new();
@@ -23,6 +26,7 @@ namespace Aster.Entity.Enemy
         private void Reset()
         {
             ValidateComponent(ref enemyController);
+            ValidateComponent(ref hitFX, children: true);
 
             lightReceiver       = new();
             enemyRayManipulator = new(lightReceiver, transform, enemyRayManipulation);
@@ -45,6 +49,18 @@ namespace Aster.Entity.Enemy
         public override void OnLightRayExit(ILightRay ray)
         {
             lightReceiver.Deregister(ray);
+        }
+
+        private void Update()
+        {
+            if (lightReceiver.Count == 0)
+                hitFX.Hide();
+            else
+                hitFX.Show();
+        }
+
+        void FixedUpdate()
+        {
         }
     }
 
