@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "type": "material",
+  "subtype": "",
+  "productCode": "MC064",
+  "assetcode": "A021",
+  "name": "Mint Blob Abstract Foam",
+  "tags": "",
+  "res": "",
+  "physicalsize": 30,
+  "tactile": false,
+  "params": {
+    "standard_surface": {
+      "subsurface_scale": 0.00499999989
+    }
+  }
+}
