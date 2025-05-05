@@ -11,6 +11,8 @@ namespace Aster.Core
         private GrabInteractionContext _currentContext;
         private AsterEvents            _gameEvents;
         private AsterConfiguration     config;
+        private int triggersCount;
+        private bool canPlace;
 
         public IGrabbable CurrentGrabbable => _currentContext?.Interactable;
         public bool       IsGrabbing       => _currentContext != null;
@@ -65,7 +67,24 @@ namespace Aster.Core
 
         private bool CheckShouldRelease()
         {
-            return _currentContext.Interactable.CheckInput(_player.PlayerInputHandler);
+            return canPlace && _currentContext.Interactable.CheckInput(_player.PlayerInputHandler);
+        }
+
+        private void SetCanPlace(bool value)
+        {
+            canPlace = value;
+            // towerOptionsManager.SetCrossEnable(value);
+        }
+        public void OnTriggerEntered()
+        {
+            triggersCount++;
+            SetCanPlace(triggersCount <= 1);
+        }
+
+        public void OnTriggerExited()
+        {
+            triggersCount = Mathf.Max(0, triggersCount - 1);
+            SetCanPlace(triggersCount <=1);
         }
     }
 }

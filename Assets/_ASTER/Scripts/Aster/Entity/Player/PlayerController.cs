@@ -65,6 +65,11 @@ namespace Aster.Entity.Player
             towerBuying.Initialize(this, towerUI);
         }
 
+        public PlayerGrabber GetPlayerGrabber()
+        {
+            return playerGrabber;
+        }
+
         private void CreateRotationController(Transform parent)
         {
             rotationController = Instantiate(Config.Entities.PlayerRotationControllerPrefab, parent, false);
