@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Aster.Gameplay.Waves
@@ -21,8 +22,8 @@ namespace Aster.Gameplay.Waves
     [System.Serializable]
     public class AnglePickerRange : IAnglePicker
     {
-        [SerializeField, Range(0, 180)] private float minAngle;
-        [SerializeField, Range(0, 180)] private float maxAngle;
+        [SerializeField, Range(0, 180), HorizontalGroup] private float minAngle;
+        [SerializeField, Range(0, 180), HorizontalGroup] private float maxAngle;
 
         public float GetAngle()
         {
