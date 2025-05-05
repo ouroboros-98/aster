@@ -14,9 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - rid: 2858847988922712136
-  - rid: 7733586664613478472
-  - rid: 7733586664613478475
+  - rid: 2858847993854951496
+  - rid: 2858847993854951499
   - rid: 7733586664613478479
+  - rid: 2858847993854951501
+  - rid: 2858847993854951505
+  - rid: 2858847993854951507
+  - rid: 2858847993854951509
+  - rid: 2858847993854951513
   references:
     version: 2
     RefIds:
@@ -33,44 +38,141 @@ MonoBehaviour:
     - rid: 2858847988922712137
       type: {class: AnglePickerConstant, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        angle: 0
-    - rid: 7733586664613478472
+        angle: 70
+    - rid: 2858847993854951496
+      type: {class: SpawnSingleEnemy, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 3
+        timingHandler:
+          rid: 2858847993854951497
+        anglePicker:
+          rid: 2858847993854951498
+    - rid: 2858847993854951497
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 5
+    - rid: 2858847993854951498
+      type: {class: AnglePickerConstant, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        angle: 130
+    - rid: 2858847993854951499
       type: {class: SpawnList, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
         _status: 2
         timingHandler:
-          rid: 7733586664613478473
+          rid: 2858847993854951500
         angles:
-        - 70
-        - 110
-        - 170
-    - rid: 7733586664613478473
+        - 50
+        - 60
+        - 120
+        - 130
+    - rid: 2858847993854951500
       type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        delay: 2
-    - rid: 7733586664613478475
+        delay: 0
+    - rid: 2858847993854951501
       type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
         _status: 1
         timingHandler:
-          rid: 7733586664613478476
+          rid: 2858847993854951502
         enemyCount:
-          rid: 7733586664613478477
+          rid: 2858847993854951503
         anglePicker:
-          rid: 7733586664613478478
-    - rid: 7733586664613478476
+          rid: 2858847993854951504
+    - rid: 2858847993854951502
       type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        delay: 1
-    - rid: 7733586664613478477
-      type: {class: ConstantEnemyCount, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+        delay: 0
+    - rid: 2858847993854951503
+      type: {class: RandomEnemyCount, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        _enemyCount: 4
-    - rid: 7733586664613478478
+        _min: 10
+        _max: 14
+    - rid: 2858847993854951504
       type: {class: AnglePickerRange, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        minAngle: 50
-        maxAngle: 130
+        minAngle: 20
+        maxAngle: 160
+    - rid: 2858847993854951505
+      type: {class: SpawnList, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 1
+        timingHandler:
+          rid: 2858847993854951506
+        angles:
+        - 20
+        - 40
+        - 60
+        - 70
+        - 80
+    - rid: 2858847993854951506
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 0
+    - rid: 2858847993854951507
+      type: {class: SpawnList, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 1
+        timingHandler:
+          rid: 2858847993854951508
+        angles:
+        - 110
+        - 120
+        - 145
+        - 150
+        - 147
+    - rid: 2858847993854951508
+      type: {class: WithPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 3
+    - rid: 2858847993854951509
+      type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 1
+        timingHandler:
+          rid: 2858847993854951510
+        enemyCount:
+          rid: 2858847993854951511
+        anglePicker:
+          rid: 2858847993854951512
+    - rid: 2858847993854951510
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 0
+    - rid: 2858847993854951511
+      type: {class: RandomEnemyCount, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _min: 20
+        _max: 24
+    - rid: 2858847993854951512
+      type: {class: AnglePickerRange, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        minAngle: 0
+        maxAngle: 180
+    - rid: 2858847993854951513
+      type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 1
+        timingHandler:
+          rid: 2858847993854951514
+        enemyCount:
+          rid: 2858847993854951515
+        anglePicker:
+          rid: 2858847993854951516
+    - rid: 2858847993854951514
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 0
+    - rid: 2858847993854951515
+      type: {class: ConstantEnemyCount, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _enemyCount: 40
+    - rid: 2858847993854951516
+      type: {class: AnglePickerRange, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        minAngle: 20
+        maxAngle: 160
     - rid: 7733586664613478479
       type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
@@ -92,5 +194,5 @@ MonoBehaviour:
     - rid: 7733586664613478483
       type: {class: AnglePickerRange, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        minAngle: 20
-        maxAngle: 160
+        minAngle: 50
+        maxAngle: 130
