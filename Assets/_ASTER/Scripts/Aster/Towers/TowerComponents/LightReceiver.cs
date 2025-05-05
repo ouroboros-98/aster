@@ -104,6 +104,7 @@ namespace Aster.Towers
         public void ForEach(Action<LightHit> action)
         {
             Dictionary<ILightRay, LightHit>.ValueCollection hits = _lightHits.Values;
+
             foreach (var hit in hits)
             {
                 action?.Invoke(hit);
