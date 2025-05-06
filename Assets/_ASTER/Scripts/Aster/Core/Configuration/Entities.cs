@@ -1,40 +1,63 @@
+using System;
 using Aster.Entity.Enemy;
 using Aster.Entity.Player;
 using Aster.Utils.Attributes;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Aster.Core
 {
     public partial class AsterConfiguration
     {
-        [SerializeField, BoxedProperty] private EntitiesConfiguration entities;
-        public                                  EntitiesConfiguration Entities => entities;
+        private EntitiesConfiguration entities = new();
+        public  EntitiesConfiguration Entities => entities;
 
-        [System.Serializable]
+        [BoxGroup("Player")]
+        [LabelText("Prefab")]
+        [PreviewField(50, ObjectFieldAlignment.Left)]
+        [AssetsOnly]
+        [SerializeField]
+        private PlayerController playerPrefab;
+
+        [BoxGroup("Player")]
+        [LabelText("Y Offset")]
+        [SerializeField]
+        [Range(0, 3f)]
+        private float playerPivotY = 0.96f;
+
+        [BoxGroup("Player")]
+        [LabelText("Rotation Controller Prefab")]
+        [SerializeField]
+        private PlayerRotationController playerRotationControllerPrefab;
+
+        [BoxGroup("Player")]
+        [LabelText("Tower Picker Prefab")]
+        [SerializeField]
+        private Canvas towerPickerPrefab;
+
+        [BoxGroup("Player")]
+        [LabelText("Rotate with Towers")]
+        [SerializeField]
+        private bool playerRotateWithTowers = false;
+
+        [BoxGroup("Enemy")]
+        [LabelText("Prefab")]
+        [SerializeField]
+        private EnemyController enemyPrefab;
+
+        [Serializable]
         public class EntitiesConfiguration
         {
-            [SerializeField, Header("Player"), Label("Prefab"), AllowNesting] private PlayerController playerPrefab;
+            [HideInInspector]
+            public AsterConfiguration _config;
 
-            [SerializeField, Label("Y Offset"), AllowNesting] private float playerPivotY = 0.96f;
+            public PlayerController         PlayerPrefab                   => _config.playerPrefab;
+            public PlayerRotationController PlayerRotationControllerPrefab => _config.playerRotationControllerPrefab;
+            public Canvas                   TowerPickerPrefab              => _config.towerPickerPrefab;
+            public float                    PlayerPivotY                   => _config.playerPivotY;
+            public bool                     PlayerRotateWithTowers         => _config.playerRotateWithTowers;
 
-            [SerializeField, Label("Rotation Controller Prefab")]
-            private PlayerRotationController playerRotationControllerPrefab;
-
-            [SerializeField, Label("Tower Picker Prefab")]
-            private Canvas towerPickerPrefab;
-            
-            [SerializeField, Label("Rotate with Towers"), AllowNesting] private bool playerRotateWithTowers = false;
-
-            [SerializeField, Header("Enemy"), Label("Prefab"), AllowNesting] private EnemyController enemyPrefab;
-
-            public PlayerController         PlayerPrefab                   => playerPrefab;
-            public PlayerRotationController PlayerRotationControllerPrefab => playerRotationControllerPrefab;
-            public Canvas TowerPickerPrefab => towerPickerPrefab;
-            public float                    PlayerPivotY                   => playerPivotY;
-            public bool                     PlayerRotateWithTowers         => playerRotateWithTowers;
-
-            public EnemyController EnemyPrefab => enemyPrefab;
+            public EnemyController EnemyPrefab => _config.enemyPrefab;
         }
     }
 }

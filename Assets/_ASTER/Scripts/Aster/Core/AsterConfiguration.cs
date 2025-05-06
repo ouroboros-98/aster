@@ -25,12 +25,24 @@ namespace Aster.Core
             }
         }
 
-        [SerializeField] private float lightRayYPosition = 0.3670001f;
+        [SerializeField]
+        private float lightRayYPosition = 0.3670001f;
 
         public float LightRayYPosition => lightRayYPosition;
 
 
-        [SerializeField, BoxedProperty, Dropdown("UI")] private TowerOptionsAnimator.Configuration towerOptionsAnimator;
+        [SerializeField, BoxedProperty]
+        private TowerOptionsAnimator.Configuration towerOptionsAnimator;
+
         public TowerOptionsAnimator.Configuration TowerOptionsAnimator => towerOptionsAnimator;
+
+        private void OnValidate()
+        {
+            if (entities._config  == null) entities._config  = this;
+            if (lightrays._config == null) lightrays._config = this;
+            if (targeting._config == null) targeting._config = this;
+            if (towers._config    == null) towers._config    = this;
+            if (_uiConfig._config == null) _uiConfig._config = this;
+        }
     }
 }

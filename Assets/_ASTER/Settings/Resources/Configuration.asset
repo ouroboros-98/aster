@@ -20,37 +20,32 @@ MonoBehaviour:
       _duration: 3
     onScreenBottomPadding: 32
     offScreenBottomPadding: -128
-  entities:
-    playerPrefab: {fileID: 3222902280958609765, guid: ed33692e615798247893282b63fc8cc8, type: 3}
-    playerPivotY: 1.1
-    playerRotationControllerPrefab: {fileID: 2820816232398895190, guid: 052d37ccc2946bc40ad0eff0e2c44a8a, type: 3}
-    towerPickerPrefab: {fileID: 213721793052866619, guid: 45fef3691904cd947905d7cbf0b33646, type: 3}
-    playerRotateWithTowers: 0
-    enemyPrefab: {fileID: 5518948375846772075, guid: 3e6c31a7ecf7e2145a8762fe0f2c7487, type: 3}
-  lightrays:
-    maxDistance: 4
-  targeting:
-    rotateWithoutTargeting: 1
-    enableRay: 1
-    rayColor: {r: 0.8039216, g: 0.1568628, b: 0.1098039, a: 1}
-  towers:
-    splitterParameters:
-      splitCount: 2
-      splitConeAngle: 45
-      spawnOffsetDistance: 0.1
-      refract: 0
-      directionOffset: 0
-    prismParameters:
-      splitCount: 3
-      splitConeAngle: 20
-      spawnOffsetDistance: 0.1
-      refract: 1
-      directionOffset: -20
-    destabilizerParameters:
-      _coneAngle: 10
-      _intensityScale: 0.95
-      _emissionDistance: 0.3
-      _widthScale: 0.5
-      _sineSpeed: 1
-  _uiConfig:
-    _highlightMaterial: {fileID: -876546973899608171, guid: 9eec6cdde90bc4f41a0ea901918c2b4b, type: 3}
+  playerPrefab: {fileID: 3222902280958609765, guid: ed33692e615798247893282b63fc8cc8, type: 3}
+  playerPivotY: 1.1
+  playerRotationControllerPrefab: {fileID: 2820816232398895190, guid: 052d37ccc2946bc40ad0eff0e2c44a8a, type: 3}
+  towerPickerPrefab: {fileID: 213721793052866619, guid: 45fef3691904cd947905d7cbf0b33646, type: 3}
+  playerRotateWithTowers: 0
+  enemyPrefab: {fileID: 5518948375846772075, guid: 3e6c31a7ecf7e2145a8762fe0f2c7487, type: 3}
+  maxDistance: 4
+  rotateWithoutTargeting: 1
+  enableRay: 0
+  rayColor: {r: 0.8039216, g: 0.1568628, b: 0.1098039, a: 1}
+  splitterParameters:
+    splitCount: 2
+    splitConeAngle: 45
+    spawnOffsetDistance: 0.1
+    refract: 0
+    directionOffset: 0
+  prismParameters:
+    splitCount: 3
+    splitConeAngle: 20
+    spawnOffsetDistance: 0.1
+    refract: 1
+    directionOffset: -20
+  destabilizerParameters:
+    _coneAngle: 10
+    _intensityScale: 0.95
+    _emissionDistance: 0.3
+    _widthScale: 0.5
+    _sineSpeed: 1
+  highlightMaterial: {fileID: -876546973899608171, guid: 9eec6cdde90bc4f41a0ea901918c2b4b, type: 3}

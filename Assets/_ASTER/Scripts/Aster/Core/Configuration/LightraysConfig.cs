@@ -1,20 +1,24 @@
 using System;
 using Aster.Utils.Attributes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Aster.Core
 {
     public partial class AsterConfiguration
     {
-        [SerializeField, BoxedProperty] private LightrayConfig lightrays = new();
-        public                                  LightrayConfig Lightrays => lightrays;
+        private LightrayConfig lightrays = new();
+        public  LightrayConfig Lightrays => lightrays;
 
-        [System.Serializable]
+        [BoxGroup("Light Rays")]
+        [Range(0, 100)]
+        [SerializeField]
+        private float maxDistance = 100f;
+
         public class LightrayConfig
         {
-            [SerializeField, Range(0, 100)] private float maxDistance = 100f;
-
-            public float MaxDistance => maxDistance;
+            public AsterConfiguration _config;
+            public float              MaxDistance => _config.maxDistance;
         }
     }
 }

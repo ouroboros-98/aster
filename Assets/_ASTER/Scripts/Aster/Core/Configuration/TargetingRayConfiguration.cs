@@ -1,5 +1,5 @@
 using Aster.Utils.Attributes;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,19 +7,29 @@ namespace Aster.Core
 {
     public partial class AsterConfiguration
     {
-        [SerializeField, BoxedProperty] private TargetingConfiguration targeting;
-        public                                  TargetingConfiguration Targeting => targeting;
+        private TargetingConfiguration targeting = new();
 
-        [System.Serializable]
+        public TargetingConfiguration Targeting => targeting;
+
+        [BoxGroup("Targeting")]
+        [SerializeField]
+        private bool rotateWithoutTargeting = false;
+
+        [BoxGroup("Targeting")]
+        [SerializeField]
+        private bool enableRay = false;
+
+        [BoxGroup("Targeting")]
+        [SerializeField]
+        private Color rayColor = new(0.8039216f, 0.1568628f, 0.1098039f);
+
         public class TargetingConfiguration
         {
-            [SerializeField] private bool rotateWithoutTargeting = false;
-            [SerializeField, HideIf("rotateWithoutTargeting")] private bool enableRay = false;
-            [SerializeField] private Color rayColor = new(0.8039216f, 0.1568628f, 0.1098039f);
+            public AsterConfiguration _config;
 
-            public bool  RotateWithoutTargeting => rotateWithoutTargeting;
-            public bool  EnableRay              => enableRay && !rotateWithoutTargeting;
-            public Color RayColor               => rayColor;
+            public bool  RotateWithoutTargeting => _config.rotateWithoutTargeting;
+            public bool  EnableRay              => _config.enableRay && !_config.rotateWithoutTargeting;
+            public Color RayColor               => _config.rayColor;
         }
     }
 }
