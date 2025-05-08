@@ -171,9 +171,9 @@ MonoBehaviour:
   movement:
     moveSpeed: 0.25
   attack:
-    damage: 1
+    damage: 15
     initialTimeToAttack: 8
-    damageTakenPerSecond: 0.2
+    damageTakenPerSecond: 100
   damagePerLightHit: 1
   invincibilityFrames:
     _duration: 0.1

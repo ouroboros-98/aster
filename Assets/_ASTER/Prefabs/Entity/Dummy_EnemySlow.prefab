@@ -172,7 +172,7 @@ MonoBehaviour:
   attack:
     damage: 1
     initialTimeToAttack: 8
-    damageTakenPerSecond: 0.2
+    damageTakenPerSecond: 1
   damagePerLightHit: 1
   invincibilityFrames:
     _duration: 0.2
