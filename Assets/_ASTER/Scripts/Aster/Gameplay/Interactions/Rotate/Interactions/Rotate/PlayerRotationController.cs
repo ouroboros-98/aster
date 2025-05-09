@@ -11,7 +11,8 @@ namespace Aster.Core
 {
     public class PlayerRotationController : AsterMono
     {
-        [SerializeField, Range(0, 1f)] private float inputSensitivity = .9f;
+        [SerializeField, Range(0, 1f)]
+        private float inputSensitivity = .9f;
 
         #region FIELDS
 

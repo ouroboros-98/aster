@@ -9,7 +9,8 @@ namespace Aster.Light
     {
         private TargetingRayMarker _targetingRayMarker;
 
-        [ShowNonSerializedField] private bool _isTargetingOnly;
+        [ShowNonSerializedField]
+        private bool _isTargetingOnly;
 
         public bool IsTargetingOnly => _isTargetingOnly;
 
@@ -28,6 +29,7 @@ namespace Aster.Light
 
         public LightHitContext LightHit(LightHit hit)
         {
+            if (!enabled) return DisabledHitContext(hit);
             bool isTargetingRay = hit.Ray is TargetingRay;
 
             if (!isTargetingRay && _isTargetingOnly)
@@ -36,6 +38,11 @@ namespace Aster.Light
             }
 
             return OnLightRayHit(hit);
+        }
+
+        protected virtual LightHitContext DisabledHitContext(LightHit hit)
+        {
+            return new LightHitContext(hit, blockLight: false);
         }
 
 

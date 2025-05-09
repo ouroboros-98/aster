@@ -1,9 +1,10 @@
 using System;
 using Aster.Core;
+using Aster.Core.Interactions.Grab;
 using Aster.Utils;
 using UnityEngine;
 
-public class EntityHover : AsterMono
+public class EntityHover : AsterMono, IDisableOnGrab
 {
     [SerializeField]
     private float amplitude = 1f;
@@ -13,9 +14,16 @@ public class EntityHover : AsterMono
 
     private float baseY;
 
+    private float t = 0f;
+
     void Awake()
     {
         baseY = transform.position.y;
+    }
+
+    private void OnEnable()
+    {
+        t = 0;
     }
 
     private void OnDisable()
@@ -25,7 +33,8 @@ public class EntityHover : AsterMono
 
     void Update()
     {
-        float newY = baseY + Mathf.Sin(Time.time * frequency) * amplitude;
+        t += Time.deltaTime;
+        float newY = baseY + Mathf.Sin(t * frequency) * amplitude;
         transform.position = transform.position.With(y: newY);
     }
 }

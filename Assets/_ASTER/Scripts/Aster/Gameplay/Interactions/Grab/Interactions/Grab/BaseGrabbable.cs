@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Aster.Core.Interactions.Grab;
 using Aster.Entity.Player;
 using Aster.Utils;
 using NaughtyAttributes;
@@ -9,15 +12,24 @@ namespace Aster.Core
 {
     public class BaseGrabbable : AsterMono, IGrabbable, IInteractable
     {
-        [SerializeField, Range(0, 2)] private float grabLiftHeight = 0.2f;
+        [SerializeField, Range(0, 2)]
+        private float grabLiftHeight = 0.2f;
 
         public GameObject GameObject         => gameObject;
         public Transform  GrabbableTransform => transform;
 
-        [SerializeField] private Transform pedestalTransform;
+        [SerializeField]
+        private Transform pedestalTransform;
 
         private float originalY;
         private bool  isGrabbed = false;
+
+        private List<MonoBehaviour> disableOnGrab;
+
+        private void Awake()
+        {
+            disableOnGrab = transform.GetComponentsInChildren<IDisableOnGrab>().Select(c => (MonoBehaviour)c).ToList();
+        }
 
         private void Start()
         {
@@ -31,6 +43,7 @@ namespace Aster.Core
 
         public void OnGrab()
         {
+            disableOnGrab.ForEach(c => c.enabled = false);
         }
 
         public void DuringGrab()
@@ -59,6 +72,8 @@ namespace Aster.Core
         {
             transform.position = transform.position.With(y: originalY);
             isGrabbed          = false;
+
+            disableOnGrab.ForEach(c => c.enabled = true);
         }
 
         private void Update()

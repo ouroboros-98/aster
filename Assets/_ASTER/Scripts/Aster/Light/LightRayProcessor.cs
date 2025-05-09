@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Aster.Light
 {
@@ -76,6 +77,7 @@ namespace Aster.Light
 
             if (hits.Count == 0)
             {
+                Debug.Log("Ray hit nothing");
                 ray.EndPoint = ray.Origin + ray.Direction * ray.MaxDistance;
             }
 

@@ -1,0 +1,16 @@
+{
+  "b68fabee6a12f93448edd45538215aea": {
+    "sceneGuid": "99c9720ab356a0642a771bea13969a05",
+    "uniqueCameraId": "b68fabee6a12f93448edd45538215aea",
+    "name": "Top View",
+    "pointX": 0.6119439,
+    "pointY": -1.52336752,
+    "pointZ": -2.11278129,
+    "directionX": -0.544177353,
+    "directionY": 0.002611399,
+    "directionZ": -0.00166009844,
+    "directionW": -0.83899,
+    "zoom": 6.083977,
+    "cameraMode": 2
+  }
+}

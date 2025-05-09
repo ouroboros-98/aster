@@ -97,13 +97,13 @@ namespace Aster.Towers
 
         protected virtual void OnDisable()
         {
-            ForEach(hit => { hit.Ray.Destroy(); });
+            ForEach(hit => { Deregister(hit.Ray); });
             _lightHits.Clear();
         }
 
         public void ForEach(Action<LightHit> action)
         {
-            Dictionary<ILightRay, LightHit>.ValueCollection hits = _lightHits.Values;
+            List<LightHit> hits = _lightHits.Values.ToList();
 
             foreach (var hit in hits)
             {
