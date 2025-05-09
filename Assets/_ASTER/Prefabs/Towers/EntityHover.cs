@@ -1,22 +1,31 @@
+using System;
 using Aster.Core;
+using Aster.Utils;
 using UnityEngine;
 
 public class EntityHover : AsterMono
 {
-    [SerializeField] private float amplitude = 1f;
-    [SerializeField] private float frequency = 1f;
+    [SerializeField]
+    private float amplitude = 1f;
+
+    [SerializeField]
+    private float frequency = 1f;
 
     private float baseY;
 
-    void Start()
+    void Awake()
     {
         baseY = transform.position.y;
     }
 
+    private void OnDisable()
+    {
+        transform.position = transform.position.With(y: baseY);
+    }
+
     void Update()
     {
-        Vector3 pos = transform.position;
-        pos.y = baseY + Mathf.Sin(Time.time * frequency) * amplitude;
-        transform.position = pos;
+        float newY = baseY + Mathf.Sin(Time.time * frequency) * amplitude;
+        transform.position = transform.position.With(y: newY);
     }
 }

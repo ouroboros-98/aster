@@ -568,7 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   amplitude: 0.1
-  frequency: 5
+  frequency: 1.3
 --- !u!1 &7968738614441051119
 GameObject:
   m_ObjectHideFlags: 0

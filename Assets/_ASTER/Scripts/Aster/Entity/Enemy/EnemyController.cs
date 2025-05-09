@@ -13,9 +13,13 @@ namespace Aster.Entity.Enemy
 {
     public class EnemyController : BaseEntityController, IPoolable
     {
-        [SerializeField] private int damagePerLightHit = 1; // amount of HP removed per light hit
+        [SerializeField]
+        private int damagePerLightHit = 1; // amount of HP removed per light hit
 
-        [SerializeField] private SerializableTimer invincibilityFrames = new(0.1f);
+        [SerializeField]
+        private SerializableTimer invincibilityFrames = new(0.1f);
+
+        public EntityHP HP => hp;
 
         private MainLightSource _mainLightSource;
 
@@ -60,10 +64,18 @@ namespace Aster.Entity.Enemy
             invincibilityFrames.Stop();
         }
 
+        protected override void Update()
+        {
+            CheckIsDead();
+        }
+
         public void LightHit(LightHit hit)
         {
             hp.ChangeBy(-hit.Ray.Intensity * Time.fixedDeltaTime);
+        }
 
+        private void CheckIsDead()
+        {
             if (hp > 0) return;
 
             AsterEvents.Instance.OnEnemyDeath?.Invoke(this);
