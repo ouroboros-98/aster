@@ -1,3 +1,4 @@
+using System;
 using Aster.Entity.Player;
 using Aster.Utils;
 using UnityEngine;
@@ -11,8 +12,23 @@ namespace Aster.Core
         private GrabInteractionContext _currentContext;
         private AsterEvents            _gameEvents;
         private AsterConfiguration     config;
-        private int triggersCount;
-        private bool canPlace;
+        private int                    triggersCount;
+
+        private bool _canPlace = false;
+
+        private bool CanPlace
+        {
+            get => _canPlace;
+            set
+            {
+                if (_canPlace == value) return;
+
+                _canPlace = value;
+                OnCanPlaceChanged?.Invoke(_canPlace);
+            }
+        }
+
+        public event Action<bool> OnCanPlaceChanged;
 
         public IGrabbable CurrentGrabbable => _currentContext?.Interactable;
         public bool       IsGrabbing       => _currentContext != null;
@@ -24,6 +40,8 @@ namespace Aster.Core
 
             _gameEvents                        =  AsterEvents.Instance;
             _gameEvents.OnGrabInteractionBegin += HandleGrabInteractionBegin;
+
+            OnCanPlaceChanged = delegate { };
 
             config = AsterConfiguration.Instance;
         }
@@ -39,14 +57,24 @@ namespace Aster.Core
 
         public void HandleGrab()
         {
-            if (!IsGrabbing) return;
+            if (!IsGrabbing || !CanPlace) return;
 
             Transform grabbable = _currentContext.Interactable.GrabbableTransform;
 
-            Vector3 playerPivot    = (config.Entities.PlayerPivotY * Vector3.up);
-            Vector3 playerPosition = _player.transform.position + playerPivot;
+            // Vector3 playerPivot    = (config.Entities.PlayerPivotY * Vector3.up);
+            // Vector3 playerPosition = _player.transform.position + playerPivot;
 
-            grabbable.position = playerPosition.With(y: grabbable.position.y);
+            Vector3 targetPosition = _player.transform.position + _currentContext.Offset;
+            ;
+            targetPosition = targetPosition.With(y: grabbable.position.y);
+
+            Vector3 newPosition = Vector3.Lerp(
+                                               grabbable.position,
+                                               targetPosition,
+                                               Time.fixedDeltaTime * _currentContext.Interactable.GrabFollowSpeed
+                                              );
+
+            grabbable.position = newPosition;
 
             _currentContext.Interactable.DuringGrab();
         }
@@ -67,14 +95,15 @@ namespace Aster.Core
 
         private bool CheckShouldRelease()
         {
-            return canPlace && _currentContext.Interactable.CheckInput(_player.PlayerInputHandler);
+            return _player.PlayerInputHandler.Grab.WasReleasedThisFrame();
         }
 
         private void SetCanPlace(bool value)
         {
-            canPlace = value;
+            CanPlace = value;
             // towerOptionsManager.SetCrossEnable(value);
         }
+
         public void OnTriggerEntered()
         {
             triggersCount++;
@@ -84,7 +113,7 @@ namespace Aster.Core
         public void OnTriggerExited()
         {
             triggersCount = Mathf.Max(0, triggersCount - 1);
-            SetCanPlace(triggersCount <=1);
+            SetCanPlace(triggersCount <= 1);
         }
     }
 }

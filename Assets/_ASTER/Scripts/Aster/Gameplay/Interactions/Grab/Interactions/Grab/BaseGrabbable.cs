@@ -15,6 +15,12 @@ namespace Aster.Core
         [SerializeField, Range(0, 2)]
         private float grabLiftHeight = 0.2f;
 
+        [SerializeField, Range(0, 50)]
+        private float grabFollowSpeed = 10f;
+
+        public float GrabFollowSpeed => grabFollowSpeed;
+
+
         public GameObject GameObject         => gameObject;
         public Transform  GrabbableTransform => transform;
 
@@ -25,6 +31,7 @@ namespace Aster.Core
         private bool  isGrabbed = false;
 
         private List<MonoBehaviour> disableOnGrab;
+        
 
         private void Awake()
         {
@@ -74,6 +81,11 @@ namespace Aster.Core
             isGrabbed          = false;
 
             disableOnGrab.ForEach(c => c.enabled = true);
+        }
+
+        public void CanPlaceAt(Vector3 targetPosition)
+        {
+            
         }
 
         private void Update()

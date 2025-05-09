@@ -11,9 +11,10 @@ namespace Aster.Towers
             var player = other.GetComponent<PlayerController>();
             if (player != null)
             {
-                player.GetPlayerGrabber().OnTriggerEntered();
+                player.Grabber.OnTriggerEntered();
             }
         }
+
         protected override LightHitContext OnLightRayHit(LightHit lightHit)
         {
             return new LightHitContext(lightHit, blockLight: false);
@@ -24,7 +25,7 @@ namespace Aster.Towers
             var player = other.GetComponent<PlayerController>();
             if (player != null)
             {
-                player.GetPlayerGrabber().OnTriggerExited();
+                player.Grabber.OnTriggerExited();
             }
         }
     }

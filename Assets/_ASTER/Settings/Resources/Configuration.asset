@@ -21,7 +21,7 @@ MonoBehaviour:
     onScreenBottomPadding: 32
     offScreenBottomPadding: -128
   playerPrefab: {fileID: 3222902280958609765, guid: ed33692e615798247893282b63fc8cc8, type: 3}
-  playerPivotY: 1.1
+  playerPivotY: 1.45
   playerRotationControllerPrefab: {fileID: 2820816232398895190, guid: 052d37ccc2946bc40ad0eff0e2c44a8a, type: 3}
   towerPickerPrefab: {fileID: 213721793052866619, guid: 45fef3691904cd947905d7cbf0b33646, type: 3}
   playerRotateWithTowers: 0

@@ -6,6 +6,8 @@ namespace Aster.Core
 {
     public interface IGrabbable : IInteractable
     {
+        float GrabFollowSpeed { get; }
+
         public Transform GrabbableTransform { get; }
 
         bool TryGrab();
