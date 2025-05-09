@@ -9,11 +9,16 @@ namespace Aster.Light
 
     public class LightRaySpawner : AsterMono
     {
-        [FormerlySerializedAs("lightRayPrefab")] [SerializeField] private LightRayObject lightRayObjectPrefab;
+        [FormerlySerializedAs("lightRayPrefab")]
+        [SerializeField]
+        private LightRayObject lightRayObjectPrefab;
 
-        [FormerlySerializedAs("rayData")] [SerializeField] private ILightRay ray = new LightRay();
+        [FormerlySerializedAs("rayData")]
+        [SerializeField]
+        private ILightRay ray = new LightRay();
 
-        [SerializeField] private LightRayObject rayObject;
+        [SerializeField]
+        private LightRayObject rayObject;
 
         private Vector3    lastPosition;
         private Quaternion lastRotation;
@@ -25,6 +30,11 @@ namespace Aster.Light
             lastRotation = transform.rotation;
 
             ray = ray.Clone();
+
+            ray.OnDestroy += () =>
+                             {
+                                 print("Spawner ray destroyed");
+                             };
         }
 
         private void FixedUpdate()

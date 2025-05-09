@@ -23,11 +23,12 @@ namespace Aster.Towers
             var player = other.GetComponent<PlayerController>();
             if (player != null)
             {
-                player.GetPlayerGrabber().OnTriggerEntered();
-                if(player.GetPlayerGrabber().IsGrabbing&& canShowOutline)
+                player.Grabber.OnTriggerEntered();
+                if(player.Grabber.IsGrabbing&& canShowOutline)
                     outlineObject.SetActive(true);
             }
         }
+
         protected override LightHitContext OnLightRayHit(LightHit lightHit)
         {
             return new LightHitContext(lightHit, blockLight: false);
@@ -38,8 +39,8 @@ namespace Aster.Towers
             var player = other.GetComponent<PlayerController>();
             if (player != null)
             {
-                player.GetPlayerGrabber().OnTriggerExited();
-                if(player.GetPlayerGrabber().IsGrabbing&& canShowOutline)
+                player.Grabber.OnTriggerExited();
+                if(player.Grabber.IsGrabbing&& canShowOutline)
                     outlineObject.SetActive(false);
             }
         }

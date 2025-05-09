@@ -6,6 +6,7 @@ using Aster.Core;
 using Aster.Utils;
 using DependencyInjection;
 using NaughtyAttributes;
+using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,9 +17,14 @@ namespace Aster.Entity.Player
 {
     public class PlayerInteractor : AsterMono
     {
-        [SerializeField] private IInteractable     interactable;
-        [SerializeField] private PlayerController  player;
-        [SerializeField] private SerializableTimer cooldown = new(.1f);
+        [SerializeField]
+        private IInteractable interactable;
+
+        [SerializeField]
+        private PlayerController player;
+
+        [SerializeField]
+        private SerializableTimer cooldown = new(.1f);
 
         #region FIELDS
 
@@ -26,9 +32,21 @@ namespace Aster.Entity.Player
         private PlayerInputHandler          _inputHandler => player.PlayerInputHandler;
         private InteractionOwnershipManager _interactionOwnershipManager;
         private IInteractable[]             allInteractablesOfObject;
+        private IRotatatble                 _rotatatble;
 
-        [ShowNonSerializedField] private bool _interactButtonPressed;
-        [ShowNonSerializedField] private bool _isInteracting;
+        private IInteractable[] _pendingInteractables;
+
+        [Sirenix.OdinInspector.ReadOnly, SerializeField]
+        private bool locked = false;
+
+        [Sirenix.OdinInspector.ReadOnly, SerializeField]
+        private bool shouldClear = false;
+
+        [ShowNonSerializedField]
+        private bool _interactButtonPressed;
+
+        [ShowNonSerializedField]
+        private bool _isInteracting;
 
         #endregion
 
@@ -37,6 +55,8 @@ namespace Aster.Entity.Player
 
         [ShowNativeProperty] public bool          IsTargetingInteractable => interactable != null;
         [ShowNativeProperty] public IInteractable TargetedInteractable    => interactable;
+
+        public IRotatatble Rotatatble => _rotatatble;
 
         [ShowNativeProperty]
         public bool CanInteract =>
@@ -94,6 +114,13 @@ namespace Aster.Entity.Player
         private void Update()
         {
             HandleInput();
+            if (locked) return;
+            if (shouldClear) Clear();
+            if (_pendingInteractables != null)
+            {
+                ProcessInteractableEnter(_pendingInteractables);
+                _pendingInteractables = null;
+            }
         }
 
         private void HandleInput()
@@ -133,7 +160,13 @@ namespace Aster.Entity.Player
 
             if (interactables == null || interactables.Length == 0) return;
 
-            ProcessInteractableEnter(interactables);
+            if (shouldClear && interactables.Contains(this.interactable))
+            {
+                shouldClear = false;
+                return;
+            }
+
+            _pendingInteractables = interactables;
         }
 
         private void ProcessInteractableEnter(IInteractable[] interactables)
@@ -144,11 +177,12 @@ namespace Aster.Entity.Player
             {
                 if (interactable.GameObject.CompareTag("Targeting")) continue;
 
-                if (allInteractables.Count == 0 || interactable.GameObject == allInteractables[0].GameObject)
-                {
-                    allInteractables.Add(interactable);
-                    this.interactable = interactable;
-                }
+                if (allInteractables.Count != 0 && interactable.GameObject != allInteractables[0].GameObject) continue;
+
+                allInteractables.Add(interactable);
+                this.interactable = interactable;
+
+                if (this.interactable is IRotatatble rotatatble) _rotatatble = rotatatble;
             }
 
             if (this.interactable == null) return;
@@ -163,9 +197,29 @@ namespace Aster.Entity.Player
             if (!other.ScanForComponents(out IInteractable[] interactables, parents: true, children: true)) return;
             if (!interactables.Contains(interactable)) return;
 
+            shouldClear = true;
+
+        }
+
+        public void Lock()
+        {
+            if (interactable == null) return;
+            locked = true;
+        }
+
+        public void Unlock()
+        {
+            locked = false;
+        }
+
+        private void Clear()
+        {
             this.interactable.GameObject.GetComponent<InteractableHighlighter>()?.Unhighlight();
-            this.interactable        = null;
-            allInteractablesOfObject = interactables;
+            this.interactable = null;
+            this._rotatatble  = null;
+
+            allInteractablesOfObject = null;
+            shouldClear              = false;
         }
 
         private void Reset()

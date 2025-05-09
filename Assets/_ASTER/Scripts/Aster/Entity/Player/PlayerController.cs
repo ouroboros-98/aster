@@ -14,12 +14,28 @@ namespace Aster.Entity.Player
 {
     public class PlayerController : BaseEntityController
     {
-        [SerializeField] private Transform                pivot;
-        [SerializeField] private PlayerInteractor         interactor;
-        [SerializeField] private PlayerAnchor             anchorController;
-        [SerializeField] private PlayerRotationController rotationController;
+        [SerializeField]
+        private Transform pivot;
 
-        private PlayerGrabber playerGrabber;
+        [SerializeField]
+        private PlayerInteractor interactor;
+
+        [SerializeField]
+        private PlayerAnchor anchorController;
+
+        [SerializeField]
+        private PlayerRotationController rotationController;
+
+        private PlayerGrabber _grabber;
+
+        public PlayerGrabber Grabber
+        {
+            get
+            {
+                if (_grabber == null) _grabber = new(this, interactor);
+                return _grabber;
+            }
+        }
 
         private PlayerInputHandler _playerInputHandler;
         public  PlayerInputHandler PlayerInputHandler => _playerInputHandler;
@@ -28,6 +44,7 @@ namespace Aster.Entity.Player
 
         private bool                     ReturnToBaseState  => !interactor.IsInteracting;
         public  PlayerRotationController RotationController => rotationController;
+        public  PlayerInteractor         Interactor         => interactor;
 
         public int PlayerIndex => PlayerInputHandler.PlayerIndex;
 
@@ -65,11 +82,6 @@ namespace Aster.Entity.Player
             towerBuying.Initialize(this, towerUI);
         }
 
-        public PlayerGrabber GetPlayerGrabber()
-        {
-            return playerGrabber;
-        }
-
         private void CreateRotationController(Transform parent)
         {
             rotationController = Instantiate(Config.Entities.PlayerRotationControllerPrefab, parent, false);
@@ -84,15 +96,14 @@ namespace Aster.Entity.Player
             var interactionState = new PlayerInteractionState(this, interactor);
             var anchorState      = new PlayerAnchorState(this, anchorController, rb);
 
-            playerGrabber = new(this, interactor);
-            var grabState = new PlayerGrabState(this, playerGrabber, movement);
+            var grabState = new PlayerGrabState(this, Grabber, movement);
 
             At(moveState, interactionState, When(() => interactor.IsInteracting));
 
             At(interactionState, anchorState,      When(anchorController.IsAnchoring));
             At(anchorState,      interactionState, When(() => !anchorController.IsAnchoring()));
 
-            At(interactionState, grabState, When(() => playerGrabber.IsGrabbing));
+            At(interactionState, grabState, When(() => Grabber.IsGrabbing));
 
             Any(moveState, When(() => ReturnToBaseState));
 
