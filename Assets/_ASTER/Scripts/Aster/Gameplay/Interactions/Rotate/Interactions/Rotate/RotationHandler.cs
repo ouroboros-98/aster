@@ -1,6 +1,7 @@
 using System;
 using Aster.Utils;
 using NaughtyAttributes;
+using NUnit.Framework.Constraints;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,7 +17,8 @@ namespace Aster.Core
 
         #region FIELDS
 
-        [SerializeField, Range(0, 200f), Tooltip("0 for instant rotation")] private float rotationSpeed = 2;
+        [SerializeField, Range(0, 200f), Tooltip("0 for instant rotation")]
+        private float rotationSpeed = 2;
 
         public float RotationSpeed
         {
@@ -30,6 +32,7 @@ namespace Aster.Core
 
         private RotationData _currentRotation;
         private Transform    _transform;
+        private bool         _instant = false;
 
         #endregion
 
@@ -75,10 +78,11 @@ namespace Aster.Core
             Rotate(direction.ToAngle());
         }
 
-        public void Rotate(Angle angle)
+        public void Rotate(Angle angle, bool instant = false)
         {
             if (Mathf.Approximately(angle, _targetAngle)) return;
 
+            _instant     = instant;
             _targetAngle = angle;
             OnTargetAngleSet?.Invoke(_targetAngle);
 
@@ -89,7 +93,9 @@ namespace Aster.Core
         {
             if (!IsRotating) return;
 
-            float step = (rotationSpeed == INSTANT_ROTATION) ? MAX_STEP : rotationSpeed * Time.deltaTime * SPEED_SCALE;
+            float step = (_instant || rotationSpeed == INSTANT_ROTATION)
+                             ? MAX_STEP
+                             : rotationSpeed * Time.deltaTime * SPEED_SCALE;
             Angle newAngle = _currentRotation.GetAngleAddProgress(step);
 
             UpdateRotation(newAngle);
@@ -104,6 +110,7 @@ namespace Aster.Core
 
             if (_currentRotation.IsFinished)
             {
+                _instant = false;
                 _currentRotation = null;
                 OnRotationFinish?.Invoke(angle);
             }

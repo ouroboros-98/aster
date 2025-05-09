@@ -52,6 +52,7 @@ namespace Aster.Core
 
             _currentContext = context;
             _currentContext.Interactable.OnGrab();
+            _interactor.Lock();
         }
 
 
@@ -91,6 +92,7 @@ namespace Aster.Core
             _gameEvents.OnInteractionEnd?.Invoke(_currentContext);
             _currentContext.Interactable.OnRelease();
             _currentContext = null;
+            _interactor.Unlock();
         }
 
         private bool CheckShouldRelease()

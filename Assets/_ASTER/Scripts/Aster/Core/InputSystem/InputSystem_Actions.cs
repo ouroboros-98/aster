@@ -173,6 +173,15 @@ namespace Aster.Core.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotationDirection"",
+                    ""type"": ""Value"",
+                    ""id"": ""005be224-fe7b-4742-a3c8-82f2905d2c9c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -538,6 +547,39 @@ namespace Aster.Core.InputSystem
                     ""action"": ""Grab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""cf3b93c8-f31d-4893-9ee7-577834fa5123"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotationDirection"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""8e5ae706-e3fa-45ea-8847-cc599b25bd00"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotationDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""41390007-c6ab-46c6-851e-a6cc182d4000"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotationDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -1132,6 +1174,7 @@ namespace Aster.Core.InputSystem
             m_Player_TowerPicker_Left = m_Player.FindAction("TowerPicker_Left", throwIfNotFound: true);
             m_Player_PlaceTower = m_Player.FindAction("PlaceTower", throwIfNotFound: true);
             m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
+            m_Player_RotationDirection = m_Player.FindAction("RotationDirection", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1234,6 +1277,7 @@ namespace Aster.Core.InputSystem
         private readonly InputAction m_Player_TowerPicker_Left;
         private readonly InputAction m_Player_PlaceTower;
         private readonly InputAction m_Player_Grab;
+        private readonly InputAction m_Player_RotationDirection;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1281,6 +1325,10 @@ namespace Aster.Core.InputSystem
             /// Provides access to the underlying input action "Player/Grab".
             /// </summary>
             public InputAction @Grab => m_Wrapper.m_Player_Grab;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/RotationDirection".
+            /// </summary>
+            public InputAction @RotationDirection => m_Wrapper.m_Player_RotationDirection;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1334,6 +1382,9 @@ namespace Aster.Core.InputSystem
                 @Grab.started += instance.OnGrab;
                 @Grab.performed += instance.OnGrab;
                 @Grab.canceled += instance.OnGrab;
+                @RotationDirection.started += instance.OnRotationDirection;
+                @RotationDirection.performed += instance.OnRotationDirection;
+                @RotationDirection.canceled += instance.OnRotationDirection;
             }
 
             /// <summary>
@@ -1372,6 +1423,9 @@ namespace Aster.Core.InputSystem
                 @Grab.started -= instance.OnGrab;
                 @Grab.performed -= instance.OnGrab;
                 @Grab.canceled -= instance.OnGrab;
+                @RotationDirection.started -= instance.OnRotationDirection;
+                @RotationDirection.performed -= instance.OnRotationDirection;
+                @RotationDirection.canceled -= instance.OnRotationDirection;
             }
 
             /// <summary>
@@ -1735,6 +1789,13 @@ namespace Aster.Core.InputSystem
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnGrab(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "RotationDirection" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRotationDirection(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

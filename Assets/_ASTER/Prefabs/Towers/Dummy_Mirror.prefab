@@ -521,7 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   rotationHandler:
-    rotationSpeed: 40
+    rotationSpeed: 100
   rotationTransform: {fileID: 4587454303624860161}
   radius: 0.6
 --- !u!114 &3969299282112547735
@@ -552,6 +552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   grabLiftHeight: 0
+  grabFollowSpeed: 10
   pedestalTransform: {fileID: 0}
 --- !u!1 &7968738614441051119
 GameObject:
@@ -567,6 +568,7 @@ GameObject:
   - component: {fileID: 817362035213144204}
   - component: {fileID: 6001363577028090483}
   - component: {fileID: 8680847370987817029}
+  - component: {fileID: 3173539400553250111}
   m_Layer: 9
   m_Name: Stand
   m_TagString: Untagged
@@ -604,7 +606,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7968738614441051119}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -692,6 +694,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
+--- !u!114 &3173539400553250111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7968738614441051119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a1441ddfae42389542759ddf600f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
 --- !u!1001 &1566959872166324531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -718,7 +733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dce85d8f8a7a5474fb10aaa9b4d71173, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.777
+      value: 0.66
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dce85d8f8a7a5474fb10aaa9b4d71173, type: 3}
       propertyPath: m_LocalPosition.z
@@ -883,5 +898,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
-  amplitude: 0.1
+  amplitude: 0.03
   frequency: 1.3

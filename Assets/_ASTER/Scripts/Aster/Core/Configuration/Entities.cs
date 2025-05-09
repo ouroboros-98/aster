@@ -40,6 +40,11 @@ namespace Aster.Core
         [SerializeField]
         private bool playerRotateWithTowers = false;
 
+        [BoxGroup("Player")]
+        [LabelText("Base Rotation Speed")]
+        [SerializeField]
+        private float playerBaseRotationSpeed = 10f;
+
         [BoxGroup("Enemy")]
         [LabelText("Prefab")]
         [SerializeField]
@@ -56,6 +61,7 @@ namespace Aster.Core
             public Canvas                   TowerPickerPrefab              => _config.towerPickerPrefab;
             public float                    PlayerPivotY                   => _config.playerPivotY;
             public bool                     PlayerRotateWithTowers         => _config.playerRotateWithTowers;
+            public float                    PlayerBaseRotationSpeed        => _config.playerBaseRotationSpeed;
 
             public EnemyController EnemyPrefab => _config.enemyPrefab;
         }

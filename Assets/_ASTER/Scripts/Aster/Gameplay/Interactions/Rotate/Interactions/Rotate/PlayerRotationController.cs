@@ -21,6 +21,7 @@ namespace Aster.Core
         private Angle targetAngle;
 
         private PlayerController   player;
+        private PlayerInteractor   interactor   => player.Interactor;
         private PlayerInputHandler InputHandler => player.PlayerInputHandler;
 
         #endregion
@@ -49,12 +50,10 @@ namespace Aster.Core
 
         public void OnEnable()
         {
-            GameEvents.OnRotationInteractionBegin += Activate;
         }
 
         private void OnDisable()
         {
-            GameEvents.OnRotationInteractionBegin -= Activate;
         }
 
         private void Activate(RotationInteractionContext rotationInteraction)
@@ -68,20 +67,20 @@ namespace Aster.Core
 
             OnInteractionBegin?.Invoke(currentRotationInteraction);
 
-            if (Config.Targeting.RotateWithoutTargeting)
-            {
-                OnTargetAngleChanged += rotationInteraction.Interactable.RotationHandler.Rotate;
-            }
+            // if (Config.Targeting.RotateWithoutTargeting)
+            // {
+            //     OnTargetAngleChanged += rotationInteraction.Interactable.RotationHandler.Rotate;
+            // }
         }
 
         private void Deactivate()
         {
             OnDeactivate?.Invoke();
 
-            if (Config.Targeting.RotateWithoutTargeting)
-            {
-                OnTargetAngleChanged -= currentRotationInteraction.Interactable.RotationHandler.Rotate;
-            }
+            // if (Config.Targeting.RotateWithoutTargeting)
+            // {
+            //     OnTargetAngleChanged -= currentRotationInteraction.Interactable.RotationHandler.Rotate;
+            // }
 
             GameEvents.OnInteractionEnd?.Invoke(currentRotationInteraction);
 
@@ -90,21 +89,37 @@ namespace Aster.Core
 
         public void Update()
         {
-            if (!IsActive) return;
+            IRotatatble rotatatble = interactor.Rotatatble;
+            if (rotatatble == null) return;
+            float direction = InputHandler.RotationDirection;
+            if (direction == 0) return;
 
-            if (InputHandler.Cancel.WasPressedThisFrame())
-            {
-                Cancel();
-                return;
-            }
+            direction = Mathf.Pow(direction, 3f);
+            print(direction);
+            RotationHandler rotationHandler = rotatatble.RotationHandler;
 
-            if (IsButtonReleased())
-            {
-                Set();
-                return;
-            }
+            float speed = rotationHandler.RotationSpeed * Config.Entities.PlayerBaseRotationSpeed;
 
-            UpdateAngle();
+            Angle currentAngle = rotationHandler.CurrentAngle;
+            Angle targetAngle  = currentAngle + (direction * Time.deltaTime * speed);
+
+            rotationHandler.Rotate(targetAngle, true);
+
+            // if (!IsActive) return;
+
+            // if (InputHandler.Cancel.WasPressedThisFrame())
+            // {
+            //     Cancel();
+            //     return;
+            // }
+            //
+            // if (IsButtonReleased())
+            // {
+            //     Set();
+            //     return;
+            // }
+
+            // UpdateAngle();
         }
 
         private bool IsButtonReleased()

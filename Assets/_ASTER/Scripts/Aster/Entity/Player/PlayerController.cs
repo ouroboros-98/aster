@@ -44,6 +44,7 @@ namespace Aster.Entity.Player
 
         private bool                     ReturnToBaseState  => !interactor.IsInteracting;
         public  PlayerRotationController RotationController => rotationController;
+        public  PlayerInteractor         Interactor         => interactor;
 
         public int PlayerIndex => PlayerInputHandler.PlayerIndex;
 

@@ -13,8 +13,11 @@ namespace Aster.Core
 
         bool IInteractable.CheckInput(PlayerInputHandler input)
         {
-            InputAction inputAction = input.RotationInteraction;
-            return inputAction.WasPressedThisFrame();
+            // InputAction inputAction = input.RotationInteraction;
+            // return inputAction.WasPressedThisFrame();
+
+            // Commeneted out because we changed how rotation works
+            return false;
         }
     }
 }
