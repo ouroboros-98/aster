@@ -8,10 +8,10 @@ namespace Aster.Towers
     {
         private void OnTriggerEnter(Collider other)
         {
-            var towerBuying = other.GetComponent<TowerBuying>();
-            if (towerBuying != null)
+            var player = other.GetComponent<PlayerController>();
+            if (player != null)
             {
-                towerBuying.OnTriggerEntered();
+                player.GetPlayerGrabber().OnTriggerEntered();
             }
         }
         protected override LightHitContext OnLightRayHit(LightHit lightHit)
@@ -21,10 +21,10 @@ namespace Aster.Towers
 
         private void OnTriggerExit(Collider other)
         {
-            var towerBuying = other.GetComponent<TowerBuying>();
-            if (towerBuying != null)
+            var player = other.GetComponent<PlayerController>();
+            if (player != null)
             {
-                towerBuying.OnTriggerExited();
+                player.GetPlayerGrabber().OnTriggerExited();
             }
         }
     }
