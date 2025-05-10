@@ -45,10 +45,13 @@ namespace Aster.Light
 
         private void Update()
         {
-            hp.ChangeBy(Time.deltaTime * -damageReducedPerSecond);
-            if (hp <= 0)
+            if (_gameStarted)
             {
-                AsterEvents.Instance.OnLightSourceDestroyed?.Invoke();
+                hp.ChangeBy(Time.deltaTime * -damageReducedPerSecond);
+                if (hp <= 0)
+                {
+                    AsterEvents.Instance.OnLightSourceDestroyed?.Invoke();
+                }
             }
         }
 
@@ -76,7 +79,7 @@ namespace Aster.Light
 
         private void AddHp(int hpAdded)
         {
-            if (_gameStarted && hp + hpAdded > hp.MaxHP)
+            if (hp + hpAdded > hp.MaxHP)
             {
                 hp.ChangeBy(hp.MaxHP-hp);
             }
