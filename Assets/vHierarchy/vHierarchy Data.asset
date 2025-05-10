@@ -44,6 +44,7 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-4327905198953328566-4704795097834225089
         - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-6525014594553408651-3465125757556301064
         - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1314692109-0
+        - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1720409469-0
         values:
         - colorIndex: 2
           iconNameOrGuid: Settings Icon
@@ -97,3 +98,5 @@ MonoBehaviour:
           iconNameOrGuid: Material Icon
         - colorIndex: 2
           iconNameOrGuid: Camera Icon
+        - colorIndex: 0
+          iconNameOrGuid: Terrain Icon
