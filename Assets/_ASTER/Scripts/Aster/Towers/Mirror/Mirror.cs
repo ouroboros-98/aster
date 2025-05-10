@@ -11,8 +11,10 @@ namespace Aster.Towers
 
         private Vector3 MirrorNormal => transform.forward;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            
             _lightReceiver = new MirrorLightReceiver(transform);
             // _mirrorManipulator = new MirrorManipulator(this);
             RayManipulator manipulator = new(_lightReceiver, transform, new MirrorManipulation(transform));
