@@ -42,6 +42,7 @@ namespace Aster.Light
         }
 
         private LineRenderer _lineRenderer;
+        private float        baseAlpha = 1;
 
         private void OnEnable()  => SubscribeRayEvents();
         private void OnDisable() => UnsubscribeRayEvents();
@@ -104,17 +105,32 @@ namespace Aster.Light
 
         void OnEndPointChanged(Vector3 value)
         {
+            float    endAlpha = Vector3.Distance(value, Data.Origin) + .05f < Data.MaxDistance ? 1 : 0;
+            Gradient gradient = new();
+            gradient.SetKeys(
+                             new[] { new GradientColorKey(Color.white, 0) },
+                             new[]
+                             {
+                                 new GradientAlphaKey(1,        .75f),
+                                 new GradientAlphaKey(endAlpha, 1)
+                             }
+                            );
+            _lineRenderer.colorGradient = gradient;
+
             _lineRenderer?.SetPosition(1, value);
         }
 
         void OnWidthChanged(float width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width * WIDTH_SCALE;
 
         void OnColorChanged(Color color) =>
-            _lineRenderer.material.SetColor(LineColorIndex, new(color.r, color.g, color.b, LineColor.a));
+            _lineRenderer.material.SetColor(LineColorIndex, new(color.r, color.g, color.b, baseAlpha));
 
-        void OnIntensityChanged(float intensity) =>
+        void OnIntensityChanged(float intensity)
+        {
+            baseAlpha = MathF.Pow(intensity, 1 / 2f);
             _lineRenderer.material.SetColor(LineColorIndex,
-                                            new(LineColor.r, LineColor.g, LineColor.b, MathF.Pow(intensity, 1 / 2f)));
+                                            new(LineColor.r, LineColor.g, LineColor.b, baseAlpha));
+        }
 
         private void OnRayDestroyed()
         {

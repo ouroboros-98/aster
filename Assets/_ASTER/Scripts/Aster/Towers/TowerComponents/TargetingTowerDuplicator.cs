@@ -59,12 +59,12 @@ namespace Aster.Towers
                 transform.parent = TowerParent.Instance.transform;
             }
 
-            if (Duplicate == null && !Original.Duplicated)
-            {
-                Original.Duplicated = true;
-                CreateDuplicate();
-                Duplicate.Duplicated = true;
-            }
+            // if (Duplicate == null && !Original.Duplicated)
+            // {
+            //     Original.Duplicated = true;
+            //     CreateDuplicate();
+            //     Duplicate.Duplicated = true;
+            // }
         }
 
         private void OnInteractionEnd(InteractionContext obj)
