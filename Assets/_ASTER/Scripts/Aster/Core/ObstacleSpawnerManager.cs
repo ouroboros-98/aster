@@ -54,7 +54,7 @@ namespace Aster.Core
                 obj.transform.rotation = Quaternion.Euler(spawnData.rotation);
 
                 // Animate to target position over 1 second with ease-out
-                obj.transform.DOMove(spawnData.position, 1f).SetEase(Ease.OutBack);
+                obj.transform.DOMove(spawnData.position, 2f).SetEase(Ease.OutBack);
 
                 // Animate rotation if needed (optional)
                 // obj.transform.DORotate(spawnData.rotation, 1f, RotateMode.FastBeyond360).SetEase(Ease.OutBack);

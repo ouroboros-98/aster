@@ -29,19 +29,22 @@ namespace Aster.Core
 
         private void SpawnEnergyOnEnemyDeath(EnemyController enemy)
         {
-            if (Random.value > chanceToDrop)
-                return;
-
-            int pointNum = Random.Range(1, 5);
-            for (int i = 0; i < pointNum; i++)
+            if (!enemy.CurrentStateName.Equals("EntityAttackState"))
             {
-                Vector3 startPos = enemy.transform.position;
-                Vector2 offset = Random.insideUnitCircle * 1.5f;
-                Vector3 targetPos = startPos + new Vector3(offset.x, 0f, offset.y);
+                if (Random.value > chanceToDrop)
+                    return;
 
-                var energy = EnergyPool.Instance.Get(startPos, Quaternion.identity);
-                energy.transform.DOMove(targetPos, 0.5f).SetEase(Ease.OutCubic)
-                    .OnComplete(energy.ResetMovement);
+                int pointNum = Random.Range(1, 5);
+                for (int i = 0; i < pointNum; i++)
+                {
+                    Vector3 startPos = enemy.transform.position;
+                    Vector2 offset = Random.insideUnitCircle * 1.5f;
+                    Vector3 targetPos = startPos + new Vector3(offset.x, 0f, offset.y);
+
+                    var energy = EnergyPool.Instance.Get(startPos, Quaternion.identity);
+                    energy.transform.DOMove(targetPos, 0.5f).SetEase(Ease.OutCubic)
+                        .OnComplete(energy.ResetMovement);
+                }
             }
         }
 
