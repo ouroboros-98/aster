@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 namespace Aster.Towers
 {
-    public abstract class BaseTower : BaseLightHittable, IDisableOnGrab
+    public abstract class BaseTower : BaseLightHittable
     {
         protected EntityHP HP;
 
