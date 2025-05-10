@@ -37,11 +37,6 @@ namespace Aster.Entity.Player
             }
         }
 
-        private void Start()
-        {
-            Freeze();
-        }
-
         private PlayerInputHandler _playerInputHandler;
         public  PlayerInputHandler PlayerInputHandler => _playerInputHandler;
 
@@ -138,16 +133,6 @@ namespace Aster.Entity.Player
         public void Unfreeze()
         {
             rb.isKinematic = false;
-        }
-
-        private void OnEnable()
-        {
-            AsterEvents.Instance.OnGameStartComplete += Unfreeze;
-        }
-
-        private void OnDisable()
-        {
-            AsterEvents.Instance.OnGameStartComplete -= Unfreeze;
         }
     }
 }
