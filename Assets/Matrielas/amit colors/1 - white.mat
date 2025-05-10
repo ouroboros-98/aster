@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material 5
+  m_Name: 1 - white
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
   m_Parent: {fileID: 2100000, guid: f1e29644b05005d4aa63f7616cd2b657, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -31,10 +31,13 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _EmissiveIntensity: 1
     m_Colors:
-    - _EmissiveColor: {r: 0.18297775, g: 1.4176581, b: 0.6572134, a: 3}
-    - _EmissiveColorLDR: {r: 0.27394092, g: 0.7169812, b: 0.5053977, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissiveColor: {r: 0.6026153, g: 1, b: 0.37519237, a: 1}
+    - _EmissiveColorLDR: {r: 0.79928446, g: 1, b: 0.6462264, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7153784018292316527

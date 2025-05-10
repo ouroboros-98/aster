@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material 2
+  m_Name: 6 - green 3
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
   m_Parent: {fileID: 2100000, guid: f1e29644b05005d4aa63f7616cd2b657, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -33,8 +33,8 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _EmissiveColor: {r: 0.69746244, g: 3, b: 0.4207731, a: 3}
-    - _EmissiveColorLDR: {r: 0.5194501, g: 1, b: 0.41037738, a: 1}
+    - _EmissiveColor: {r: 0.7295271, g: 1.3744417, b: 0.33927107, a: 1.5}
+    - _EmissiveColorLDR: {r: 0.72629493, g: 0.9622642, b: 0.51290494, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7153784018292316527
