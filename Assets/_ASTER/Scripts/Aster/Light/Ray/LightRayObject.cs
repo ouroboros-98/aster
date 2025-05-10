@@ -18,12 +18,15 @@ namespace Aster.Light
     [RequireComponent(typeof(LineRenderer))]
     public class LightRayObject : AsterMono, IPoolable
     {
+        private const float WIDTH_SCALE = 3f;
+
         private static readonly int   LineColorIndex = Shader.PropertyToID("_Color");
         private                 Color LineColor => _lineRenderer.material.GetColor(LineColorIndex);
 
         private ILightRay lightRay = null;
 
-        [SerializeField, BoxedProperty] LightRayLogger RayLogger = new();
+        [SerializeField, BoxedProperty]
+        LightRayLogger RayLogger = new();
 
         public ILightRay Data
         {
@@ -104,7 +107,7 @@ namespace Aster.Light
             _lineRenderer?.SetPosition(1, value);
         }
 
-        void OnWidthChanged(float width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width;
+        void OnWidthChanged(float width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width * WIDTH_SCALE;
 
         void OnColorChanged(Color color) =>
             _lineRenderer.material.SetColor(LineColorIndex, new(color.r, color.g, color.b, LineColor.a));
