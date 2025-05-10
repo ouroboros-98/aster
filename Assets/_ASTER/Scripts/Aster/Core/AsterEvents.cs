@@ -41,7 +41,7 @@ namespace Aster.Core
 
         public Action OnTryToPlaceTower;
         public Action OnBetweenPlaceTaken;
-        
+        public Action OnGameStartComplete;
         public Action AllEnemiesDead;
 
         private AsterEvents()
@@ -72,6 +72,7 @@ namespace Aster.Core
             OnLevelEnd     = delegate { };
             AllEnemiesDead = delegate { };
             OnTryToPlaceTower = delegate { };
+            OnGameStartComplete = delegate { };
         }
     }
 }
