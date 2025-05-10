@@ -18,7 +18,6 @@ namespace Aster.Light
         public Transform CollectionPoint => collectionPoint;
 
         private float firstRadius, secondRadius, thirdRadius;
-        private bool _gameStarted = false;
 
         private void Awake()
         {
@@ -45,10 +44,7 @@ namespace Aster.Light
 
         private void Update()
         {
-            if (_gameStarted)
-            {
-                hp.ChangeBy(Time.deltaTime * -damageReducedPerSecond);
-            }
+            hp.ChangeBy(Time.deltaTime * -damageReducedPerSecond);
             if (hp <= 0)
             {
                 AsterEvents.Instance.OnLightSourceDestroyed?.Invoke();
@@ -59,19 +55,13 @@ namespace Aster.Light
         {
             AsterEvents.Instance.OnAttackLightSource += GotHit;
             AsterEvents.Instance.OnLightPointAdded += AddHp;
-            AsterEvents.Instance.OnGameStartComplete += ChangeGameStartedFlag;
         }
 
         private void OnDisable()
         {
             AsterEvents.Instance.OnAttackLightSource -= GotHit;
-            AsterEvents.Instance.OnLightPointAdded -= AddHp;
-            AsterEvents.Instance.OnGameStartComplete -= ChangeGameStartedFlag;
-        }
+            AsterEvents.Instance.OnLightPointAdded += AddHp;
 
-        private void ChangeGameStartedFlag()
-        {
-            _gameStarted = true;
         }
 
         private void AddHp(int hpAdded)

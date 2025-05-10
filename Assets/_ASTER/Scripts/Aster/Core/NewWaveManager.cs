@@ -24,7 +24,7 @@ namespace Aster.Core
             _currentLevelIndex = -1;
         }
 
-        private void StartWave()
+        private void Start()
         {
             BeginLevels();
         }
@@ -66,16 +66,6 @@ namespace Aster.Core
             _currentLevelExecution.Initialize(spawner, towerAdder);
 
             return true;
-        }
-
-        private void OnEnable()
-        {
-            AsterEvents.Instance.OnGameStartComplete += StartWave;
-        }
-
-        private void OnDisable()
-        {
-            AsterEvents.Instance.OnGameStartComplete -= StartWave;
         }
     }
 }
