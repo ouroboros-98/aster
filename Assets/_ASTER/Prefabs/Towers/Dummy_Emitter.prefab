@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7322099045795750276}
   - component: {fileID: -5986522995533395909}
+  - component: {fileID: 1818446673024714109}
   m_Layer: 9
   m_Name: Dummy_Emitter
   m_TagString: Untagged
@@ -47,7 +48,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   grabLiftHeight: 0.2
+  grabFollowSpeed: 10
   pedestalTransform: {fileID: 0}
+--- !u!114 &1818446673024714109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427312019808483780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31132a3c7b3460987964117ee0eeec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  targetTransform: {fileID: 7322099045795750276}
 --- !u!1 &8938032009392044253
 GameObject:
   m_ObjectHideFlags: 0
