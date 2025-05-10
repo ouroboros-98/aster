@@ -47,6 +47,7 @@ namespace Aster.Entity
             }
 
             hp.ChangeBy(-damageTakenPerSecond * time);
+            Debug.Log("damged");
             if (hp <= 0)
             {
                 AsterEvents.Instance.OnEnemyDeath?.Invoke(_controller);

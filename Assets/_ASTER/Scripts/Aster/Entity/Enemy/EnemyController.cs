@@ -23,8 +23,11 @@ namespace Aster.Entity.Enemy
 
         private MainLightSource _mainLightSource;
 
-        private float DistanceFromMainLight =>
-            Vector3.Distance(transform.position, _mainLightSource.transform.position);
+        private float DistanceFromMainLight()
+        {
+          Debug.Log(Vector3.Distance(transform.position, _mainLightSource.transform.position)+" distance");  
+          return  Vector3.Distance(transform.position, _mainLightSource.transform.position);
+        }
 
         protected override void Awake()
         {
@@ -40,8 +43,12 @@ namespace Aster.Entity.Enemy
             var moveState   = new EntityMoveState(this);
             var attackState = new EntityAttackState(this);
 
-            At(attackState, moveState,   When(() => DistanceFromMainLight > 1.2f));
-            At(moveState,   attackState, When(() => DistanceFromMainLight <= 1.2f));
+            At(attackState, moveState,   When(() => 
+                DistanceFromMainLight() > 1.2f
+                ));
+            At(moveState,   attackState, When(() => 
+                DistanceFromMainLight() <= 1.2f
+                ));
 
             StateMachine.SetState(moveState);
         }
@@ -58,7 +65,6 @@ namespace Aster.Entity.Enemy
             var attackProvider = new PrimitiveEnemyAttackProvider();
 
             attack.Init(attackProvider, this);
-            attack.damage              = 1; // for example, resetting damage
             attack.initialTimeToAttack = 3f;
 
             invincibilityFrames.Stop();
@@ -66,6 +72,7 @@ namespace Aster.Entity.Enemy
 
         protected override void Update()
         {
+            StateMachine.Update();
             CheckIsDead();
         }
 

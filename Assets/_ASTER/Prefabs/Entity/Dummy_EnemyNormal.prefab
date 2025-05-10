@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   currentStateName: 
-  rb: {fileID: 0}
+  rb: {fileID: 3158136519031636730}
   hp:
     _current: 1
     _max: 1
@@ -504,6 +504,10 @@ PrefabInstance:
     - target: {fileID: 8234111762553986491, guid: 1b26ee19436f55c4e9cf8bfc5eb06b0a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667468108995246840, guid: 1b26ee19436f55c4e9cf8bfc5eb06b0a, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 65527
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
