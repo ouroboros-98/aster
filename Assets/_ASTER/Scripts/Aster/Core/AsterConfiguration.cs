@@ -32,10 +32,13 @@ namespace Aster.Core
         }
 
         [SerializeField]
+        private bool enableTitleScreen = true;
+
+        [SerializeField]
         private float lightRayYPosition = 0.3670001f;
 
+        public bool  EnableTitleScreen => enableTitleScreen;
         public float LightRayYPosition => lightRayYPosition;
-
 
         [SerializeField, BoxedProperty]
         private TowerOptionsAnimator.Configuration towerOptionsAnimator;

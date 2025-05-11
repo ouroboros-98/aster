@@ -6,7 +6,7 @@ using DG.Tweening;
 
 namespace _ASTER.Prefabs.Core
 {
-    public class StartSceneManager : MonoBehaviour
+    public class StartSceneManager : AsterMono
     {
         [SerializeField] private Camera mainCamera;
 
@@ -24,12 +24,23 @@ namespace _ASTER.Prefabs.Core
 
         private void Start()
         {
+            if (!Config.EnableTitleScreen)
+            {
+                StartGameCompleted();
+                return;
+            }
+            MoveCameraToTitleScreenState();
+        }
+
+        private void MoveCameraToTitleScreenState()
+        {
             mainCamera.transform.position = cameraStartPos;
             mainCamera.transform.rotation = Quaternion.Euler(cameraStartRot);
         }
+
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            if (!hasStarted && Input.GetKeyDown(KeyCode.X))
             {
 
                 // Step 1: Move camera to first position
@@ -51,6 +62,12 @@ namespace _ASTER.Prefabs.Core
                         });
                     });                        
             }
+        }
+
+        private void StartGameCompleted()
+        {
+            hasStarted = true;
+            GameEvents.OnGameStartComplete?.Invoke();
         }
     }
 }
