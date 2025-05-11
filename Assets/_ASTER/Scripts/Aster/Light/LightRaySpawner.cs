@@ -31,10 +31,7 @@ namespace Aster.Light
 
             ray = ray.Clone();
 
-            ray.OnDestroy += () =>
-                             {
-                                 print("Spawner ray destroyed");
-                             };
+            ray.OnDestroy += () => { print("Spawner ray destroyed"); };
         }
 
         private void FixedUpdate()

@@ -13,13 +13,19 @@ namespace Aster.Core
     [CreateAssetMenu(fileName = "Configuration", menuName = "Aster/Configuration")]
     public partial class AsterConfiguration : ScriptableObject
     {
-        private static AsterConfiguration _instance;
+        private static AsterConfiguration _instance = null;
 
         public static AsterConfiguration Instance
         {
             get
             {
-                if (_instance == null) _instance = Resources.Load<AsterConfiguration>("Configuration");
+                if (_instance == null)
+                {
+                    AsterConfiguration[] loaded = Resources.LoadAll<AsterConfiguration>("");
+                    Debug.Log($"Loaded {loaded.Length} AsterConfiguration");
+                    _instance = loaded[0];
+                    _instance.OnValidate();
+                }
 
                 return _instance;
             }
