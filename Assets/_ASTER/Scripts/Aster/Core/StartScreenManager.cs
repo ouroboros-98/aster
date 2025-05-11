@@ -92,6 +92,7 @@ namespace _ASTER.Prefabs.Core
                     tutorialIndex++;
                     if (tutorialIndex >= tutorialImages.Length)
                     {
+                        tutorialImages[tutorialIndex - 1].gameObject.SetActive(false);
                         tutorialIndex = -1;
                         switchSceneAction.action.Disable();
                         StartGameCompleted();
