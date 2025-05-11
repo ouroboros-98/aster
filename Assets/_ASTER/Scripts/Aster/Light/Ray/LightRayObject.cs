@@ -28,6 +28,12 @@ namespace Aster.Light
         [SerializeField, BoxedProperty]
         LightRayLogger RayLogger = new();
 
+        [SerializeField]
+        private Transform[] originBoundedObjects;
+
+        [SerializeField]
+        private Transform[] endpointBoundedObjects;
+
         public ILightRay Data
         {
             get => lightRay;
@@ -101,7 +107,13 @@ namespace Aster.Light
         }
 
 
-        void OnOriginChanged(Vector3 value) => _lineRenderer?.SetPosition(0, value);
+        void OnOriginChanged(Vector3 value)
+        {
+            _lineRenderer?.SetPosition(0, value);
+
+            if (originBoundedObjects == null) return;
+            foreach (Transform t in originBoundedObjects) t.position = value;
+        }
 
         void OnEndPointChanged(Vector3 value)
         {
@@ -122,6 +134,10 @@ namespace Aster.Light
             Vector3 actualValue = !isMaxDistance ? value : value + Data.Direction * Data.MaxDistance * .1f;
 
             _lineRenderer?.SetPosition(1, actualValue);
+            _lineRenderer?.SetPosition(1, value);
+
+            if (endpointBoundedObjects == null) return;
+            foreach (Transform t in endpointBoundedObjects) t.position = value;
         }
 
         void OnWidthChanged(float width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width * WIDTH_SCALE;
