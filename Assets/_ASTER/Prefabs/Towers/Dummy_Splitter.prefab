@@ -496,6 +496,8 @@ MonoBehaviour:
   debug: 0
   rotationHandler:
     rotationSpeed: 40
+    InvertDelta: 0
+    EnableBounding: 0
   rotationTransform: {fileID: 2680962382693652947}
   radius: 0.8
 --- !u!114 &3706019319188817351
@@ -608,6 +610,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 659eb6e387af96d47aa89ddab23aa631, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2118841757392789033}
     - targetCorrespondingSourceObject: {fileID: 8164078558771037576, guid: 659eb6e387af96d47aa89ddab23aa631, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3770214649168994029}
@@ -639,6 +644,26 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2432090755550338912, guid: 659eb6e387af96d47aa89ddab23aa631, type: 3}
+--- !u!1 &6300563961909544220 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 659eb6e387af96d47aa89ddab23aa631, type: 3}
+  m_PrefabInstance: {fileID: 6607185665651259469}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2118841757392789033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300563961909544220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38cdc20a7a3c5745b8b89dee91b2be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  amplitude: 0.03
+  frequency: 1.3
 --- !u!4 &6646126841110159270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 659eb6e387af96d47aa89ddab23aa631, type: 3}
