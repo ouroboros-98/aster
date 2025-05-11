@@ -37,12 +37,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EmissiveIntensity: 1
+    - _EmissiveIntensity: 3
     - _NormalScale: 0.74
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissiveColor: {r: 0.6026153, g: 1, b: 0.37519237, a: 1}
+    - _BaseColor: {r: 0.8, g: 1, b: 0.64705884, a: 1}
+    - _Color: {r: 0.8, g: 1, b: 0.64705884, a: 1}
+    - _EmissiveColor: {r: 1.8078458, g: 3, b: 1.1255771, a: 3}
     - _EmissiveColorLDR: {r: 0.79928446, g: 1, b: 0.6462264, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

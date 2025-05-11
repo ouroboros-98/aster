@@ -92,7 +92,7 @@ namespace Aster.Core
 // #else
 //                 Application.Quit();
 // #endif
-            SceneManager.LoadScene("DeathScreen");
+            //SceneManager.LoadScene("DeathScreen");
         }
     }
 }

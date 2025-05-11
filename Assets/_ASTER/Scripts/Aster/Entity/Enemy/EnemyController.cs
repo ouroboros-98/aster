@@ -66,6 +66,7 @@ namespace Aster.Entity.Enemy
 
         protected override void Update()
         {
+            StateMachine.Update();
             CheckIsDead();
         }
 

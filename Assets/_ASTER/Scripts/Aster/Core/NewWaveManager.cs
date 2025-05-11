@@ -24,7 +24,7 @@ namespace Aster.Core
             _currentLevelIndex = -1;
         }
 
-        private void Start()
+        private void StartLevels()
         {
             BeginLevels();
         }
@@ -66,6 +66,16 @@ namespace Aster.Core
             _currentLevelExecution.Initialize(spawner, towerAdder);
 
             return true;
+        }
+        
+        private void OnEnable()
+        {
+            AsterEvents.Instance.OnGameStartComplete += StartLevels;
+        }
+        
+        private void OnDisable()
+        {
+            AsterEvents.Instance.OnGameStartComplete -= StartLevels;
         }
     }
 }

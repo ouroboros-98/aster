@@ -34,7 +34,9 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _EmissiveColor: {r: 0.091488875, g: 0.70882905, b: 0.3286067, a: 1.5}
+    - _BaseColor: {r: 0.27450982, g: 0.7176471, b: 0.5058824, a: 1}
+    - _Color: {r: 0.2745098, g: 0.7176471, b: 0.5058824, a: 1}
+    - _EmissiveColor: {r: 0.18297775, g: 1.4176581, b: 0.6572134, a: 3}
     - _EmissiveColorLDR: {r: 0.27394092, g: 0.7169812, b: 0.5053977, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
