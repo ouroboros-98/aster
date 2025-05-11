@@ -10,7 +10,7 @@ namespace _ASTER.Prefabs.Core
     {
         [SerializeField] private Camera mainCamera;
 
-        [SerializeField] private float secondTransitionDelay = 2f;
+        [SerializeField] private float secondTransitionDelay = 0.5f;
         [SerializeField] private float firstTransitionDuration = 6f;
         [SerializeField] private float secondTransitionDuration = 2f;
 
@@ -49,8 +49,8 @@ namespace _ASTER.Prefabs.Core
                     {
                         // Wait 4 seconds before starting Step 2
                         // Step 2: Wait, then move camera again and rotate
-                        DOVirtual.DelayedCall(secondTransitionDelay, () =>
-                        {
+                        //DOVirtual.DelayedCall(secondTransitionDelay, () =>
+                        //{
                             // Step 2: Move to cameraFinalPos2 AND rotate
                             Sequence cameraSequence = DOTween.Sequence();
                             cameraSequence.Append(mainCamera.transform.DOMove(cameraFinalPos2, secondTransitionDuration).SetEase(Ease.InOutSine));
@@ -59,7 +59,7 @@ namespace _ASTER.Prefabs.Core
                             {
                                 AsterEvents.Instance.OnGameStartComplete?.Invoke();
                             });
-                        });
+                        //});
                     });                        
             }
         }
