@@ -26,6 +26,7 @@ namespace _ASTER.Prefabs.Core
         private Vector3 cameraFinalRot = new Vector3(45.13f, 0, 0);
         private int tutorialIndex = -1;
         private bool hasStarted = false;
+        private bool isMoving = false;
 
         private void Start()
         {
@@ -47,6 +48,7 @@ namespace _ASTER.Prefabs.Core
 
         private void QuitGame(InputAction.CallbackContext ctx)
         {
+            if (isMoving) return;
         #if UNITY_EDITOR
                     UnityEditor.EditorApplication.isPlaying = false;
         #else
@@ -65,6 +67,8 @@ namespace _ASTER.Prefabs.Core
             switch (hasStarted)
             {
                 case false:
+                    if (isMoving) return;
+                    isMoving = true;
                     quitSceneAction.action.Disable();
                     mainCamera.transform.DOMove(cameraFinalPos1, firstTransitionDuration).SetEase(Ease.InOutSine)
                         .OnComplete(() =>
@@ -112,6 +116,7 @@ namespace _ASTER.Prefabs.Core
         private void StartGameCompleted()
         {
             hasStarted = true;
+            isMoving = true;
             GameEvents.OnGameStartComplete?.Invoke();
         }
 
