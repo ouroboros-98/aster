@@ -6,8 +6,10 @@ using System.Collections;
 public class SceneSwitcher : MonoBehaviour
 {
     [SerializeField] private InputActionProperty switchSceneAction;
+    [SerializeField] private InputActionProperty switchCancel;
     [SerializeField] private float cooldownSeconds = 4f;
-    [SerializeField] private string nextSceneName = "MainScene";
+    [SerializeField] private string nextSceneName = "MainSceneReplay";
+    [SerializeField] private string cancelSceneName = "MainSceneStart";
 
     private bool canSwitch;
 
@@ -20,12 +22,14 @@ public class SceneSwitcher : MonoBehaviour
     private void OnEnable()
     {
         switchSceneAction.action.performed += OnSwitchScenePressed;
+        switchCancel.action.performed += OnSwitchSceneCancel;
         switchSceneAction.action.Enable();
     }
 
     private void OnDisable()
     {
         switchSceneAction.action.performed -= OnSwitchScenePressed;
+        switchCancel.action.performed -= OnSwitchSceneCancel;
         switchSceneAction.action.Disable();
     }
 
@@ -36,7 +40,15 @@ public class SceneSwitcher : MonoBehaviour
             SceneManager.LoadScene(nextSceneName);
             // Optionally, restart cooldown if needed.
             canSwitch = false;
-            StartCoroutine(CooldownRoutine());
+        }
+    }
+    private void OnSwitchSceneCancel(InputAction.CallbackContext ctx)
+    {
+        if (canSwitch)
+        {
+            SceneManager.LoadScene(cancelSceneName);
+            // Optionally, restart cooldown if needed.
+            canSwitch = false;
         }
     }
 

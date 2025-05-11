@@ -1,7 +1,9 @@
 ﻿using Aster.Core;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 namespace _ASTER.Scripts.Aster.Core
 {
@@ -9,6 +11,7 @@ namespace _ASTER.Scripts.Aster.Core
     {
         [SerializeField] private Image fadeImage; // Assign in Inspector
         [SerializeField] private float fadeDuration = 2f;
+        [SerializeField] private string nextSceneName = "EndScreen";
 
         private void OnEnable()
         {
@@ -20,11 +23,14 @@ namespace _ASTER.Scripts.Aster.Core
             AsterEvents.Instance.OnLightSourceDestroyed -= DarkenScreen;
         }
 
+        [Button("Do Fade Out")]
         private void DarkenScreen()
         {
             if (fadeImage != null)
             {
-                fadeImage.DOFade(1f, fadeDuration).SetEase(Ease.InOutQuad);
+                fadeImage.DOFade(1f, fadeDuration)
+                    .SetEase(Ease.Linear)
+                    .OnComplete(() => SceneManager.LoadScene(nextSceneName));
             }
             else
             {

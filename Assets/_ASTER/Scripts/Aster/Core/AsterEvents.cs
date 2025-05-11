@@ -73,6 +73,7 @@ namespace Aster.Core
             AllEnemiesDead = delegate { };
             OnTryToPlaceTower = delegate { };
             OnGameStartComplete = delegate { };
+            
         }
     }
 }

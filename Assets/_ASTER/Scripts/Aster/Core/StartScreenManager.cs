@@ -13,7 +13,7 @@ namespace _ASTER.Prefabs.Core
         [SerializeField] private float secondTransitionDelay = 0.5f;
         [SerializeField] private float firstTransitionDuration = 6f;
         [SerializeField] private float secondTransitionDuration = 2f;
-
+        [SerializeField] private bool setShouldBegin = true;
         private Vector3 cameraStartPos = new Vector3(0.03f, 3.869f, -0.785f);
         private Vector3 cameraStartRot = new Vector3(90, 0, 0);
         private Vector3 cameraFinalPos1 = new Vector3(0, 9.35f, -0.785f);
@@ -24,13 +24,18 @@ namespace _ASTER.Prefabs.Core
 
         private void Start()
         {
-            if (!Config.EnableTitleScreen)
+            if (!Config.EnableTitleScreen|| !setShouldBegin)
             {
                 StartGameCompleted();
                 return;
             }
             MoveCameraToTitleScreenState();
         }
+
+        // private void Awake()
+        // {
+        //     DontDestroyOnLoad(gameObject);
+        // }
 
         private void MoveCameraToTitleScreenState()
         {
@@ -68,6 +73,11 @@ namespace _ASTER.Prefabs.Core
         {
             hasStarted = true;
             GameEvents.OnGameStartComplete?.Invoke();
+        }
+
+        public void setupShouldBegin(bool shouldBegin)
+        {
+            setShouldBegin = shouldBegin;
         }
     }
 }

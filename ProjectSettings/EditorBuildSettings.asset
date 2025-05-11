@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_ASTER/Scenes/MainScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/_ASTER/Scenes/EndScreen.unity
+    guid: 0e45cb693c119d34da04637eb091d23c
+  - enabled: 1
+    path: Assets/_ASTER/Scenes/MainSceneStart.unity
+    guid: 847a4b6326f6fe44ba7fe19e68a356e9
+  - enabled: 1
+    path: Assets/_ASTER/Scenes/MainSceneReplay.unity
+    guid: 002f67c4a746dcc43988475712d66fa9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   m_UseUCBPForAssetBundles: 0

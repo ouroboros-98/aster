@@ -119,56 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &71299397
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 71299399}
-  - component: {fileID: 71299398}
-  m_Layer: 0
-  m_Name: EndScreenManagerUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &71299398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71299397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf1853387ec34d758b2092a1ec0e7393, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  textWaveNumber: {fileID: 1885473533}
-  textWaveHighScore: {fileID: 1151191804}
-  imageWaveHighScore: {fileID: 1339957771}
-  imageWaveNumber: {fileID: 1026227993}
-  fadeDuration: 5
---- !u!4 &71299399
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71299397}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3817797, y: 3.1522834, z: -2.412773}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1026227991
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +131,7 @@ GameObject:
   - component: {fileID: 1026227994}
   - component: {fileID: 1026227993}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: ImageWaveNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,7 +206,7 @@ GameObject:
   - component: {fileID: 1151191805}
   - component: {fileID: 1151191804}
   m_Layer: 5
-  m_Name: HighScoreNum
+  m_Name: TextWaveHighScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -734,7 +684,7 @@ GameObject:
   - component: {fileID: 1339957772}
   - component: {fileID: 1339957771}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageWaveHighScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1178,8 +1128,21 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: -8565360544107718044, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  cooldownSeconds: 3
+  switchCancel:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Switch Cancel
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 44c90634-9c1c-48ff-9023-1046e1043594
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  cooldownSeconds: 4
   nextSceneName: MainScene
+  cancelSceneName: MainSceneStart
 --- !u!1 &1885473531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,7 +1155,7 @@ GameObject:
   - component: {fileID: 1885473534}
   - component: {fileID: 1885473533}
   m_Layer: 5
-  m_Name: CureentRound
+  m_Name: TextWaveNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1404,4 +1367,3 @@ SceneRoots:
   - {fileID: 1260980483}
   - {fileID: 1412166430}
   - {fileID: 1822874993}
-  - {fileID: 71299399}
