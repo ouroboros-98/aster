@@ -182,6 +182,15 @@ namespace Aster.Core.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""d218483c-b413-4a9f-87a2-b98b70e77d7e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -580,6 +589,17 @@ namespace Aster.Core.InputSystem
                     ""action"": ""RotationDirection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cff9bb18-4a68-4bb1-a165-1b08a6a663cd"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1175,6 +1195,7 @@ namespace Aster.Core.InputSystem
             m_Player_PlaceTower = m_Player.FindAction("PlaceTower", throwIfNotFound: true);
             m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
             m_Player_RotationDirection = m_Player.FindAction("RotationDirection", throwIfNotFound: true);
+            m_Player_Quit = m_Player.FindAction("Quit", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1278,6 +1299,7 @@ namespace Aster.Core.InputSystem
         private readonly InputAction m_Player_PlaceTower;
         private readonly InputAction m_Player_Grab;
         private readonly InputAction m_Player_RotationDirection;
+        private readonly InputAction m_Player_Quit;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1329,6 +1351,10 @@ namespace Aster.Core.InputSystem
             /// Provides access to the underlying input action "Player/RotationDirection".
             /// </summary>
             public InputAction @RotationDirection => m_Wrapper.m_Player_RotationDirection;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Quit".
+            /// </summary>
+            public InputAction @Quit => m_Wrapper.m_Player_Quit;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1385,6 +1411,9 @@ namespace Aster.Core.InputSystem
                 @RotationDirection.started += instance.OnRotationDirection;
                 @RotationDirection.performed += instance.OnRotationDirection;
                 @RotationDirection.canceled += instance.OnRotationDirection;
+                @Quit.started += instance.OnQuit;
+                @Quit.performed += instance.OnQuit;
+                @Quit.canceled += instance.OnQuit;
             }
 
             /// <summary>
@@ -1426,6 +1455,9 @@ namespace Aster.Core.InputSystem
                 @RotationDirection.started -= instance.OnRotationDirection;
                 @RotationDirection.performed -= instance.OnRotationDirection;
                 @RotationDirection.canceled -= instance.OnRotationDirection;
+                @Quit.started -= instance.OnQuit;
+                @Quit.performed -= instance.OnQuit;
+                @Quit.canceled -= instance.OnQuit;
             }
 
             /// <summary>
@@ -1796,6 +1828,13 @@ namespace Aster.Core.InputSystem
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnRotationDirection(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Quit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnQuit(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
