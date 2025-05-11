@@ -24,6 +24,7 @@ public class SceneSwitcher : MonoBehaviour
         switchSceneAction.action.performed += OnSwitchScenePressed;
         switchCancel.action.performed += OnSwitchSceneCancel;
         switchSceneAction.action.Enable();
+        switchCancel.action.Enable();
     }
 
     private void OnDisable()
@@ -31,6 +32,7 @@ public class SceneSwitcher : MonoBehaviour
         switchSceneAction.action.performed -= OnSwitchScenePressed;
         switchCancel.action.performed -= OnSwitchSceneCancel;
         switchSceneAction.action.Disable();
+        switchCancel.action.Disable();
     }
 
     private void OnSwitchScenePressed(InputAction.CallbackContext ctx)

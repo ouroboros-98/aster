@@ -3804,7 +3804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasImage: {fileID: 320549908}
-  fadeDuration: 1
+  fadeDuration: 2
 --- !u!84 &2116096467
 RenderTexture:
   m_ObjectHideFlags: 0
