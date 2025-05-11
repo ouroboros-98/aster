@@ -13,7 +13,9 @@ namespace Aster.Core
 
         private void Awake()
         {
-            GetComponent<Camera>().enabled = false;
+            //GetComponent<Camera>().enabled = false;
+            GetComponent<Camera>().enabled = true;
+
         }
     }
 }
