@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441fa0356ba442448bb7d89569192df7, type: 3}
   m_Name: Configuration
   m_EditorClassIdentifier: 
-  enableTitleScreen: 1
+  enableTitleScreen: 0
   lightRayYPosition: 0.3670001
   towerOptionsAnimator:
     slideDown: 0

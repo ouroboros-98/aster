@@ -100,10 +100,12 @@ namespace Aster.Core
 
             float speed = rotationHandler.RotationSpeed * Config.Entities.PlayerBaseRotationSpeed;
 
-            Angle currentAngle = rotationHandler.CurrentAngle;
-            Angle targetAngle  = currentAngle + (direction * Time.deltaTime * speed);
+            Angle delta = (direction * Time.deltaTime * speed);
 
-            rotationHandler.Rotate(targetAngle, true);
+            Angle currentAngle = rotationHandler.CurrentAngle;
+            Angle targetAngle  = currentAngle + delta;
+
+            rotationHandler.RotateBy(delta, true);
 
             // if (!IsActive) return;
 

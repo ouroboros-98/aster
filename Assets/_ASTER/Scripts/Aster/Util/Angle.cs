@@ -5,7 +5,8 @@ namespace Aster.Utils
     [System.Serializable]
     public struct Angle
     {
-        [SerializeField] private float _raw;
+        [SerializeField]
+        private float _raw;
 
         private float Raw
         {
@@ -73,6 +74,18 @@ namespace Aster.Utils
 
             float result = a.Raw + delta * t;
             return new Angle(result);
+        }
+
+        public bool IsInBetween(Angle a, Angle b)
+        {
+            if (a > b)
+            {
+                return (this >= a && this <= 360f) || (this >= 0f && this <= b);
+            }
+            else
+            {
+                return this >= a && this <= b;
+            }
         }
 
         public override string ToString()

@@ -10,9 +10,14 @@ namespace Aster.Core
     {
         GameObject IInteractable.GameObject => gameObject;
 
-        [SerializeField, BoxedProperty] private RotationHandler rotationHandler = new();
-        [SerializeField]                private Transform       rotationTransform;
-        [SerializeField]                private float           radius = 1f;
+        [SerializeField, BoxedProperty]
+        private RotationHandler rotationHandler = new();
+
+        [SerializeField]
+        private Transform rotationTransform;
+
+        [SerializeField]
+        private float radius = 1f;
 
         public RotationHandler RotationHandler
         {
