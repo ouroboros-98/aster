@@ -14,7 +14,7 @@ namespace _ASTER.Prefabs.Core
         [SerializeField] private float firstTransitionDuration = 6f;
         [SerializeField] private float secondTransitionDuration = 2f;
 
-        private Vector3 cameraStartPos = new Vector3(0.03f, 3.62f, -0.18f);
+        private Vector3 cameraStartPos = new Vector3(0.03f, 3.869f, -0.785f);
         private Vector3 cameraStartRot = new Vector3(90, 0, 0);
         private Vector3 cameraFinalPos1 = new Vector3(0, 9.35f, 0);
         private Vector3 cameraFinalPos2 = new Vector3(0, 12.6f, -15.8f);
