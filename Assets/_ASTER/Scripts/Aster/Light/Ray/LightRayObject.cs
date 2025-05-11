@@ -105,7 +105,9 @@ namespace Aster.Light
 
         void OnEndPointChanged(Vector3 value)
         {
-            float    endAlpha = Vector3.Distance(value, Data.Origin) + .05f < Data.MaxDistance ? 1 : 0;
+            bool isMaxDistance = Vector3.Distance(value, Data.Origin) + .05f >= Data.MaxDistance;
+
+            float    endAlpha = !isMaxDistance ? 1 : 0;
             Gradient gradient = new();
             gradient.SetKeys(
                              new[] { new GradientColorKey(Color.white, 0) },
@@ -117,7 +119,9 @@ namespace Aster.Light
                             );
             _lineRenderer.colorGradient = gradient;
 
-            _lineRenderer?.SetPosition(1, value);
+            Vector3 actualValue = !isMaxDistance ? value : value + Data.Direction * Data.MaxDistance * .1f;
+
+            _lineRenderer?.SetPosition(1, actualValue);
         }
 
         void OnWidthChanged(float width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width * WIDTH_SCALE;
