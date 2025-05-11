@@ -34,6 +34,10 @@ namespace Aster.Core
         private Transform    _transform;
         private bool         _instant = false;
 
+        public bool               InvertDelta    = false;
+        public bool               EnableBounding = false;
+        public (Angle a, Angle b) Bounds         = (0f, 0);
+
         #endregion
 
         #region PROPERTIES
@@ -78,15 +82,26 @@ namespace Aster.Core
             Rotate(direction.ToAngle());
         }
 
-        public void Rotate(Angle angle, bool instant = false)
+        public virtual void Rotate(Angle angle, bool instant = false)
         {
             if (Mathf.Approximately(angle, _targetAngle)) return;
+            if (EnableBounding && !angle.IsInBetween(Bounds.a, Bounds.b)) return;
 
             _instant     = instant;
             _targetAngle = angle;
             OnTargetAngleSet?.Invoke(_targetAngle);
 
             _currentRotation = (_currentAngle, _targetAngle);
+        }
+
+        public void RotateBy(Angle delta, bool instant = false)
+        {
+            if (Mathf.Approximately(delta, 0f)) return;
+
+            if (InvertDelta) delta = -delta;
+
+            Angle angle = _currentAngle + delta;
+            Rotate(angle, instant);
         }
 
         public void Update()
@@ -110,7 +125,7 @@ namespace Aster.Core
 
             if (_currentRotation.IsFinished)
             {
-                _instant = false;
+                _instant         = false;
                 _currentRotation = null;
                 OnRotationFinish?.Invoke(angle);
             }
