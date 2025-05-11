@@ -12,6 +12,7 @@ namespace _ASTER.Scripts.Aster.Core
         [SerializeField] private Image fadeImage; // Assign in Inspector
         [SerializeField] private float fadeDuration = 2f;
         [SerializeField] private string nextSceneName = "EndScreen";
+        private bool isMoving = false;
 
         private void OnEnable()
         {
@@ -26,6 +27,8 @@ namespace _ASTER.Scripts.Aster.Core
         [Button("Do Fade Out")]
         private void DarkenScreen()
         {
+            if (isMoving) return;
+            isMoving = true;
             if (fadeImage != null)
             {
                 fadeImage.DOFade(1f, fadeDuration)
