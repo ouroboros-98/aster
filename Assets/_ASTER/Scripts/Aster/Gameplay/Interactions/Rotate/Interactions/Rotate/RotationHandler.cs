@@ -34,8 +34,8 @@ namespace Aster.Core
         private Transform    _transform;
         private bool         _instant = false;
 
-        public bool           InvertDelta = false;
-        public (Angle a, Angle b) Bounds      = (0f, 359.99999f);
+        public bool               InvertDelta = false;
+        public (Angle a, Angle b) Bounds      = (0f, 0);
 
         #endregion
 
@@ -84,7 +84,8 @@ namespace Aster.Core
         public virtual void Rotate(Angle angle, bool instant = false)
         {
             if (Mathf.Approximately(angle, _targetAngle)) return;
-            if(!angle.IsInBetween(Bounds.a,Bounds.b)) return;
+            bool isBounded = !Mathf.Approximately(Bounds.a, Bounds.b) || Bounds.a != 0f;
+            if (!isBounded && !angle.IsInBetween(Bounds.a, Bounds.b)) return;
 
             _instant     = instant;
             _targetAngle = angle;
