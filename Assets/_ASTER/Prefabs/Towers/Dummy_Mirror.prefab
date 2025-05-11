@@ -380,7 +380,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -634,6 +634,8 @@ MonoBehaviour:
   debug: 0
   rotationHandler:
     rotationSpeed: 100
+    InvertDelta: 0
+    EnableBounding: 0
   rotationTransform: {fileID: 4587454303624860161}
   radius: 0.6
 --- !u!114 &3969299282112547735

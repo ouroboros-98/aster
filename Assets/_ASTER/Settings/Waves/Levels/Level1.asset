@@ -17,6 +17,8 @@ MonoBehaviour:
   - prefab: {fileID: 7677719092767376888, guid: eaa0db8574e0c604fa35b00d9172c902, type: 3}
     position: {x: -3, y: 0, z: -4}
     rotation: {x: 0, y: 0, z: 0}
+  spawnTower: 1
+  towerPrefab: {fileID: 7693222295562886677, guid: 206564f9f589c2949a6dfe9c6ec7f10d, type: 3}
   waves:
   - rid: 7733586816550830233
   - rid: 7733586816550830236
@@ -26,7 +28,7 @@ MonoBehaviour:
     - rid: 7733586816550830233
       type: {class: SpawnSingleEnemy, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        _status: 0
+        _status: 2
         timingHandler:
           rid: 7733586816550830234
         anglePicker:
@@ -42,13 +44,12 @@ MonoBehaviour:
     - rid: 7733586816550830236
       type: {class: SpawnList, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        _status: 0
+        _status: 1
         timingHandler:
           rid: 7733586816550830238
         angles:
         - 30
         - 60
-        - 90
     - rid: 7733586816550830238
       type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:

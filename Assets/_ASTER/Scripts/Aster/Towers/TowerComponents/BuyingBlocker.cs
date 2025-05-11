@@ -25,7 +25,7 @@ namespace Aster.Towers
             {
                 player.Grabber.OnTriggerEntered();
                 if(player.Grabber.IsGrabbing&& canShowOutline)
-                    outlineObject.SetActive(true);
+                    outlineObject?.SetActive(true);
             }
         }
 

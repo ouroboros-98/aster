@@ -24,6 +24,19 @@ namespace Aster.Gameplay.Waves
         [TableList(AlwaysExpanded = true)]
         private List<ObstacleSpawnData> obstacles;
 
+        [Space]
+        [HorizontalGroup("Tower", Title = "Tower")]
+        [SerializeField]
+        [LabelText("Spawn")]
+        private bool spawnTower = false;
+
+        [SerializeField]
+        [ShowIf("spawnTower")]
+        [HorizontalGroup("Tower")]
+        [PreviewField(60, ObjectFieldAlignment.Right)]
+        [HideLabel]
+        private GameObject towerPrefab;
+
         [Title("Waves")]
         [Space]
         [SerializeReference, SerializeReferenceDropdown]
@@ -31,6 +44,8 @@ namespace Aster.Gameplay.Waves
 
         public IReadOnlyList<IWaveElement>      Waves     => waves.ToList();
         public IReadOnlyList<ObstacleSpawnData> Obstacles => spawnObstacles ? obstacles : new List<ObstacleSpawnData>();
+
+        public GameObject TowerPrefab => spawnTower ? towerPrefab : null;
 
         public void Reset()
         {
@@ -121,6 +136,9 @@ namespace Aster.Gameplay.Waves
         public void OnStart()
         {
             _level.Obstacles.ToList().ForEach((data) => _dependencies.ObstacleSpawner.SpawnObstacle(data));
+
+            if (_level.TowerPrefab == null) return;
+            _dependencies.TowerAdder.EnqueueTower(_level.TowerPrefab);
         }
 
         public void Update()

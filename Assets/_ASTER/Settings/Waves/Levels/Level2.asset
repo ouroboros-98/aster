@@ -17,6 +17,8 @@ MonoBehaviour:
   - prefab: {fileID: 3315357782258405360, guid: b8eb63f73f9f8b34ca7890e99a4f57c1, type: 3}
     position: {x: 4, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0}
+  spawnTower: 1
+  towerPrefab: {fileID: 4979266603000498091, guid: 5c47db8451974ca47b6e5e7d1ea5c11b, type: 3}
   waves:
   - rid: 7733586816550830239
   references:
