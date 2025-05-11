@@ -12,13 +12,12 @@ namespace Aster.Gameplay.Waves
         private readonly EnemySpawner      Spawner;
         public readonly  TowerAdderManager TowerAdder;
 
-        public WaveExecutionContext(EnemySpawner      spawner, int waveIndex, IWaveElement previous,
-                                    TowerAdderManager towerAdder)
+        public WaveExecutionContext(LevelDependencies dependencies, int waveIndex, IWaveElement previous)
         {
-            Spawner    = spawner;
+            Spawner    = dependencies.EnemySpawner;
             WaveIndex  = waveIndex;
             Previous   = previous;
-            TowerAdder = towerAdder;
+            TowerAdder = dependencies.TowerAdder;
         }
 
         public void SpawnEnemy(Angle angle, List<EnemyController> enemies = null)

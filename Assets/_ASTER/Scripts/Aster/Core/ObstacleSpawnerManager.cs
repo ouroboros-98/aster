@@ -8,10 +8,14 @@ namespace Aster.Core
 {
     public class ObstacleSpawnerManager : AsterMono
     {
-        [SerializeField] private List<WaveObstacleData> waveObstacleData;
-        [SerializeField] private float bottomStartPoint;
+        [SerializeField]
+        private List<WaveObstacleData> waveObstacleData;
+
+        [SerializeField]
+        private float bottomStartPoint;
+
         private List<GameObject> _currentObstacles;
-        private int _waveCounter;
+        private int              _waveCounter;
 
         private void Start()
         {
@@ -20,12 +24,12 @@ namespace Aster.Core
 
         private void OnEnable()
         {
-            AsterEvents.Instance.OnWaveStart += HandleWaveStart;
+            // AsterEvents.Instance.OnWaveStart += HandleWaveStart;
         }
 
         private void OnDisable()
         {
-            AsterEvents.Instance.OnWaveStart -= HandleWaveStart;
+            // AsterEvents.Instance.OnWaveStart -= HandleWaveStart;
         }
 
         private void HandleWaveStart(int obj)
@@ -42,29 +46,34 @@ namespace Aster.Core
 
         private void SpawnObstacles(WaveObstacleData data)
         {
-            foreach (var spawnData in data.obstacles)
+            foreach (ObstacleSpawnData spawnData in data.obstacles)
             {
-                GameObject obj = Instantiate(spawnData.obstaclePrefab);
-
-                // Set the position (spawn below and rise)
-                Vector3 startPosition = spawnData.position + Vector3.down * bottomStartPoint; // Spawn 5 units below
-                obj.transform.position = startPosition;
-
-                // Set the rotation
-                obj.transform.rotation = Quaternion.Euler(spawnData.rotation);
-
-                // Animate to target position over 1 second with ease-out
-                obj.transform.DOMove(spawnData.position, 2f).SetEase(Ease.OutBack);
-
-                // Animate rotation if needed (optional)
-                // obj.transform.DORotate(spawnData.rotation, 1f, RotateMode.FastBeyond360).SetEase(Ease.OutBack);
-
-                _currentObstacles.Add(obj);
+                SpawnObstacle(spawnData);
             }
         }
 
+        public void SpawnObstacle(ObstacleSpawnData spawnData)
+        {
+            GameObject obj = Instantiate(spawnData.prefab);
 
-        private void RemoveCurrentObstacles()
+            // Set the position (spawn below and rise)
+            Vector3 startPosition = spawnData.position + Vector3.down * bottomStartPoint; // Spawn 5 units below
+            obj.transform.position = startPosition;
+
+            // Set the rotation
+            obj.transform.rotation = Quaternion.Euler(spawnData.rotation);
+
+            // Animate to target position over 1 second with ease-out
+            obj.transform.DOMove(spawnData.position, 2f).SetEase(Ease.OutBack);
+
+            // Animate rotation if needed (optional)
+            // obj.transform.DORotate(spawnData.rotation, 1f, RotateMode.FastBeyond360).SetEase(Ease.OutBack);
+
+            _currentObstacles.Add(obj);
+        }
+
+
+        public void RemoveCurrentObstacles()
         {
             foreach (var obj in _currentObstacles)
             {
@@ -72,10 +81,11 @@ namespace Aster.Core
                 {
                     // Animate down (5 units below current Y) over 1 second
                     obj.transform.DOMoveY(obj.transform.position.y - bottomStartPoint, 1f)
-                        .SetEase(Ease.InBack)
-                        .OnComplete(() => { Destroy(obj); });
+                       .SetEase(Ease.InBack)
+                       .OnComplete(() => { Destroy(obj); });
                 }
             }
+
             _currentObstacles.Clear(); // Clear the list immediately
         }
     }

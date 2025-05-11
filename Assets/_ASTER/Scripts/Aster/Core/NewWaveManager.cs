@@ -2,22 +2,25 @@
 using System.Collections;
 using Aster.Entity.Enemy;
 using Aster.Gameplay.Waves;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Aster.Core
 {
     public class NewWaveManager : AsterMono
     {
-        public  WavesLevel[] Levels;
-        private int          _currentLevelIndex;
-        private bool         _checkEnemyDead = false;
+        public  LevelData[] Levels;
+        private int         _currentLevelIndex;
+        private bool        _checkEnemyDead = false;
 
         private LevelExecution _currentLevelExecution;
 
         public bool IsRunning { get; private set; }
 
-        [SerializeField] private EnemySpawner      spawner;
-        [SerializeField] private TowerAdderManager towerAdder;
+        [SerializeField]
+        [Title("Dependencies")]
+        [HideLabel]
+        private LevelDependencies dependencies = new();
 
         private void Awake()
         {
@@ -46,7 +49,7 @@ namespace Aster.Core
             if (!IsRunning) return;
             if (_currentLevelExecution == null) return;
 
-            if (!_currentLevelExecution.IsDone)
+            if (_currentLevelExecution.Status != LevelExecution.LevelStatus.Done)
             {
                 _currentLevelExecution.Update();
             }
@@ -63,16 +66,17 @@ namespace Aster.Core
 
             _currentLevelIndex++;
             _currentLevelExecution = new(Levels[_currentLevelIndex]);
-            _currentLevelExecution.Initialize(spawner, towerAdder);
+            _currentLevelExecution.Initialize(dependencies);
+            _currentLevelExecution.Status = LevelExecution.LevelStatus.InProgress;
 
             return true;
         }
-        
+
         private void OnEnable()
         {
             AsterEvents.Instance.OnGameStartComplete += StartLevels;
         }
-        
+
         private void OnDisable()
         {
             AsterEvents.Instance.OnGameStartComplete -= StartLevels;

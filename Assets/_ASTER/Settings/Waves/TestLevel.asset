@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d997adfc9774fbab054ffac64242cc6, type: 3}
   m_Name: TestLevel
   m_EditorClassIdentifier: 
+  spawnObstacles: 1
+  obstacles:
+  - prefab: {fileID: 7677719092767376888, guid: eaa0db8574e0c604fa35b00d9172c902, type: 3}
+    position: {x: -2, y: 0, z: -2}
+    rotation: {x: 0, y: 0, z: 0}
   waves:
   - rid: 2858847988922712136
   - rid: 2858847993854951496
@@ -58,7 +63,7 @@ MonoBehaviour:
     - rid: 2858847993854951499
       type: {class: SpawnList, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        _status: 2
+        _status: 3
         timingHandler:
           rid: 2858847993854951500
         angles:
@@ -176,7 +181,7 @@ MonoBehaviour:
     - rid: 7733586664613478479
       type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        _status: 1
+        _status: 2
         timingHandler:
           rid: 7733586664613478480
         enemyCount:
