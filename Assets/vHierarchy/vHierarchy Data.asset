@@ -15,6 +15,7 @@ MonoBehaviour:
   sceneDatas_byGuid:
     keys:
     - 99c9720ab356a0642a771bea13969a05
+    - 3e6c31a7ecf7e2145a8762fe0f2c7487
     values:
     - goDatas_byGlobalId:
         keys:
@@ -109,3 +110,6 @@ MonoBehaviour:
           iconNameOrGuid: Material Icon
         - colorIndex: 0
           iconNameOrGuid: Material Icon
+    - goDatas_byGlobalId:
+        keys: []
+        values: []
