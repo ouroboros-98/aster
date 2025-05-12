@@ -2180,7 +2180,7 @@ PrefabInstance:
     - target: {fileID: -227020116943626440, guid: 2933019970ba4124eb13e515fc98ee45, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 8c8f1f46f7d99704092cbc534a9c8e87, type: 2}
+      objectReference: {fileID: 2100000, guid: 7d3a512bcf3ff6a4bac08f10e0911b93, type: 2}
     - target: {fileID: 214236944964952946, guid: 2933019970ba4124eb13e515fc98ee45, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2212,7 +2212,7 @@ PrefabInstance:
     - target: {fileID: 3278582164102641905, guid: 2933019970ba4124eb13e515fc98ee45, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 8c8f1f46f7d99704092cbc534a9c8e87, type: 2}
+      objectReference: {fileID: 2100000, guid: 7d3a512bcf3ff6a4bac08f10e0911b93, type: 2}
     - target: {fileID: 3407223314981601719, guid: 2933019970ba4124eb13e515fc98ee45, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -3872,6 +3872,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dummy_Obstacle_1
       objectReference: {fileID: 0}
+    - target: {fileID: 6172832090395889113, guid: b8eb63f73f9f8b34ca7890e99a4f57c1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7d3a512bcf3ff6a4bac08f10e0911b93, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4206,6 +4210,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7081368788657801592}
     m_Modifications:
+    - target: {fileID: 4593458476981146604, guid: 02f4dc49fbbd84b45abf9cb11c13be2f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7d3a512bcf3ff6a4bac08f10e0911b93, type: 2}
     - target: {fileID: 7448456276314287140, guid: 02f4dc49fbbd84b45abf9cb11c13be2f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.1572018
