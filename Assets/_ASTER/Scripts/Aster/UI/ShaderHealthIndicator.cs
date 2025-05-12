@@ -46,8 +46,17 @@ namespace _ASTER.Scripts.Aster.UI
             healthMaterials = materials.ToArray();
         }
 
-        void Hide() => healthMeshRenderer.enabled = false;
-        void Show() => healthMeshRenderer.enabled = true;
+        void Hide()
+        {
+            if (healthMeshRenderer == null) return;
+            healthMeshRenderer.enabled = false;
+        }
+
+        void Show()
+        {
+            if (healthMeshRenderer == null) return;
+            healthMeshRenderer.enabled = true;
+        }
 
         public void OnHPChanged(EntityHP.HPChangeContext context)
         {

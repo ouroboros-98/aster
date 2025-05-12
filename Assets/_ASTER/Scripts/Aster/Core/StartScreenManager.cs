@@ -54,8 +54,16 @@ namespace _ASTER.Prefabs.Core
 
         private void Awake()
         {
-            fadeManager.SetFadeImageToBlack();
+            // fadeManager.SetFadeImageToBlack();
 
+
+        }
+
+        private void Start()
+        {
+            playerInputHandlers = FindObjectsOfType<PlayerController>()
+                                 .Select(p => p.PlayerInputHandler)
+                                 .ToArray();
 
             if (!FirstTime || !Config.EnableTitleScreen || !setShouldBegin)
             {
@@ -65,15 +73,7 @@ namespace _ASTER.Prefabs.Core
             }
 
             MoveCameraToTitleScreenState();
-        }
-
-        private void Start()
-        {
-            playerInputHandlers = FindObjectsOfType<PlayerController>()
-                                 .Select(p => p.PlayerInputHandler)
-                                 .ToArray();
-            
-            fadeManager.FadeIn(() => { });
+            // fadeManager.FadeIn(() => { });
         }
 
         private void OnEnable()
