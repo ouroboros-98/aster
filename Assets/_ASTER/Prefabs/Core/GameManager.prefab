@@ -54,6 +54,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   setShouldBegin: 1
+  fadeManager: {fileID: 6427339294990444151}
 --- !u!1 &3301065168783910136
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,6 +163,53 @@ MonoBehaviour:
   debug: 0
   chanceToDrop: 1
   lightPointPrefab: {fileID: 2318211755590232033, guid: 731c54ea827895b49871391c3c9bf32c, type: 3}
+--- !u!1 &3801533837016480169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3545462523461269330}
+  - component: {fileID: 6427339294990444151}
+  m_Layer: 0
+  m_Name: FadeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3545462523461269330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801533837016480169}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1868509924944874632}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6427339294990444151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801533837016480169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7f3fbd318a84b139e72e1023a9fc7b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  fadeImage: {fileID: 0}
+  fadeDuration: 2
 --- !u!1 &4641393587545905451
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,6 +248,7 @@ Transform:
   - {fileID: 462730406333636521}
   - {fileID: 269842492346691011}
   - {fileID: 1589251882365813562}
+  - {fileID: 3545462523461269330}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8328060706180153870
@@ -593,8 +642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7bafc6d67c24403907306cceab56664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeImage: {fileID: 0}
-  fadeDuration: 3
+  fadeManager: {fileID: 6427339294990444151}
   nextSceneName: EndScreen
 --- !u!1 &7978356077434767737
 GameObject:

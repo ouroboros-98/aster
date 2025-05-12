@@ -2,14 +2,27 @@
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using _ASTER.Prefabs.Core;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    [SerializeField] private InputActionProperty switchSceneAction;
-    [SerializeField] private InputActionProperty switchCancel;
-    [SerializeField] private float cooldownSeconds = 4f;
-    [SerializeField] private string nextSceneName = "MainSceneReplay";
-    [SerializeField] private string cancelSceneName = "MainSceneStart";
+    [SerializeField]
+    private InputActionProperty switchSceneAction;
+
+    [SerializeField]
+    private InputActionProperty switchCancel;
+
+    [SerializeField]
+    private float cooldownSeconds = 4f;
+
+    [SerializeField]
+    private string nextSceneName = "MainSceneReplay";
+
+    [SerializeField]
+    private string cancelSceneName = "MainSceneStart";
+
+    [SerializeField]
+    private string mainSceneName = "MainScene";
 
     private bool canSwitch;
 
@@ -22,7 +35,7 @@ public class SceneSwitcher : MonoBehaviour
     private void OnEnable()
     {
         switchSceneAction.action.performed += OnSwitchScenePressed;
-        switchCancel.action.performed += OnSwitchSceneCancel;
+        switchCancel.action.performed      += OnSwitchSceneCancel;
         switchSceneAction.action.Enable();
         switchCancel.action.Enable();
     }
@@ -30,7 +43,7 @@ public class SceneSwitcher : MonoBehaviour
     private void OnDisable()
     {
         switchSceneAction.action.performed -= OnSwitchScenePressed;
-        switchCancel.action.performed -= OnSwitchSceneCancel;
+        switchCancel.action.performed      -= OnSwitchSceneCancel;
         switchSceneAction.action.Disable();
         switchCancel.action.Disable();
     }
@@ -39,17 +52,22 @@ public class SceneSwitcher : MonoBehaviour
     {
         if (canSwitch)
         {
-            SceneManager.LoadScene(nextSceneName);
+            StartSceneManager.FirstTime = false;
+            SceneManager.LoadScene(mainSceneName);
             // Optionally, restart cooldown if needed.
+
             canSwitch = false;
         }
     }
+
     private void OnSwitchSceneCancel(InputAction.CallbackContext ctx)
     {
         if (canSwitch)
         {
-            SceneManager.LoadScene(cancelSceneName);
+            StartSceneManager.FirstTime = true;
+            SceneManager.LoadScene(mainSceneName);
             // Optionally, restart cooldown if needed.
+
             canSwitch = false;
         }
     }
