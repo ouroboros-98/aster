@@ -12,11 +12,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d997adfc9774fbab054ffac64242cc6, type: 3}
   m_Name: Level10
   m_EditorClassIdentifier: 
-  spawnObstacles: 0
+  spawnObstacles: 1
   obstacles: []
-  spawnTower: 0
-  towerPrefab: {fileID: 0}
-  waves: []
+  spawnTower: 1
+  towerPrefab: {fileID: 7693222295562886677, guid: 206564f9f589c2949a6dfe9c6ec7f10d, type: 3}
+  waves:
+  - rid: 6646743777143947471
+  - rid: 6646743777143947476
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6646743777143947471
+      type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 0
+        timingHandler:
+          rid: 6646743777143947472
+        enemyCount:
+          rid: 6646743777143947473
+        enemyPicker:
+          enemy: {fileID: 5518948375846772075, guid: 9dfb38c7c916ce243ad4d3c54fbdbdf6, type: 3}
+        anglePicker:
+          rid: 6646743777143947475
+    - rid: 6646743777143947472
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 0
+    - rid: 6646743777143947473
+      type: {class: ConstantEnemyCount, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _enemyCount: 100
+    - rid: 6646743777143947475
+      type: {class: AnglePickerRange, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        range: {x: 43.65672, y: 156.49257}
+    - rid: 6646743777143947476
+      type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 0
+        timingHandler:
+          rid: 6646743777143947480
+        enemyCount:
+          rid: 6646743777143947478
+        enemyPicker:
+          enemy: {fileID: 5518948375846772075, guid: c62c9cc4652d0b34bbd797ce923c3c84, type: 3}
+        anglePicker:
+          rid: 6646743777143947481
+    - rid: 6646743777143947478
+      type: {class: ConstantEnemyCount, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _enemyCount: 50
+    - rid: 6646743777143947480
+      type: {class: WithPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 5
+    - rid: 6646743777143947481
+      type: {class: AnglePickerRange, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        range: {x: 24.31343, y: 161.32837}

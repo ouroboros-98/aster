@@ -150,8 +150,8 @@ MonoBehaviour:
   currentStateName: 
   rb: {fileID: 0}
   hp:
-    _current: 1
-    _max: 1
+    _current: 5
+    _max: 5
     _onHPChange:
       m_PersistentCalls:
         m_Calls:

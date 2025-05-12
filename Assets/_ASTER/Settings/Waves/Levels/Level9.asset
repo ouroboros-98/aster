@@ -12,11 +12,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d997adfc9774fbab054ffac64242cc6, type: 3}
   m_Name: Level9
   m_EditorClassIdentifier: 
-  spawnObstacles: 0
+  spawnObstacles: 1
   obstacles: []
   spawnTower: 0
   towerPrefab: {fileID: 0}
-  waves: []
+  waves:
+  - rid: 6646743777143947453
+  - rid: 6646743777143947456
+  - rid: 6646743777143947462
+  - rid: 6646743777143947466
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6646743777143947453
+      type: {class: SpawnSingleEnemy, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 0
+        timingHandler:
+          rid: 6646743777143947454
+        enemyPicker:
+          enemy: {fileID: 5518948375846772075, guid: c62c9cc4652d0b34bbd797ce923c3c84, type: 3}
+        anglePicker:
+          rid: 6646743777143947455
+    - rid: 6646743777143947454
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 0
+    - rid: 6646743777143947455
+      type: {class: AnglePickerConstant, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        angle: 101
+    - rid: 6646743777143947456
+      type: {class: SpawnSingleEnemy, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 0
+        timingHandler:
+          rid: 6646743777143947457
+        enemyPicker:
+          enemy: {fileID: 5518948375846772075, guid: c62c9cc4652d0b34bbd797ce923c3c84, type: 3}
+        anglePicker:
+          rid: 6646743777143947458
+    - rid: 6646743777143947457
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 5
+    - rid: 6646743777143947458
+      type: {class: AnglePickerConstant, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        angle: 61
+    - rid: 6646743777143947462
+      type: {class: SpawnList, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 0
+        timingHandler:
+          rid: 6646743777143947463
+        _entries:
+        - _enemyPicker:
+            enemy: {fileID: 5518948375846772075, guid: c62c9cc4652d0b34bbd797ce923c3c84, type: 3}
+          anglePicker:
+            rid: 6646743777143947464
+        - _enemyPicker:
+            enemy: {fileID: 5518948375846772075, guid: c62c9cc4652d0b34bbd797ce923c3c84, type: 3}
+          anglePicker:
+            rid: 6646743777143947465
+    - rid: 6646743777143947463
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 5
+    - rid: 6646743777143947464
+      type: {class: AnglePickerConstant, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        angle: 61
+    - rid: 6646743777143947465
+      type: {class: AnglePickerConstant, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        angle: 142
+    - rid: 6646743777143947466
+      type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 0
+        timingHandler:
+          rid: 6646743777143947467
+        enemyCount:
+          rid: 6646743777143947468
+        enemyPicker:
+          enemy: {fileID: 5518948375846772075, guid: 9dfb38c7c916ce243ad4d3c54fbdbdf6, type: 3}
+        anglePicker:
+          rid: 6646743777143947470
+    - rid: 6646743777143947467
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 0
+    - rid: 6646743777143947468
+      type: {class: ConstantEnemyCount, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _enemyCount: 100
+    - rid: 6646743777143947470
+      type: {class: AnglePickerRange, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        range: {x: 40.432835, y: 164.55226}
