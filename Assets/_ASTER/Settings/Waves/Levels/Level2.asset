@@ -17,8 +17,8 @@ MonoBehaviour:
   - prefab: {fileID: 3315357782258405360, guid: b8eb63f73f9f8b34ca7890e99a4f57c1, type: 3}
     position: {x: 1.7, y: 0.7, z: -4.67}
     rotation: {x: 0, y: 0, z: 0}
-  spawnTower: 0
-  towerPrefab: {fileID: 4979266603000498091, guid: 5c47db8451974ca47b6e5e7d1ea5c11b, type: 3}
+  spawnTower: 1
+  towerPrefab: {fileID: 7693222295562886677, guid: 206564f9f589c2949a6dfe9c6ec7f10d, type: 3}
   waves:
   - rid: 6646743777143947386
   references:
@@ -27,7 +27,7 @@ MonoBehaviour:
     - rid: 6646743777143947386
       type: {class: SpawnList, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        _status: 0
+        _status: 2
         timingHandler:
           rid: 6646743777143947388
         _entries:

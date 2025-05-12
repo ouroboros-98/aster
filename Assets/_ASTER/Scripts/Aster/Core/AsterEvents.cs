@@ -26,7 +26,7 @@ namespace Aster.Core
         public Action<GrabInteractionContext>     OnGrabInteractionBegin;
         public Action<InteractionContext>         OnInteractionEnd;
 
-        public Action<int> OnLightPointAdded;
+        public Action<float> OnLightPointAdded;
         public Action<int> OnLightPointRemoved;
 
         public Action<int> OnAttackLightSource;

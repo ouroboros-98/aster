@@ -12,7 +12,7 @@ namespace Aster.Light
         [SerializeField] private Transform lightSource;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float     arrivalThreshold = 0.1f;
-        [SerializeField] private int       hpGranted        = 1;
+        [SerializeField] private float       hpGranted        = 0.4f;
 
         private bool  _isMovingToLightSource = false;
         private Tween _movementTween;
