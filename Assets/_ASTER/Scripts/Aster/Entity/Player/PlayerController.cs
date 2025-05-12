@@ -132,12 +132,14 @@ namespace Aster.Entity.Player
         {
             rb.linearVelocity  = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            rb.isKinematic     = true;
+            rb.constraints     = RigidbodyConstraints.FreezeAll;
         }
 
         public void Unfreeze()
         {
-            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY
+                           | RigidbodyConstraints.FreezeRotationX
+                           | RigidbodyConstraints.FreezeRotationZ;
         }
 
         private void OnEnable()
