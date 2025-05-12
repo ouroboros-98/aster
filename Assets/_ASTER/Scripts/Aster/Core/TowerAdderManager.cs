@@ -4,6 +4,7 @@ using System.Linq;
 using Aster.Utils;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 namespace Aster.Core
 {
@@ -12,25 +13,27 @@ namespace Aster.Core
         [Serializable]
         class Entry
         {
-            [SerializeField] private int        wave;
-            [SerializeField] private GameObject tower;
+            [SerializeField]
+            private int wave;
+
+            [SerializeField]
+            private GameObject tower;
 
             public int        Wave  => wave;
             public GameObject Tower => tower;
         }
 
-        [SerializeField] private Entry[] entries;
-
         // [SerializeField] private GameObject towerToAdd;
-        [SerializeField] private Transform placeToAdd;
-        [SerializeField] private int[]     wavesToDrop;
+        [SerializeField]
+        private Transform placeToAdd;
 
-        private Queue<Entry> _entriesQueue;
+        [SerializeField]
+        private int[] wavesToDrop;
 
-        private Dictionary<int, Entry> _entriesDict;
+        private Queue<GameObject> towerQueue;
 
         private int  _waveCounter;
-        private bool _needToAdd;
+        private bool _needToAdd => towerQueue != null && towerQueue.Count > 0;
         private bool _canAdd = true;
 
         private CentralPedestal _centralPedestal;
@@ -38,71 +41,76 @@ namespace Aster.Core
         private void Awake()
         {
             _centralPedestal = CentralPedestal.Instance;
-            _entriesQueue    = new();
-            _entriesDict     = new();
-            foreach (Entry entry in entries)
+            towerQueue       = new();
+        }
+
+        // private void OnEnable()
+        // {
+        //     AsterEvents.Instance.OnWaveStart += IncrementCounter;
+        // }
+        //
+        // private void OnDisable()
+        // {
+        //     AsterEvents.Instance.OnWaveStart -= IncrementCounter;
+        // }
+
+        // private void IncrementCounter(int obj)
+        // {
+        //     _waveCounter++;
+        //     bool shouldAddTower = _entriesDict.ContainsKey(_waveCounter);
+        //
+        //     debugPrint($"Increment WaveCounter: {_waveCounter}, shouldAddTower: {shouldAddTower}");
+        //
+        //     if (shouldAddTower)
+        //     {
+        //         _needToAdd = true;
+        //
+        //         _entriesQueue.Enqueue(_entriesDict[_waveCounter]);
+        //     }
+        // }
+
+        private void AddTower(GameObject tower)
+        {
+            Instantiate(tower, placeToAdd.position, quaternion.identity);
+        }
+
+        public void EnqueueTower(GameObject tower)
+        {
+            if (towerQueue == null)
             {
-                _entriesDict.Add(entry.Wave, entry);
+                towerQueue = new Queue<GameObject>();
             }
+
+            towerQueue.Enqueue(tower);
         }
 
-        private void OnEnable()
+        private void CheckCanAdd()
         {
-            AsterEvents.Instance.OnWaveStart += IncrementCounter;
-        }
-
-        private void OnDisable()
-        {
-            AsterEvents.Instance.OnWaveStart -= IncrementCounter;
-        }
-
-        private void IncrementCounter(int obj)
-        {
-            _waveCounter++;
-            bool shouldAddTower = _entriesDict.ContainsKey(_waveCounter);
-
-            debugPrint($"Increment WaveCounter: {_waveCounter}, shouldAddTower: {shouldAddTower}");
-
-            if (shouldAddTower)
-            {
-                _needToAdd = true;
-
-                _entriesQueue.Enqueue(_entriesDict[_waveCounter]);
-            }
-        }
-
-        private void AddTower(Entry entry)
-        {
-            Instantiate(entry.Tower, placeToAdd.position, quaternion.identity);
             _canAdd = true;
+            Vector3    center       = placeToAdd.position;
+            float      radius       = .5f;
+            Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+            foreach (Collider col in hitColliders)
+            {
+                if (col.transform.ScanForComponent(out BaseGrabbable grabbable, parents: true))
+                {
+                    _canAdd = false;
+                    break;
+                }
+            }
         }
 
         private void Update()
         {
             if (!_needToAdd) return;
+            if (_centralPedestal.IsOccupied) return;
 
-            // _canAdd = true;
-            // Vector3    center       = placeToAdd.position;
-            // float      radius       = 3f;
-            // Collider[] hitColliders = Physics.OverlapSphere(center, radius);
-            // foreach (Collider col in hitColliders)
-            // {
-            //     if (col.transform.ScanForComponent(out BaseGrabbable grabbable, parents: true))
-            //     {
-            //         _canAdd = false;
-            //         break;
-            //     }
-            // }
+            CheckCanAdd();
 
-            // if (_canAdd)
-            if (!_centralPedestal.IsOccupied)
-            {
-                if (_entriesQueue.Count > 0)
-                {
-                    AddTower(_entriesQueue.Dequeue());
-                    _canAdd = false;
-                }
-            }
+            if (!_canAdd) return;
+
+            AddTower(towerQueue.Dequeue());
+            _canAdd = false;
         }
     }
 }

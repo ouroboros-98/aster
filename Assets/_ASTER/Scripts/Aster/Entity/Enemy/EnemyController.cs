@@ -26,6 +26,8 @@ namespace Aster.Entity.Enemy
         private float DistanceFromMainLight =>
             Vector3.Distance(transform.position, _mainLightSource.transform.position);
 
+        public bool Pooled = false;
+
         protected override void Awake()
         {
             base.Awake();
@@ -81,7 +83,8 @@ namespace Aster.Entity.Enemy
 
             AsterEvents.Instance.OnEnemyDeath?.Invoke(this);
 
-            EnemyPool.Instance.Return(this);
+            if (Pooled) EnemyPool.Instance.Return(this);
+            else Destroy(gameObject);
         }
     }
 }

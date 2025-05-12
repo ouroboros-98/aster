@@ -2,11 +2,16 @@ using System;
 using System.Collections.Generic;
 using Aster.Core;
 using Aster.Utils.Pool;
+using UnityEngine;
 
 namespace Aster.Light
 {
     public class RayManager : AsterMono
     {
+        [SerializeField]
+        [Range(0, 2000)]
+        private int maxRayCount = 100;
+
         private IPool<LightRayObject> rayPool;
 
         private HashSet<ILightRay> _activeRays;
@@ -28,6 +33,12 @@ namespace Aster.Light
 
         private void OnRayCreated(ILightRay ray)
         {
+            if (_activeRays.Count >= maxRayCount)
+            {
+                ray.Destroy();
+                return;
+            }
+
             LightRayObject lightRayObject = rayPool.Get();
 
             lightRayObject.Data = ray;
