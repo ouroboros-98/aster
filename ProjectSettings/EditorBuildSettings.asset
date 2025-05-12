@@ -14,9 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_ASTER/Scenes/MainSceneStart.unity
     guid: 847a4b6326f6fe44ba7fe19e68a356e9
-  - enabled: 1
+  - enabled: 0
     path: Assets/_ASTER/Scenes/MainSceneReplay.unity
-    guid: 002f67c4a746dcc43988475712d66fa9
+    guid: 15ee5fb0b3d16d94f9801b62659952a0
+  - enabled: 1
+    path: Assets/_ASTER/Scenes/MainSceneReplay2.unity
+    guid: b52ec4dadfc157046870ecdec4e841cc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   m_UseUCBPForAssetBundles: 0

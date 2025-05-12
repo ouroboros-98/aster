@@ -1488,7 +1488,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: -291315183697017798, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   cooldownSeconds: 4
-  nextSceneName: MainSceneReplay
+  nextSceneName: MainSceneReplay2
   cancelSceneName: MainSceneStart
 --- !u!1 &1885473531
 GameObject:
