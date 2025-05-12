@@ -21,7 +21,7 @@ namespace Aster.Entity.Player
             AsterEvents.Instance.OnLightPointAdded -= IncrementEnergy;
         }
 
-        private void IncrementEnergy(int energy)
+        private void IncrementEnergy(float energy)
         {
             _playerEnergy++;
         }

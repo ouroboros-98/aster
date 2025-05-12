@@ -57,7 +57,7 @@ namespace Aster.UI
             GameEvents.OnLightPointRemoved -= IncrementEnergyInt;
         }
 
-        private void IncrementEnergy(int energy)
+        private void IncrementEnergy(float energy)
         {
             textMeshPro.text = playerEnergy.GetPlayerEnergy().ToString();
             foreach (var towerOption in towerOptions)

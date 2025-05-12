@@ -77,7 +77,7 @@ namespace Aster.Light
             _gameStarted = true;
         }
 
-        private void AddHp(int hpAdded)
+        private void AddHp(float hpAdded)
         {
             if (hp + hpAdded > hp.MaxHP)
             {
