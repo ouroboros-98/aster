@@ -15,20 +15,14 @@ namespace _ASTER.Scripts.Aster.Core
         private int waveNumber;
         private int highScore;
 
-        [SerializeField]
-        private TextMeshProUGUI textWaveNumber;
-
-        [SerializeField]
-        private TextMeshProUGUI textWaveHighScore;
-
-        [SerializeField]
-        private Image imageWaveHighScore;
-
-        [SerializeField]
-        private Image imageWaveNumber;
-
-        [SerializeField]
-        private float fadeDuration = 2f; // Adjustable fade in time
+        [SerializeField] private TextMeshProUGUI textWaveNumber;
+        [SerializeField] private TextMeshProUGUI textWaveHighScore;
+        [SerializeField] private TextMeshProUGUI textWaveNum;
+        [SerializeField] private TextMeshProUGUI textHighNum;
+        [SerializeField] private TextMeshProUGUI text1;
+        [SerializeField] private TextMeshProUGUI text2;
+        [SerializeField] private TextMeshProUGUI text3;
+        [SerializeField] private float fadeDuration = 2f; // Adjustable fade in time
 
         private void Awake()
         {
@@ -53,10 +47,14 @@ namespace _ASTER.Scripts.Aster.Core
             // For example, assuming the new scene has objects with these names.
             if (scene.name == "EndScreen")
             {
-                textWaveNumber     = GameObject.Find("TextWaveNumber")?.GetComponent<TextMeshProUGUI>();
-                textWaveHighScore  = GameObject.Find("TextWaveHighScore")?.GetComponent<TextMeshProUGUI>();
-                imageWaveNumber    = GameObject.Find("ImageWaveNumber")?.GetComponent<Image>();
-                imageWaveHighScore = GameObject.Find("ImageWaveHighScore")?.GetComponent<Image>();
+                textWaveNumber = GameObject.Find("Text4")?.GetComponent<TextMeshProUGUI>();
+                textWaveHighScore = GameObject.Find("Text3")?.GetComponent<TextMeshProUGUI>();
+                textWaveNum = GameObject.Find("Text1")?.GetComponent<TextMeshProUGUI>();
+                textHighNum = GameObject.Find("Text2")?.GetComponent<TextMeshProUGUI>();
+                text1 = GameObject.Find("Text5")?.GetComponent<TextMeshProUGUI>();
+                text2 = GameObject.Find("Text6")?.GetComponent<TextMeshProUGUI>();
+                text3 = GameObject.Find("Text7")?.GetComponent<TextMeshProUGUI>();
+                
                 // Optionally trigger a fade-in in the new scene.
                 if (textWaveNumber != null)
                     textWaveNumber.text = waveNumber.ToString();
@@ -76,34 +74,58 @@ namespace _ASTER.Scripts.Aster.Core
         {
             if (textWaveNumber != null)
             {
-                Color textColor = textWaveNumber.color;
-                textColor.a          = 0f;
-                textWaveNumber.color = textColor;
+                Color c = textWaveNumber.color;
+                c.a = 0f;
+                textWaveNumber.color = c;
                 textWaveNumber.DOFade(1f, fadeDuration).SetEase(Ease.InOutSine);
             }
 
             if (textWaveHighScore != null)
             {
-                Color textColor2 = textWaveHighScore.color;
-                textColor2.a            = 0f;
-                textWaveHighScore.color = textColor2;
+                Color c = textWaveHighScore.color;
+                c.a = 0f;
+                textWaveHighScore.color = c;
                 textWaveHighScore.DOFade(1f, fadeDuration).SetEase(Ease.InOutSine);
             }
 
-            if (imageWaveNumber != null)
+            if (textWaveNum != null)
             {
-                Color imageColor = imageWaveNumber.color;
-                imageColor.a          = 0f;
-                imageWaveNumber.color = imageColor;
-                imageWaveNumber.DOFade(1f, fadeDuration).SetEase(Ease.InOutSine);
+                Color c = textWaveNum.color;
+                c.a = 0f;
+                textWaveNum.color = c;
+                textWaveNum.DOFade(1f, fadeDuration).SetEase(Ease.InOutSine);
             }
 
-            if (imageWaveHighScore != null)
+            if (textHighNum != null)
             {
-                Color imageColor2 = imageWaveHighScore.color;
-                imageColor2.a            = 0f;
-                imageWaveHighScore.color = imageColor2;
-                imageWaveHighScore.DOFade(1f, fadeDuration).SetEase(Ease.InOutSine);
+                Color c = textHighNum.color;
+                c.a = 0f;
+                textHighNum.color = c;
+                textHighNum.DOFade(1f, fadeDuration).SetEase(Ease.InOutSine);
+            }
+
+            if (text1 != null)
+            {
+                Color c = text1.color;
+                c.a = 0f;
+                text1.color = c;
+                text1.DOFade(1f, fadeDuration).SetEase(Ease.InOutSine);
+            }
+
+            if (text2 != null)
+            {
+                Color c = text2.color;
+                c.a = 0f;
+                text2.color = c;
+                text2.DOFade(1f, fadeDuration).SetEase(Ease.InOutSine);
+            }
+
+            if (text3 != null)
+            {
+                Color c = text3.color;
+                c.a = 0f;
+                text3.color = c;
+                text3.DOFade(1f, fadeDuration).SetEase(Ease.InOutSine);
             }
         }
 
@@ -111,5 +133,8 @@ namespace _ASTER.Scripts.Aster.Core
         {
             this.waveNumber++;
         }
+        
+
+       
     }
 }

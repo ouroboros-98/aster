@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 720565206}
   - component: {fileID: 720565205}
   m_Layer: 5
-  m_Name: TextWaveNumber (2)
+  m_Name: Text4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 949339250}
   - component: {fileID: 949339249}
   m_Layer: 5
-  m_Name: TextWaveNumber (3)
+  m_Name: Text5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 1151191805}
   - component: {fileID: 1151191804}
   m_Layer: 5
-  m_Name: TextWaveHighScore
+  m_Name: Text1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1475,7 +1475,7 @@ GameObject:
   - component: {fileID: 1613722679}
   - component: {fileID: 1613722678}
   m_Layer: 5
-  m_Name: TextWaveNumber (1)
+  m_Name: Text3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1611,7 +1611,7 @@ GameObject:
   - component: {fileID: 1670284889}
   - component: {fileID: 1670284888}
   m_Layer: 5
-  m_Name: TitleText
+  m_Name: Text7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1747,7 +1747,7 @@ GameObject:
   - component: {fileID: 1699700575}
   - component: {fileID: 1699700574}
   m_Layer: 5
-  m_Name: TextWaveNumber (4)
+  m_Name: Text6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2032,7 +2032,7 @@ GameObject:
   - component: {fileID: 1885473534}
   - component: {fileID: 1885473533}
   m_Layer: 5
-  m_Name: TextWaveNumber
+  m_Name: Text2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
