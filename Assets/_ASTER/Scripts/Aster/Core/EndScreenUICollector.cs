@@ -95,9 +95,9 @@ namespace _ASTER.Scripts.Aster.Core
             }
         }
 
-        private void OnWaveEnd(int waveNumber)
+        private void OnWaveEnd()
         {
-            this.waveNumber = waveNumber;
+            this.waveNumber++;
         }
         
 

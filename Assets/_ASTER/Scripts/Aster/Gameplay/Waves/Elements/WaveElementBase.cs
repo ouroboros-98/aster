@@ -131,6 +131,7 @@ namespace Aster.Gameplay.Waves
 
         protected virtual void OnWaveEnd()
         {
+            AsterEvents.Instance.OnWaveEnd?.Invoke();
         }
 
         protected virtual bool ShouldWaveEnd() => Enemies.Count == 0;
