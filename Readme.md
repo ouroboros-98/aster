@@ -4,14 +4,7 @@
 
 **Presented by:** Amit Aizenman, Dolev Irron, Inbal Luz, Nadav Ishaak,Yuval Matsil
 
-## Tasks
-
-### Milestone 1 (21.4.2025)
-
-- [ ] Implement Player Energy Meter (Amit)
-- [ ] Create enemy x light hit logic (Nadav)
-- [X] Fix light reflection (Dolev)
-- [ ] Enemy x Light Source Attack logic + Lose Condition (Amit)
-- [ ] Implement Splitter Tower (Nadav)
-- [ ] Implement Enemy HP Bar (Dolev)
-- [ ] Change ground material to green (Nadav)
+## Developer Responsibilities
+- **Nadav Ishaak**: Enemy Bypass Obstacles, Tower Placement Prevention, UI Control Hint Indicators, Tower Buying System (Scrapped), Ending Screen
+- **Amit Aizenman**: Wave System, Sound Manager
+- **Dolev Irron**: Light Ray Logic and Presentation Systems, Towers (Mirrors, Splitters, etc), Player Interaction system, Shader Work (e.g. trails, light rays, particles), Wave System (alongside Amit), Configuration S.O., Entity Logic & Architecture (Players & Enemies), Utilities & Support.
