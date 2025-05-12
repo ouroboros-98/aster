@@ -8,12 +8,12 @@ public class IndicatorEnabler : AsterMono
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            other.gameObject.GetComponent<PlayerIndicator>().SetIndicator(true);
+            other.gameObject.GetComponentInParent<PlayerIndicator>()?.SetIndicator(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-            other.gameObject.GetComponent<PlayerIndicator>().SetIndicator(false);
+            other.gameObject.GetComponentInParent<PlayerIndicator>()?.SetIndicator(false);
     }
 }

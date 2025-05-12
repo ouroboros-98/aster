@@ -137,7 +137,11 @@ namespace Aster.Light
             _lineRenderer?.SetPosition(1, value);
 
             if (endpointBoundedObjects == null) return;
-            foreach (Transform t in endpointBoundedObjects) t.position = value;
+            foreach (Transform t in endpointBoundedObjects)
+            {
+                t.gameObject.SetActive(!isMaxDistance);
+                t.position = value;
+            }
         }
 
         void OnWidthChanged(float width) => _lineRenderer.startWidth = _lineRenderer.endWidth = width * WIDTH_SCALE;

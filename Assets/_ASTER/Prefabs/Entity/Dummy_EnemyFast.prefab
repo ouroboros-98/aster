@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 5518948375846772075}
   - component: {fileID: 3158136519031636730}
   - component: {fileID: -3036175111454794985}
-  - component: {fileID: 459358046830091681}
+  - component: {fileID: 6824174966274257108}
   m_Layer: 0
   m_Name: Dummy_EnemyFast
   m_TagString: Enemy
@@ -157,6 +157,19 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 7227819372371429331}
           m_TargetAssemblyTypeName: Aster.Core.UI.HealthBar, Assembly-CSharp
+          m_MethodName: OnHPChanged
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6824174966274257108}
+          m_TargetAssemblyTypeName: _ASTER.Scripts.Aster.UI.ShaderHealthIndicator,
+            Assembly-CSharp
           m_MethodName: OnHPChanged
           m_Mode: 0
           m_Arguments:
@@ -220,7 +233,7 @@ MonoBehaviour:
   enemyController: {fileID: 5518948375846772075}
   hitFX: {fileID: 0}
   IsPooled: 0
---- !u!114 &459358046830091681
+--- !u!114 &6824174966274257108
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,12 +242,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4128990788153906482}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12cf79f2cc204cb4aaf68cb9d1da374a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6575d115f2c944b4a003696fda3ee224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raiseAmount: 0.5
-  tweenDuration: 1.5
-  threshold: 0.01
+  debug: 0
+  healthMeshRenderer: {fileID: 5370468743626596316}
+  hideInTitleScreen: 0
 --- !u!1 &6257463458031474534
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,6 +416,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 1268494733493637183, guid: 1b26ee19436f55c4e9cf8bfc5eb06b0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8234111762553986491, guid: 1b26ee19436f55c4e9cf8bfc5eb06b0a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -568,6 +585,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7042727363670222661, guid: 7b1010b64f1a7dd47810210c8bb76d2a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7042727363670222661, guid: 7b1010b64f1a7dd47810210c8bb76d2a, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 444696ac669acbe4093150734a745aea, type: 2}
     - target: {fileID: 919132149155446097, guid: 7b1010b64f1a7dd47810210c8bb76d2a, type: 3}
       propertyPath: m_Name
       value: fastashh
@@ -576,40 +601,15 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: -2845779275431937956, guid: 7b1010b64f1a7dd47810210c8bb76d2a, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7b1010b64f1a7dd47810210c8bb76d2a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8574404321164739530}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b1010b64f1a7dd47810210c8bb76d2a, type: 3}
+--- !u!137 &5370468743626596316 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7042727363670222661, guid: 7b1010b64f1a7dd47810210c8bb76d2a, type: 3}
+  m_PrefabInstance: {fileID: 6108156633893881703}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6002789667035783308 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7b1010b64f1a7dd47810210c8bb76d2a, type: 3}
   m_PrefabInstance: {fileID: 6108156633893881703}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6342723905769044534 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7b1010b64f1a7dd47810210c8bb76d2a, type: 3}
-  m_PrefabInstance: {fileID: 6108156633893881703}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8574404321164739530
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6342723905769044534}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c9de4bc7014dbb1428685a27e4b35d56, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0

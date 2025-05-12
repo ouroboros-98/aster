@@ -10,7 +10,8 @@ namespace Aster.Towers
 {
     public class Splitter : BaseTower
     {
-        [ShowNonSerializedField, BoxedProperty] protected SplitterParameters _splitterParameters;
+        [ShowNonSerializedField, BoxedProperty]
+        protected SplitterParameters _splitterParameters;
 
         private         LightReceiver _lightReceiver;
         public override LightReceiver LightReceiver => _lightReceiver;
