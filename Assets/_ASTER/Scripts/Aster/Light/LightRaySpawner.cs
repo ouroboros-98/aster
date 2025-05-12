@@ -20,6 +20,10 @@ namespace Aster.Light
         [SerializeField]
         private LightRayObject rayObject;
 
+        [SerializeField]
+        [Range(0, 2)]
+        private float spawnDistance = .4f;
+
         private Vector3    lastPosition;
         private Quaternion lastRotation;
 
@@ -37,8 +41,12 @@ namespace Aster.Light
         private void FixedUpdate()
         {
             ray.MaxDistance = Config.Lightrays.MaxDistance;
-            ray.Origin      = transform.position;
-            ray.Direction   = transform.forward;
+
+            Vector3 direction = transform.forward;
+            Vector3 position  = transform.position + direction * spawnDistance;
+
+            ray.Origin    = position;
+            ray.Direction = direction;
         }
     }
 }

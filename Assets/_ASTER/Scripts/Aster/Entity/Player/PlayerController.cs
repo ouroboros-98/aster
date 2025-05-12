@@ -39,8 +39,8 @@ namespace Aster.Entity.Player
 
         private void Start()
         {
-            Freeze();
         }
+
 
         private PlayerInputHandler _playerInputHandler;
         public  PlayerInputHandler PlayerInputHandler => _playerInputHandler;
@@ -74,6 +74,8 @@ namespace Aster.Entity.Player
 
             movementProvider = _playerInputHandler;
             movement.Init(rb, movementProvider);
+
+            if (Config.EnableTitleScreen) Freeze();
         }
 
         private void CreateTowerPickerUI(Transform parent)
