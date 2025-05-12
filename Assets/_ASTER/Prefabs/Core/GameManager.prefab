@@ -96,9 +96,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   Levels:
+  - {fileID: 11400000, guid: 6c30bbad6d3f0a1409f832c03996d43f, type: 2}
+  - {fileID: 11400000, guid: b8397c66b8b8e8146a3e6083c182c3c8, type: 2}
   - {fileID: 11400000, guid: 99f95e31b3001ce46bcf728d1b5075ce, type: 2}
-  spawner: {fileID: 3770590595730369864}
-  towerAdder: {fileID: 8156186429395830982}
+  dependencies:
+    enemySpawner: {fileID: 3770590595730369864}
+    towerAdder: {fileID: 8156186429395830982}
+    obstacleSpawner: {fileID: 6382589128272968532}
 --- !u!1 &3796646223905139257
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +187,7 @@ Transform:
   - {fileID: 6272312335824904088}
   - {fileID: 462730406333636521}
   - {fileID: 269842492346691011}
+  - {fileID: 1589251882365813562}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8328060706180153870
@@ -401,6 +406,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1050493479864860775}
   soundBank: {fileID: 11400000, guid: 3f0dc82aad5454843bc1c209700e7352, type: 2}
+--- !u!1 &5766717225197906562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1589251882365813562}
+  - component: {fileID: 6382589128272968532}
+  m_Layer: 0
+  m_Name: ObstacleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1589251882365813562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5766717225197906562}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1868509924944874632}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6382589128272968532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5766717225197906562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5d1123dc7f4ec6801c32049efcbec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  waveObstacleData:
+  - waveNumber: 1
+    obstacles:
+    - prefab: {fileID: 0}
+      position: {x: -2.36, y: 0, z: -2.83}
+      rotation: {x: 0, y: 0, z: 0}
+  bottomStartPoint: 5
 --- !u!1 &5803367319648849969
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,12 +628,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
-  entries:
-  - wave: 3
-    tower: {fileID: 7693222295562886677, guid: 206564f9f589c2949a6dfe9c6ec7f10d, type: 3}
-  - wave: 8
-    tower: {fileID: 7693222295562886677, guid: 206564f9f589c2949a6dfe9c6ec7f10d, type: 3}
-  - wave: 10
-    tower: {fileID: 6734456104824977006, guid: 09daa9afdb0fafd4fb14e86feccc5aef, type: 3}
   placeToAdd: {fileID: 0}
   wavesToDrop: 

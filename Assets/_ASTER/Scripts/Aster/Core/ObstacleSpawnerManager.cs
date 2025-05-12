@@ -17,7 +17,7 @@ namespace Aster.Core
         private List<GameObject> _currentObstacles;
         private int              _waveCounter;
 
-        private void Start()
+        private void Awake()
         {
             _currentObstacles = new List<GameObject>();
         }

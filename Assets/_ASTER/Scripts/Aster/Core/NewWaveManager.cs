@@ -3,15 +3,17 @@ using System.Collections;
 using Aster.Entity.Enemy;
 using Aster.Gameplay.Waves;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Aster.Core
 {
     public class NewWaveManager : AsterMono
     {
-        public  LevelData[] Levels;
-        private int         _currentLevelIndex;
-        private bool        _checkEnemyDead = false;
+        public LevelData[] Levels;
+
+        private int  _currentLevelIndex;
+        private bool _checkEnemyDead = false;
 
         private LevelExecution _currentLevelExecution;
 

@@ -20,24 +20,50 @@ MonoBehaviour:
   spawnTower: 1
   towerPrefab: {fileID: 4979266603000498091, guid: 5c47db8451974ca47b6e5e7d1ea5c11b, type: 3}
   waves:
-  - rid: 7733586816550830239
+  - rid: 7733586816550830268
+  - rid: 7733586816550830272
   references:
     version: 2
     RefIds:
-    - rid: 7733586816550830239
+    - rid: 7733586816550830268
       type: {class: SpawnSingleEnemy, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
         _status: 0
         timingHandler:
-          rid: 7733586816550830240
+          rid: 7733586816550830269
+        enemyPicker:
+          enemy: {fileID: 5518948375846772075, guid: 9dfb38c7c916ce243ad4d3c54fbdbdf6, type: 3}
         anglePicker:
-          rid: 7733586816550830241
-    - rid: 7733586816550830240
+          rid: 7733586816550830270
+    - rid: 7733586816550830269
       type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
         delay: 0
-    - rid: 7733586816550830241
-      type: {class: AnglePickerRange, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+    - rid: 7733586816550830270
+      type: {class: AnglePickerConstant, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        minAngle: 0
-        maxAngle: 95
+        angle: 58.1
+    - rid: 7733586816550830272
+      type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 0
+        timingHandler:
+          rid: 7733586816550830273
+        enemyCount:
+          rid: 7733586816550830274
+        enemyPicker:
+          enemy: {fileID: 5518948375846772075, guid: 3e6c31a7ecf7e2145a8762fe0f2c7487, type: 3}
+        anglePicker:
+          rid: 7733586816550830275
+    - rid: 7733586816550830273
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 0
+    - rid: 7733586816550830274
+      type: {class: ConstantEnemyCount, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _enemyCount: 1
+    - rid: 7733586816550830275
+      type: {class: AnglePickerConstant, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        angle: 0

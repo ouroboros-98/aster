@@ -39,7 +39,8 @@ namespace Aster.Gameplay.Waves
 
         [Title("Waves")]
         [Space]
-        [SerializeReference, SerializeReferenceDropdown]
+        [InlineEditor]
+        [SerializeReference]
         private IWaveElement[] waves;
 
         public IReadOnlyList<IWaveElement>      Waves     => waves.ToList();

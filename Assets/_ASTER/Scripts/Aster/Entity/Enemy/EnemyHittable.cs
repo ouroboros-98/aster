@@ -11,12 +11,17 @@ namespace Aster.Entity.Enemy
 {
     public class EnemyHittable : BaseLightHittable
     {
-        [SerializeField] private EnemyController      enemyController;
-        [SerializeField] private EnemyHitFXController hitFX;
+        [SerializeField]
+        private EnemyController enemyController;
+
+        [SerializeField]
+        private EnemyHitFXController hitFX;
 
         private LightReceiver        lightReceiver;
         private EnemyRayManipulation enemyRayManipulation = new();
         private RayManipulator       enemyRayManipulator;
+
+        public bool IsPooled = false;
 
         private void Awake()
         {
@@ -67,7 +72,8 @@ namespace Aster.Entity.Enemy
     [System.Serializable]
     public class EnemyRayManipulation : RayManipulation
     {
-        [SerializeField] private float intensityScale = .8f;
+        [SerializeField]
+        private float intensityScale = .8f;
 
         public override void Apply(LightHit hit, ILightRay rayIn, ILightRay rayOut)
         {
