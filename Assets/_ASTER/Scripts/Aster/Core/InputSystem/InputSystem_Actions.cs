@@ -559,6 +559,39 @@ namespace Aster.Core.InputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""da19416d-10f1-4121-99cd-7c6431a2458e"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b15cca0-fa78-4fcd-ac9b-1d9af939e33a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8e5c124-fe46-4f52-bc1c-75408551e742"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""541ff8f8-ba96-4a0f-81b3-e525294b8c31"",
                     ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
