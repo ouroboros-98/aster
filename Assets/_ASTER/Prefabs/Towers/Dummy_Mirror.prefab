@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 5216355153030111973}
   - component: {fileID: 5947009935202630334}
   - component: {fileID: 4581020938817834656}
+  - component: {fileID: 3865672677517417457}
   m_Layer: 13
   m_Name: Collider
   m_TagString: Untagged
@@ -455,6 +456,19 @@ MonoBehaviour:
   debug: 0
   outlineObject: {fileID: 1873042011992845670}
   towerObject: {fileID: 7693222295562886677}
+--- !u!114 &3865672677517417457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2152767885917473787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b6baabe2784da5b0386d38fb713554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
 --- !u!1 &5690552791615228935
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +604,7 @@ GameObject:
   - component: {fileID: 4945338760825920010}
   - component: {fileID: 3969299282112547735}
   - component: {fileID: 8365928646059468169}
+  - component: {fileID: 3450202005619538544}
   m_Layer: 9
   m_Name: Dummy_Mirror
   m_TagString: Player
@@ -668,6 +683,21 @@ MonoBehaviour:
   grabLiftHeight: 0
   grabFollowSpeed: 10
   pedestalTransform: {fileID: 0}
+--- !u!114 &3450202005619538544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7693222295562886677}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06fc799fa06b4556b081095131ddfb62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 75
+  hoverAmount: 0.3
+  hoverSpeed: 1.25
 --- !u!1 &7968738614441051119
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,7 +832,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7968738614441051119}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2b6baabe2784da5b0386d38fb713554, type: 3}
   m_Name: 

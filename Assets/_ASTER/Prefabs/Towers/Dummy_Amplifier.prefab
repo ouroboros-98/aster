@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 779371568154568048}
   - component: {fileID: 6503695103442935632}
   - component: {fileID: 2118527461226560697}
+  - component: {fileID: 6112747788337587909}
   m_Layer: 13
   m_Name: Collider
   m_TagString: Block
@@ -70,6 +71,19 @@ MonoBehaviour:
   debug: 0
   outlineObject: {fileID: 3559528167903884833}
   towerObject: {fileID: 4979266603000498091}
+--- !u!114 &6112747788337587909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013845034160785943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b6baabe2784da5b0386d38fb713554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
 --- !u!1 &2820073383448832783
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +330,7 @@ GameObject:
   - component: {fileID: 2008496150483088020}
   - component: {fileID: 3548980739544907428}
   - component: {fileID: 43520402097263366}
+  - component: {fileID: 2002939545192867962}
   m_Layer: 9
   m_Name: Dummy_Amplifier
   m_TagString: Player
@@ -359,6 +374,8 @@ MonoBehaviour:
   debug: 0
   rotationHandler:
     rotationSpeed: 100
+    InvertDelta: 0
+    EnableBounding: 0
   rotationTransform: {fileID: 3949429315384965898}
   radius: 0.6
 --- !u!114 &3548980739544907428
@@ -391,6 +408,21 @@ MonoBehaviour:
   grabLiftHeight: 0
   grabFollowSpeed: 10
   pedestalTransform: {fileID: 0}
+--- !u!114 &2002939545192867962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4979266603000498091}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06fc799fa06b4556b081095131ddfb62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 75
+  hoverAmount: 0.3
+  hoverSpeed: 1.25
 --- !u!1 &6483408682608422635
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,7 +684,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8014903776679297849}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2b6baabe2784da5b0386d38fb713554, type: 3}
   m_Name: 
