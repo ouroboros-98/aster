@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Aster.Core.Interactions;
 using Aster.Core.Interactions.Grab;
 using Aster.Entity.Player;
 using Aster.Utils;
@@ -51,6 +52,11 @@ namespace Aster.Core
         public void OnGrab()
         {
             disableOnGrab.ForEach(c => c.enabled = false);
+            TowerSpinner spinner = transform.GetComponent<TowerSpinner>();
+            if (spinner != null)
+            {
+                spinner.enabled = false;
+            }
         }
 
         public void DuringGrab()
@@ -95,6 +101,11 @@ namespace Aster.Core
                 if (transform.position.With(y: 0) != pedestalTransform.position.With(y: 0))
                 {
                     transform.position = pedestalTransform.position.With(y: originalY);
+                    TowerSpinner spinner = transform.GetComponent<TowerSpinner>();
+                    if (spinner != null)
+                    {
+                        spinner.enabled = true;
+                    }
                 }
             }
         }
