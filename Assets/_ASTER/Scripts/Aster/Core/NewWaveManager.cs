@@ -55,7 +55,11 @@ namespace Aster.Core
             {
                 _currentLevelExecution.Update();
             }
-            else NextLevel();
+            else
+            {
+                AsterEvents.Instance.OnLevelEnd?.Invoke(1);
+                NextLevel();
+            }
         }
 
         private bool NextLevel()
