@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_ASTER/Scenes/MainScene YUVAL2.unity.meta
+guid: 15ee5fb0b3d16d94f9801b62659952a0
+========
 guid: 002f67c4a746dcc43988475712d66fa9
+>>>>>>>> b7cc8e4c6c764a7d593bdbbbb3828f358d5af11a:Assets/_ASTER/Scenes/MainSceneReplay.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
