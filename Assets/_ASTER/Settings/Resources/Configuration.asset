@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Configuration
   m_EditorClassIdentifier: 
   enableTitleScreen: 1
-  lightRayYPosition: 0.65
+  lightRayYPosition: 0.3670001
   towerOptionsAnimator:
     slideDown: 0
     baseSpeed: 2000

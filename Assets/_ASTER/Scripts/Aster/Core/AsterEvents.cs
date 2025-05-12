@@ -36,7 +36,7 @@ namespace Aster.Core
         public Action<EnemyController> OnEnemyDeath;
 
         public Action<int> OnWaveStart;
-        public Action<int> OnWaveEnd;
+        public Action OnWaveEnd;
         public Action<int> OnLevelEnd;
 
         public Action OnTryToPlaceTower;
@@ -73,6 +73,7 @@ namespace Aster.Core
             AllEnemiesDead = delegate { };
             OnTryToPlaceTower = delegate { };
             OnGameStartComplete = delegate { };
+            
         }
     }
 }

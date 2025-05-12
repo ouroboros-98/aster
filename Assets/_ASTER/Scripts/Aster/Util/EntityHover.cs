@@ -13,7 +13,6 @@ public class EntityHover : AsterMono, IDisableOnGrab
     private float frequency = 1f;
 
     private float baseY;
-
     private float t = 0f;
 
     void Awake()
