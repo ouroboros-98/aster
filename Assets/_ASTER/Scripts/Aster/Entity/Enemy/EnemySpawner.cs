@@ -9,9 +9,11 @@ namespace Aster.Entity.Enemy
 {
     public class EnemySpawner : AsterMono
     {
-        [SerializeField] private float     spawnDistance;
-        private                  int       _enemiesAlive = 0;
-        private                  Transform mainLightSource;
+        [SerializeField]
+        private float spawnDistance;
+
+        private int       _enemiesAlive = 0;
+        private Transform mainLightSource;
 
         private void Awake()
         {
@@ -38,6 +40,7 @@ namespace Aster.Entity.Enemy
             var enemy = EnemyPool.Instance.Get();
             enemy.transform.position = transform.position;
             enemy.transform.rotation = transform.rotation;
+
             var indicator = IndicatorPool.Instance.Get();
             indicator.Init(enemy.transform);
             _enemiesAlive++;
@@ -45,16 +48,21 @@ namespace Aster.Entity.Enemy
 
         public EnemyController SpawnEnemy(Angle direction)
         {
+            var enemy = EnemyPool.Instance.Get();
+
+            return SpawnEnemy(direction, enemy);
+        }
+
+        public EnemyController SpawnEnemy(Angle direction, EnemyController enemy)
+        {
             direction -= 90;
-            direction = 180 - direction;
+            direction =  180 - direction;
             Vector3 spawnDirection = Quaternion.Euler(0, direction, 0) * Vector3.forward;
             Vector3 spawnPosition  = mainLightSource.position + (spawnDistance * spawnDirection);
-
-            var enemy = EnemyPool.Instance.Get();
             enemy.transform.position = spawnPosition.With(y: Config.LightRayYPosition);
 
             GameEvents.OnEnemySpawn?.Invoke(enemy);
-            
+
             return enemy;
         }
     }

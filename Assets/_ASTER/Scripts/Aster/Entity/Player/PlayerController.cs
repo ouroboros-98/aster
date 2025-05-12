@@ -144,7 +144,7 @@ namespace Aster.Entity.Player
         {
             AsterEvents.Instance.OnGameStartComplete += Unfreeze;
         }
-        
+
         private void OnDisable()
         {
             AsterEvents.Instance.OnGameStartComplete -= Unfreeze;

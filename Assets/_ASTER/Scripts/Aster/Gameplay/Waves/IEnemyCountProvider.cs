@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Aster.Gameplay.Waves
@@ -10,7 +11,17 @@ namespace Aster.Gameplay.Waves
     [System.Serializable]
     public class ConstantEnemyCount : IEnemyCountProvider
     {
-        [SerializeField] private int _enemyCount = 1;
+        [SerializeField]
+        private int _enemyCount = 1;
+
+        public ConstantEnemyCount(int enemyCount)
+        {
+            _enemyCount = enemyCount;
+        }
+
+        public ConstantEnemyCount() : this(1)
+        {
+        }
 
         public int GetEnemyCount()
         {
@@ -21,12 +32,14 @@ namespace Aster.Gameplay.Waves
     [System.Serializable]
     public class RandomEnemyCount : IEnemyCountProvider
     {
-        [SerializeField] private int _min = 1;
-        [SerializeField] private int _max = 1;
+        [SerializeField]
+        [MinMaxSlider(1, 50, true)]
+        [HideLabel]
+        private Vector2Int _range = new(1, 10);
 
         public int GetEnemyCount()
         {
-            return Random.Range(_min, _max + 1);
+            return Random.Range(_range.x, _range.y + 1);
         }
     }
 }

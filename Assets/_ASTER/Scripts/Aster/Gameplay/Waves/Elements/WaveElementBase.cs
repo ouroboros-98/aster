@@ -4,6 +4,8 @@ using Aster.Core;
 using Aster.Entity.Enemy;
 using Aster.Utils.Attributes;
 using NaughtyAttributes;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using TNRD;
 using UnityEngine;
 
@@ -12,7 +14,31 @@ namespace Aster.Gameplay.Waves
     [Serializable]
     public class SpawnList : WaveElementBase
     {
-        [SerializeField] private float[] angles;
+        [Serializable]
+        [InlineProperty]
+        class Entry
+        {
+            [SerializeField]
+            [InlineProperty]
+            [HideLabel]
+            private EnemyPicker _enemyPicker = new();
+
+            [SerializeReference]
+            [InlineProperty]
+            [HideLabel]
+            private IAnglePicker anglePicker = new AnglePickerConstant();
+
+            public float           Angle => anglePicker.GetAngle();
+            public EnemyController Enemy => _enemyPicker.GetEnemy();
+        }
+
+        [PropertyOrder(1)]
+        [SerializeField]
+        [Title("Spawn List")]
+        [TableList(AlwaysExpanded = true)]
+        [HideLabel]
+        [InlineProperty]
+        private Entry[] _entries;
 
         private bool _spawned = false;
 
@@ -20,9 +46,9 @@ namespace Aster.Gameplay.Waves
         {
             _spawned = false;
 
-            for (var i = 0; i < angles.Length; i++)
+            for (var i = 0; i < _entries.Length; i++)
             {
-                Context.SpawnEnemy(angles[i], Enemies);
+                Context.SpawnEnemy(_entries[i].Angle, _entries[i].Enemy, Enemies);
             }
 
             _spawned = true;
@@ -43,8 +69,28 @@ namespace Aster.Gameplay.Waves
     [Serializable]
     public class SpawnMultipleEnemies : WaveElementBase
     {
-        [SerializeReference, SerializeReferenceDropdown] private IEnemyCountProvider enemyCount;
-        [SerializeReference, SerializeReferenceDropdown] private IAnglePicker        anglePicker;
+        [PropertyOrder(2)]
+        [Title("Count")]
+        [HorizontalGroup("Enemy", 0.5f)]
+        [SerializeReference]
+        [InlineProperty]
+        [HideLabel]
+        private IEnemyCountProvider enemyCount = new ConstantEnemyCount();
+
+        [PropertyOrder(1)]
+        [Title("Enemy")]
+        [HorizontalGroup("Enemy", 0.5f)]
+        [SerializeField]
+        [InlineProperty]
+        [HideLabel]
+        private EnemyPicker enemyPicker = new();
+
+        [PropertyOrder(3)]
+        [Title("Angle")]
+        [SerializeReference]
+        [InlineProperty]
+        [HideLabel]
+        private IAnglePicker anglePicker = new AnglePickerConstant();
 
         private bool _spawned = false;
 
@@ -54,7 +100,7 @@ namespace Aster.Gameplay.Waves
 
             for (int i = 0; i < enemyCount.GetEnemyCount(); i++)
             {
-                Context.SpawnEnemy(anglePicker.GetAngle(), Enemies);
+                Context.SpawnEnemy(anglePicker.GetAngle(), enemyPicker.GetEnemy(), Enemies);
             }
 
             _spawned = true;
@@ -73,9 +119,25 @@ namespace Aster.Gameplay.Waves
     }
 
     [Serializable]
+    [InlineProperty]
     public class SpawnSingleEnemy : WaveElementBase
     {
-        [SerializeReference, SerializeReferenceDropdown] private IAnglePicker anglePicker;
+        [PropertyOrder(1)]
+        [HorizontalGroup("Enemy", 0.5f)]
+        [Title("Enemy")]
+        [SerializeField]
+        [InlineProperty]
+        [HideLabel]
+        private EnemyPicker enemyPicker = new();
+
+        [PropertyOrder(2)]
+        [HorizontalGroup("Enemy", 0.5f)]
+        [Title("Angle")]
+        [SerializeReference]
+        [InlineProperty]
+        [HideLabel]
+        private IAnglePicker anglePicker = new AnglePickerConstant();
+
 
         private bool _spawned = false;
 
@@ -83,7 +145,7 @@ namespace Aster.Gameplay.Waves
         {
             _spawned = false;
 
-            Context.SpawnEnemy(anglePicker.GetAngle(), Enemies);
+            Context.SpawnEnemy(anglePicker.GetAngle(), enemyPicker.GetEnemy(), Enemies);
             _spawned = true;
         }
 
@@ -100,10 +162,18 @@ namespace Aster.Gameplay.Waves
     }
 
     [Serializable]
+    [InlineProperty]
     public abstract class WaveElementBase : IWaveElement
     {
-        [SerializeField, AllowNesting, ReadOnly]         private WaveStatus         _status = WaveStatus.NotStarted;
-        [SerializeReference, SerializeReferenceDropdown] private IWaveTimingHandler timingHandler;
+        [SerializeField, AllowNesting, NaughtyAttributes.ReadOnly]
+        private WaveStatus _status = WaveStatus.NotStarted;
+
+        [PropertyOrder(0)]
+        [SerializeReference]
+        [Title("Timing")]
+        [HideLabel]
+        [InlineProperty]
+        private IWaveTimingHandler timingHandler = new AfterPrevious();
 
         protected List<EnemyController> Enemies;
         protected WaveExecutionContext  Context { get; private set; }

@@ -16,7 +16,7 @@ namespace Aster.Utils.Pool
         private readonly Settings _poolSettings;
 
         public BaseAsterPool(MonoBehaviour mb, int initialSize, T prefab, Transform parent) : this(mb,
-            new Settings(initialSize, prefab, parent))
+                 new Settings(initialSize, prefab, parent))
         {
         }
 
@@ -84,9 +84,14 @@ namespace Aster.Utils.Pool
         [System.Serializable]
         public class Settings
         {
-            [SerializeField] private int       _initialSize;
-            [SerializeField] private T         _prefab;
-            [SerializeField] private Transform _parent;
+            [SerializeField]
+            private int _initialSize;
+
+            [SerializeField]
+            private T _prefab;
+
+            [SerializeField]
+            private Transform _parent;
 
             public int InitialSize
             {
