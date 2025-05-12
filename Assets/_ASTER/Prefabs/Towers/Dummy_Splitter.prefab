@@ -366,7 +366,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2793197390556283423}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2b6baabe2784da5b0386d38fb713554, type: 3}
   m_Name: 
@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 8897263374848041411}
   - component: {fileID: 5011855961134221379}
   - component: {fileID: 4472278907270521591}
+  - component: {fileID: 2376004881374845371}
   m_Layer: 13
   m_Name: Collider
   m_TagString: Block
@@ -442,6 +443,19 @@ MonoBehaviour:
   debug: 0
   outlineObject: {fileID: 2531822044081773268}
   towerObject: {fileID: 6734456104824977006}
+--- !u!114 &2376004881374845371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276175798885511339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b6baabe2784da5b0386d38fb713554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
 --- !u!1 &6734456104824977006
 GameObject:
   m_ObjectHideFlags: 0
