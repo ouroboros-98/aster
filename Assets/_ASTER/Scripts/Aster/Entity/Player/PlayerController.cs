@@ -39,8 +39,8 @@ namespace Aster.Entity.Player
 
         private void Start()
         {
-            Freeze();
         }
+
 
         private PlayerInputHandler _playerInputHandler;
         public  PlayerInputHandler PlayerInputHandler => _playerInputHandler;
@@ -74,6 +74,8 @@ namespace Aster.Entity.Player
 
             movementProvider = _playerInputHandler;
             movement.Init(rb, movementProvider);
+
+            if (Config.EnableTitleScreen) Freeze();
         }
 
         private void CreateTowerPickerUI(Transform parent)
@@ -132,12 +134,14 @@ namespace Aster.Entity.Player
         {
             rb.linearVelocity  = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            rb.isKinematic     = true;
+            rb.constraints     = RigidbodyConstraints.FreezeAll;
         }
 
         public void Unfreeze()
         {
-            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY
+                           | RigidbodyConstraints.FreezeRotationX
+                           | RigidbodyConstraints.FreezeRotationZ;
         }
 
         private void OnEnable()

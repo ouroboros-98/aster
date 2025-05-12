@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d997adfc9774fbab054ffac64242cc6, type: 3}
-  m_Name: Level1
+  m_Name: Level11
   m_EditorClassIdentifier: 
   spawnObstacles: 1
   obstacles:
@@ -29,11 +29,11 @@ MonoBehaviour:
     - rid: 7733586829600620545
       type: {class: SpawnSingleEnemy, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        _status: 2
+        _status: 0
         timingHandler:
           rid: 7733586829600620546
         enemyPicker:
-          enemy: {fileID: 5518948375846772075, guid: 3e6c31a7ecf7e2145a8762fe0f2c7487, type: 3}
+          enemy: {fileID: 5518948375846772075, guid: 9dfb38c7c916ce243ad4d3c54fbdbdf6, type: 3}
         anglePicker:
           rid: 7733586829600620547
     - rid: 7733586829600620546
@@ -47,7 +47,7 @@ MonoBehaviour:
     - rid: 7733586829600620548
       type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        _status: 1
+        _status: 0
         timingHandler:
           rid: 7733586829600620549
         enemyCount:
@@ -71,7 +71,7 @@ MonoBehaviour:
     - rid: 7733586829600620555
       type: {class: SpawnList, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
       data:
-        _status: 1
+        _status: 0
         timingHandler:
           rid: 7733586829600620556
         _entries:

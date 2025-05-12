@@ -17,6 +17,7 @@ namespace Aster.Entity.Player
         public InputAction  RotationInteraction => _playerInput.actions["RotationInteraction"];
         public InputAction  Grab                => _playerInput.actions["Grab"];
         public InputAction  Cancel              => _playerInput.actions["Cancel"];
+        public InputAction Quit => _playerInput.actions["Quit"];
         public float        RotationDirection   => _playerInput.actions["RotationDirection"].ReadValue<float>();
         public event Action OnInteract;
         public event Action OnCancel;
