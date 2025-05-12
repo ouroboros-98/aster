@@ -49,6 +49,11 @@ MonoBehaviour:
   secondTransitionDelay: 2
   firstTransitionDuration: 6
   secondTransitionDuration: 2
+  tutorialImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  setShouldBegin: 1
 --- !u!1 &3301065168783910136
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,9 +101,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   Levels:
-  - {fileID: 11400000, guid: 6c30bbad6d3f0a1409f832c03996d43f, type: 2}
+  - {fileID: 11400000, guid: 3cf2698d75f742f4f93a0c7bf4a7f7a6, type: 2}
   - {fileID: 11400000, guid: b8397c66b8b8e8146a3e6083c182c3c8, type: 2}
-  - {fileID: 11400000, guid: 99f95e31b3001ce46bcf728d1b5075ce, type: 2}
+  - {fileID: 11400000, guid: 0a68e7e52a720a2419f0a8e8556992f0, type: 2}
+  - {fileID: 11400000, guid: 87a6a981297401945a060e99fa5b2ffa, type: 2}
+  - {fileID: 11400000, guid: 48664549b7c065643993fc3acae5dd73, type: 2}
+  - {fileID: 11400000, guid: a5c07ebd899e40a4481bd1cb1fb27117, type: 2}
+  - {fileID: 11400000, guid: 2edc0cc87f3001e4885f995709c43db1, type: 2}
+  - {fileID: 11400000, guid: 7bec64fe83bbe054eb7e0600cc2cdc5e, type: 2}
+  - {fileID: 11400000, guid: e2b3d6e3bb3315542abe00513dc8dca3, type: 2}
+  - {fileID: 11400000, guid: df4492f5ec212024bbf7932d0b8d6a36, type: 2}
   dependencies:
     enemySpawner: {fileID: 3770590595730369864}
     towerAdder: {fileID: 8156186429395830982}
@@ -582,7 +594,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 0}
-  fadeDuration: 2
+  fadeDuration: 3
+  nextSceneName: EndScreen
 --- !u!1 &7978356077434767737
 GameObject:
   m_ObjectHideFlags: 0
