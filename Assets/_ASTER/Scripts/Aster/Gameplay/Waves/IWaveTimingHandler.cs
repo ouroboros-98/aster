@@ -17,7 +17,7 @@ namespace Aster.Gameplay.Waves
     [Serializable]
     public abstract class DelayableTimingHandler : IWaveTimingHandler
     {
-        [SerializeField, Range(0f, 5f)] private float delay = 0f;
+        [SerializeField, Range(0f, 15f)] private float delay = 0f;
 
         [SerializeField] private IWaveTimingHandler innerHandler;
 
