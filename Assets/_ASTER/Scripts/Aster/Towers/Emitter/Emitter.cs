@@ -19,7 +19,7 @@ namespace Aster.Towers
 
             RotationHandler.InvertDelta    = true;
             RotationHandler.EnableBounding = true;
-            RotationHandler.Bounds         = (90, 270);
+            RotationHandler.Bounds         = (70, 290);
         }
 
         public override Action<PlayerController> Interact()
