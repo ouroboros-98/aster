@@ -12,11 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d997adfc9774fbab054ffac64242cc6, type: 3}
   m_Name: Level3
   m_EditorClassIdentifier: 
-  spawnObstacles: 0
-  obstacles: []
-  spawnTower: 0
-  towerPrefab: {fileID: 0}
-  waves: []
+  spawnObstacles: 1
+  obstacles:
+  - prefab: {fileID: 3315357782258405360, guid: b8eb63f73f9f8b34ca7890e99a4f57c1, type: 3}
+    position: {x: 1.98, y: 0, z: -5.42}
+    rotation: {x: 0, y: 45, z: 0}
+  - prefab: {fileID: 7677719092767376888, guid: eaa0db8574e0c604fa35b00d9172c902, type: 3}
+    position: {x: -2.1, y: 0, z: -5.54}
+    rotation: {x: 0, y: 88, z: 0}
+  spawnTower: 1
+  towerPrefab: {fileID: 6734456104824977006, guid: 09daa9afdb0fafd4fb14e86feccc5aef, type: 3}
+  waves:
+  - rid: 6646743777143947395
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6646743777143947395
+      type: {class: SpawnMultipleEnemies, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _status: 0
+        timingHandler:
+          rid: 6646743777143947396
+        enemyCount:
+          rid: 6646743777143947397
+        enemyPicker:
+          enemy: {fileID: 5518948375846772075, guid: 9dfb38c7c916ce243ad4d3c54fbdbdf6, type: 3}
+        anglePicker:
+          rid: 6646743777143947399
+    - rid: 6646743777143947396
+      type: {class: AfterPrevious, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        delay: 2.94
+    - rid: 6646743777143947397
+      type: {class: ConstantEnemyCount, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        _enemyCount: 9
+    - rid: 6646743777143947399
+      type: {class: AnglePickerRange, ns: Aster.Gameplay.Waves, asm: Assembly-CSharp}
+      data:
+        range: {x: 50.641785, y: 171.00002}
